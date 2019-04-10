@@ -1,6 +1,7 @@
 ## 3.0.0
 
 - **BREAKING** Removed support for `JsonSerializable.useWrappers`.
+- **BREAKING** Removed support for `JsonSerializable.generateToJsonFunction`.
 - Require at least Dart `2.2.0`.
 
 ## 2.2.1
