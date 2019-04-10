@@ -1,5 +1,6 @@
-## 2.2.2
+## 3.0.0
 
+- **BREAKING** Removed support for `JsonSerializable.useWrappers`.
 - Require at least Dart `2.2.0`.
 
 ## 2.2.1
