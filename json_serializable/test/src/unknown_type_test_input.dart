@@ -76,23 +76,20 @@ class UnknownFieldTypeToJsonOnly {
 UnknownFieldTypeWithConvert _$UnknownFieldTypeWithConvertFromJson(
     Map<String, dynamic> json) {
   return UnknownFieldTypeWithConvert()
-    ..number = json['number'] == null ? null : _everythingIs42(json['number']);
+    ..number = _everythingIs42(json['number']);
 }
 
 Map<String, dynamic> _$UnknownFieldTypeWithConvertToJson(
         UnknownFieldTypeWithConvert instance) =>
-    <String, dynamic>{
-      'number':
-          instance.number == null ? null : _everythingIs42(instance.number)
-    };
+    <String, dynamic>{'number': _everythingIs42(instance.number)};
 ''',
   configurations: ['default'],
   expectedLogItems: [
     '''
 This element has an undefined type. It may causes issues when generated code.
-package:__test__/unknown_type_test_input.dart:104:7
+package:__test__/unknown_type_test_input.dart:101:7
     ╷
-104 │   Bob number;
+101 │   Bob number;
     │       ^^^^^^
     ╵'''
   ],
