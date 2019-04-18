@@ -32,17 +32,22 @@ class ValueHelper extends TypeHelper {
     if (targetType.isUndefined) {
       return null;
     }
+    final stringExpression = '$expression.toString()';
+
     if (targetType.isDynamic || targetType.isObject) {
       // just return it as-is. We'll hope it's safe.
       return expression;
+    } else if (const TypeChecker.fromRuntime(num)
+        .isExactlyType(targetType)) {
+      return '$stringExpression.isEmpty ? null : num.tryParse($stringExpression) ?? (throw FormatException($stringExpression))';
     } else if (const TypeChecker.fromRuntime(double)
         .isExactlyType(targetType)) {
-      return '(num.parse([$expression].toString()))${context.nullable ? '?' : ''}.toDouble()';
+      return '$stringExpression.isEmpty ? null : double.tryParse($stringExpression) ?? (throw FormatException($stringExpression))';
     } else if (const TypeChecker.fromRuntime(int).isExactlyType(targetType)) {
-      return 'int.parse($expression.toString())';
+      return '$stringExpression.isEmpty ? null : int.tryParse($stringExpression) ?? (throw FormatException($stringExpression))';
     } else if (const TypeChecker.fromRuntime(String)
         .isExactlyType(targetType)) {
-      return '$expression.toString()';
+      return stringExpression;
     } else if (simpleJsonTypeChecker.isAssignableFromType(targetType)) {
       return '$expression as $targetType';
     }
