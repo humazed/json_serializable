@@ -37,14 +37,10 @@ class ValueHelper extends TypeHelper {
     if (targetType.isDynamic || targetType.isObject) {
       // just return it as-is. We'll hope it's safe.
       return expression;
-    } else if (const TypeChecker.fromRuntime(num)
-        .isExactlyType(targetType)) {
-      return '$stringExpression.isEmpty ? null : num.tryParse($stringExpression) ?? (throw FormatException("The expected type: `num` but the recived value is \${$expression} in $expression"))';
-    } else if (const TypeChecker.fromRuntime(double)
-        .isExactlyType(targetType)) {
-      return '$stringExpression.isEmpty ? null : double.tryParse($stringExpression) ?? (throw FormatException("The expected type: `double` but the recived value is \${$expression} in $expression"))';
-    } else if (const TypeChecker.fromRuntime(int).isExactlyType(targetType)) {
-      return '$stringExpression.isEmpty ? null : int.tryParse($stringExpression) ?? (throw FormatException("The expected type: `int` but the recived value is \${$expression} in $expression"))';
+    } else if (const TypeChecker.fromRuntime(num).isExactlyType(targetType) ||
+        const TypeChecker.fromRuntime(double).isExactlyType(targetType) ||
+        const TypeChecker.fromRuntime(int).isExactlyType(targetType)) {
+      return '$stringExpression.isEmpty ? null : $targetType.tryParse($stringExpression) ?? (throw FormatException("The expected type: `num` but the recived value is \${$expression} in $expression"))';
     } else if (const TypeChecker.fromRuntime(String)
         .isExactlyType(targetType)) {
       return stringExpression;
