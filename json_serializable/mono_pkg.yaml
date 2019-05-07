@@ -1,7 +1,7 @@
 # See https://github.com/dart-lang/mono_repo for details
-dart: 2.1.2-dev.0.0.flutter-0a7dcf17eb.
-#- 2.2.0
-#- dev
+dart:
+- 2.2.0
+- dev
 
 stages:
 - analyzer_and_format:
