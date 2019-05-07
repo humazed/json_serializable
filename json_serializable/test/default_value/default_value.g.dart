@@ -10,17 +10,37 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
   return DefaultValue()
     ..fieldBool = json['fieldBool'] as bool ?? true
     ..fieldString = json['fieldString'].toString() ?? 'string'
-    ..fieldInt = int.parse(json['fieldInt'].toString()) ?? 42
-    ..fieldDouble =
-        (num.parse([json['fieldDouble']].toString()))?.toDouble() ?? 3.14
+    ..fieldInt = json['fieldInt'] == null || json['fieldInt'].toString().isEmpty
+        ? null
+        : int.tryParse(json['fieldInt'].toString()) ??
+            (throw FormatException(
+                "The expected type: `num` but the recived value is ${json['fieldInt']} in json['fieldInt']")) ??
+            42
+    ..fieldDouble = json['fieldDouble'] == null ||
+            json['fieldDouble'].toString().isEmpty
+        ? null
+        : double.tryParse(json['fieldDouble'].toString()) ??
+            (throw FormatException(
+                "The expected type: `num` but the recived value is ${json['fieldDouble']} in json['fieldDouble']")) ??
+            3.14
     ..fieldListEmpty = json['fieldListEmpty'] as List ?? []
     ..fieldMapEmpty = json['fieldMapEmpty'] as Map<String, dynamic> ?? {}
     ..fieldListSimple = (json['fieldListSimple'] as List)
-            ?.map((e) => int.parse(e.toString()))
+            ?.map((e) => e == null || e.toString().isEmpty
+                ? null
+                : int.tryParse(e.toString()) ??
+                    (throw FormatException(
+                        "The expected type: `num` but the recived value is ${e} in e")))
             ?.toList() ??
         [1, 2, 3]
     ..fieldMapSimple = (json['fieldMapSimple'] as Map<String, dynamic>)?.map(
-          (k, e) => MapEntry(k, int.parse(e.toString())),
+          (k, e) => MapEntry(
+              k,
+              e == null || e.toString().isEmpty
+                  ? null
+                  : int.tryParse(e.toString()) ??
+                      (throw FormatException(
+                          "The expected type: `num` but the recived value is ${e} in e"))),
         ) ??
         {'answer': 42}
     ..fieldMapListString =

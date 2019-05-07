@@ -11,7 +11,12 @@ StrictKeysObject _$StrictKeysObjectFromJson(Map json) {
       allowedKeys: const ['value', 'custom_field'],
       requiredKeys: const ['value', 'custom_field']);
   return StrictKeysObject(
-      int.parse(json['value'].toString()), json['custom_field'].toString());
+      json['value'] == null || json['value'].toString().isEmpty
+          ? null
+          : int.tryParse(json['value'].toString()) ??
+              (throw FormatException(
+                  "The expected type: `num` but the recived value is ${json['value']} in json['value']")),
+      json['custom_field'].toString());
 }
 
 abstract class _$StrictKeysObjectSerializerMixin {

@@ -9,15 +9,27 @@ part of 'kitchen_sink.g_any_map__checked__non_nullable.dart';
 KitchenSink _$KitchenSinkFromJson(Map json) {
   return $checkedNew('KitchenSink', json, () {
     final val = KitchenSink(
-        ctorValidatedNo42:
-            $checkedConvert(json, 'no-42', (v) => int.parse(v.toString())),
+        ctorValidatedNo42: $checkedConvert(
+            json,
+            'no-42',
+            (v) => v == null || v.toString().isEmpty
+                ? null
+                : int.tryParse(v.toString()) ??
+                    (throw FormatException(
+                        "The expected type: `num` but the recived value is ${v} in v"))),
         iterable: $checkedConvert(json, 'iterable', (v) => v as List),
         dynamicIterable:
             $checkedConvert(json, 'dynamicIterable', (v) => v as List),
         objectIterable:
             $checkedConvert(json, 'objectIterable', (v) => v as List),
-        intIterable: $checkedConvert(json, 'intIterable',
-            (v) => (v as List).map((e) => int.parse(e.toString()))),
+        intIterable: $checkedConvert(
+            json,
+            'intIterable',
+            (v) => (v as List).map((e) => e == null || e.toString().isEmpty
+                ? null
+                : int.tryParse(e.toString()) ??
+                    (throw FormatException(
+                        "The expected type: `num` but the recived value is ${e} in e")))),
         dateTimeIterable: $checkedConvert(json, 'datetime-iterable',
             (v) => (v as List).map((e) => DateTime.parse(e as String))));
     $checkedConvert(
@@ -32,8 +44,13 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
     $checkedConvert(
         json,
         'intSet',
-        (v) => val.intSet =
-            (v as List).map((e) => int.parse(e.toString())).toSet());
+        (v) => val.intSet = (v as List)
+            .map((e) => e == null || e.toString().isEmpty
+                ? null
+                : int.tryParse(e.toString()) ??
+                    (throw FormatException(
+                        "The expected type: `num` but the recived value is ${e} in e")))
+            .toSet());
     $checkedConvert(
         json,
         'dateTimeSet',
@@ -45,8 +62,13 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
     $checkedConvert(
         json,
         'intList',
-        (v) => val.intList =
-            (v as List).map((e) => int.parse(e.toString())).toList());
+        (v) => val.intList = (v as List)
+            .map((e) => e == null || e.toString().isEmpty
+                ? null
+                : int.tryParse(e.toString()) ??
+                    (throw FormatException(
+                        "The expected type: `num` but the recived value is ${e} in e")))
+            .toList());
     $checkedConvert(
         json,
         'dateTimeList',
@@ -89,8 +111,14 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         (v) => val.simpleObject = SimpleObject.fromJson(v as Map));
     $checkedConvert(json, 'strictKeysObject',
         (v) => val.strictKeysObject = StrictKeysObject.fromJson(v as Map));
-    $checkedConvert(json, 'validatedPropertyNo42',
-        (v) => val.validatedPropertyNo42 = int.parse(v.toString()));
+    $checkedConvert(
+        json,
+        'validatedPropertyNo42',
+        (v) => val.validatedPropertyNo42 = v == null || v.toString().isEmpty
+            ? null
+            : int.tryParse(v.toString()) ??
+                (throw FormatException(
+                    "The expected type: `num` but the recived value is ${v} in v")));
     return val;
   }, fieldKeyMap: const {
     'ctorValidatedNo42': 'no-42',

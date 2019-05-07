@@ -14,12 +14,23 @@ DefaultValue _$DefaultValueFromJson(Map json) {
     $checkedConvert(
         json, 'fieldString', (v) => val.fieldString = v.toString() ?? 'string');
     $checkedConvert(
-        json, 'fieldInt', (v) => val.fieldInt = int.parse(v.toString()) ?? 42);
+        json,
+        'fieldInt',
+        (v) => val.fieldInt = v == null || v.toString().isEmpty
+            ? null
+            : int.tryParse(v.toString()) ??
+                (throw FormatException(
+                    "The expected type: `num` but the recived value is ${v} in v")) ??
+                42);
     $checkedConvert(
         json,
         'fieldDouble',
-        (v) =>
-            val.fieldDouble = (num.parse([v].toString()))?.toDouble() ?? 3.14);
+        (v) => val.fieldDouble = v == null || v.toString().isEmpty
+            ? null
+            : double.tryParse(v.toString()) ??
+                (throw FormatException(
+                    "The expected type: `num` but the recived value is ${v} in v")) ??
+                3.14);
     $checkedConvert(
         json, 'fieldListEmpty', (v) => val.fieldListEmpty = v as List ?? []);
     $checkedConvert(
@@ -27,14 +38,25 @@ DefaultValue _$DefaultValueFromJson(Map json) {
     $checkedConvert(
         json,
         'fieldListSimple',
-        (v) => val.fieldListSimple =
-            (v as List)?.map((e) => int.parse(e.toString()))?.toList() ??
-                [1, 2, 3]);
+        (v) => val.fieldListSimple = (v as List)
+                ?.map((e) => e == null || e.toString().isEmpty
+                    ? null
+                    : int.tryParse(e.toString()) ??
+                        (throw FormatException(
+                            "The expected type: `num` but the recived value is ${e} in e")))
+                ?.toList() ??
+            [1, 2, 3]);
     $checkedConvert(
         json,
         'fieldMapSimple',
         (v) => val.fieldMapSimple = (v as Map)?.map(
-              (k, e) => MapEntry(k as String, int.parse(e.toString())),
+              (k, e) => MapEntry(
+                  k as String,
+                  e == null || e.toString().isEmpty
+                      ? null
+                      : int.tryParse(e.toString()) ??
+                          (throw FormatException(
+                              "The expected type: `num` but the recived value is ${e} in e"))),
             ) ??
             {'answer': 42});
     $checkedConvert(

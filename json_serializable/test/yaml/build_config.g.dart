@@ -21,8 +21,13 @@ Config _$ConfigFromJson(Map json) {
         json,
         'weights',
         (v) => val.weights = (v as Map)?.map(
-              (k, e) => MapEntry(_$enumDecodeNullable(_$AutoApplyEnumMap, k),
-                  int.parse(e.toString())),
+              (k, e) => MapEntry(
+                  _$enumDecodeNullable(_$AutoApplyEnumMap, k),
+                  e == null || e.toString().isEmpty
+                      ? null
+                      : int.tryParse(e.toString()) ??
+                          (throw FormatException(
+                              "The expected type: `num` but the recived value is ${e} in e"))),
             ));
     return val;
   });

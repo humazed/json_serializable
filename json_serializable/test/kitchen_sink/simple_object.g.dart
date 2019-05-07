@@ -7,7 +7,11 @@ part of 'simple_object.dart';
 // **************************************************************************
 
 SimpleObject _$SimpleObjectFromJson(Map json) {
-  return SimpleObject(int.parse(json['value'].toString()));
+  return SimpleObject(json['value'] == null || json['value'].toString().isEmpty
+      ? null
+      : int.tryParse(json['value'].toString()) ??
+          (throw FormatException(
+              "The expected type: `num` but the recived value is ${json['value']} in json['value']")));
 }
 
 abstract class _$SimpleObjectSerializerMixin {

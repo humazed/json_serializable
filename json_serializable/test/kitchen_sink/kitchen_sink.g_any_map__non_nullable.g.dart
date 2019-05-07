@@ -8,12 +8,20 @@ part of 'kitchen_sink.g_any_map__non_nullable.dart';
 
 KitchenSink _$KitchenSinkFromJson(Map json) {
   return KitchenSink(
-      ctorValidatedNo42: int.parse(json['no-42'].toString()),
+      ctorValidatedNo42: json['no-42'] == null || json['no-42'].toString().isEmpty
+          ? null
+          : int.tryParse(json['no-42'].toString()) ??
+              (throw FormatException(
+                  "The expected type: `num` but the recived value is ${json['no-42']} in json['no-42']")),
       iterable: json['iterable'] as List,
       dynamicIterable: json['dynamicIterable'] as List,
       objectIterable: json['objectIterable'] as List,
-      intIterable:
-          (json['intIterable'] as List).map((e) => int.parse(e.toString())),
+      intIterable: (json['intIterable'] as List).map((e) =>
+          e == null || e.toString().isEmpty
+              ? null
+              : int.tryParse(e.toString()) ??
+                  (throw FormatException(
+                      "The expected type: `num` but the recived value is ${e} in e"))),
       dateTimeIterable: (json['datetime-iterable'] as List)
           .map((e) => DateTime.parse(e as String)))
     ..dateTime = DateTime.parse(json['dateTime'] as String)
@@ -21,19 +29,21 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
     ..set = (json['set'] as List).toSet()
     ..dynamicSet = (json['dynamicSet'] as List).toSet()
     ..objectSet = (json['objectSet'] as List).toSet()
-    ..intSet =
-        (json['intSet'] as List).map((e) => int.parse(e.toString())).toSet()
+    ..intSet = (json['intSet'] as List)
+        .map((e) => e == null || e.toString().isEmpty
+            ? null
+            : int.tryParse(e.toString()) ??
+                (throw FormatException(
+                    "The expected type: `num` but the recived value is ${e} in e")))
+        .toSet()
     ..dateTimeSet = (json['dateTimeSet'] as List)
         .map((e) => DateTime.parse(e as String))
         .toSet()
     ..list = json['list'] as List
     ..dynamicList = json['dynamicList'] as List
     ..objectList = json['objectList'] as List
-    ..intList =
-        (json['intList'] as List).map((e) => int.parse(e.toString())).toList()
-    ..dateTimeList = (json['dateTimeList'] as List)
-        .map((e) => DateTime.parse(e as String))
-        .toList()
+    ..intList = (json['intList'] as List).map((e) => e == null || e.toString().isEmpty ? null : int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `num` but the recived value is ${e} in e"))).toList()
+    ..dateTimeList = (json['dateTimeList'] as List).map((e) => DateTime.parse(e as String)).toList()
     ..map = json['map'] as Map
     ..stringStringMap = Map<String, String>.from(json['stringStringMap'] as Map)
     ..dynamicIntMap = Map<String, int>.from(json['dynamicIntMap'] as Map)
@@ -59,10 +69,8 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
     ..writeNotNull = json['writeNotNull'] as bool
     ..string = json[r'$string'].toString()
     ..simpleObject = SimpleObject.fromJson(json['simpleObject'] as Map)
-    ..strictKeysObject =
-        StrictKeysObject.fromJson(json['strictKeysObject'] as Map)
-    ..validatedPropertyNo42 =
-        int.parse(json['validatedPropertyNo42'].toString());
+    ..strictKeysObject = StrictKeysObject.fromJson(json['strictKeysObject'] as Map)
+    ..validatedPropertyNo42 = json['validatedPropertyNo42'] == null || json['validatedPropertyNo42'].toString().isEmpty ? null : int.tryParse(json['validatedPropertyNo42'].toString()) ?? (throw FormatException("The expected type: `num` but the recived value is ${json['validatedPropertyNo42']} in json['validatedPropertyNo42']"));
 }
 
 Map<String, dynamic> _$KitchenSinkToJson(KitchenSink instance) =>
