@@ -23,9 +23,9 @@ Config _$ConfigFromJson(Map json) {
         (v) => val.weights = (v as Map)?.map(
               (k, e) => MapEntry(
                   _$enumDecodeNullable(_$AutoApplyEnumMap, k),
-                  e == null || e.toString().isEmpty
+                  e == null || e?.toString()?.isEmpty == true
                       ? null
-                      : int.tryParse(e.toString()) ??
+                      : int.tryParse(e?.toString()) ??
                           (throw FormatException(
                               "The expected type: `num` but the recived value is ${e} in e"))),
             ));
@@ -85,8 +85,8 @@ Builder _$BuilderFromJson(Map json) {
       'auto_apply'
     ]);
     final val = Builder(
-        import: $checkedConvert(json, 'import', (v) => v.toString()),
-        target: $checkedConvert(json, 'target', (v) => v.toString()),
+        import: $checkedConvert(json, 'import', (v) => v?.toString()),
+        target: $checkedConvert(json, 'target', (v) => v?.toString()),
         isOptional: $checkedConvert(json, 'is_optional', (v) => v as bool),
         autoApply: $checkedConvert(json, 'auto_apply',
             (v) => _$enumDecodeNullable(_$AutoApplyEnumMap, v)),
@@ -95,17 +95,17 @@ Builder _$BuilderFromJson(Map json) {
         defaultEnumTest: $checkedConvert(json, 'defaultEnumTest',
             (v) => _$enumDecodeNullable(_$AutoApplyEnumMap, v)),
         builderFactories: $checkedConvert(json, 'builder_factories',
-            (v) => (v as List).map((e) => e.toString()).toList()),
+            (v) => (v as List).map((e) => e?.toString()).toList()),
         appliesBuilders: $checkedConvert(json, 'applies_builders',
-            (v) => (v as List)?.map((e) => e.toString())?.toList()),
+            (v) => (v as List)?.map((e) => e?.toString())?.toList()),
         requiredInputs: $checkedConvert(json, 'required_inputs',
-            (v) => (v as List)?.map((e) => e.toString())?.toList()),
+            (v) => (v as List)?.map((e) => e?.toString())?.toList()),
         buildExtensions: $checkedConvert(
             json,
             'build_extensions',
             (v) => (v as Map)?.map(
                   (k, e) => MapEntry(k as String,
-                      (e as List)?.map((e) => e.toString())?.toList()),
+                      (e as List)?.map((e) => e?.toString())?.toList()),
                 )),
         configLocation: $checkedConvert(json, 'configLocation',
             (v) => v == null ? null : Uri.parse(v as String)));

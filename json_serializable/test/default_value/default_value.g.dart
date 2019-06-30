@@ -9,26 +9,27 @@ part of 'default_value.dart';
 DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
   return DefaultValue()
     ..fieldBool = json['fieldBool'] as bool ?? true
-    ..fieldString = json['fieldString'].toString() ?? 'string'
-    ..fieldInt = json['fieldInt'] == null || json['fieldInt'].toString().isEmpty
+    ..fieldString = json['fieldString']?.toString() ?? 'string'
+    ..fieldInt = json['fieldInt'] == null ||
+            json['fieldInt']?.toString()?.isEmpty == true
         ? null
-        : int.tryParse(json['fieldInt'].toString()) ??
+        : int.tryParse(json['fieldInt']?.toString()) ??
             (throw FormatException(
                 "The expected type: `num` but the recived value is ${json['fieldInt']} in json['fieldInt']")) ??
             42
     ..fieldDouble = json['fieldDouble'] == null ||
-            json['fieldDouble'].toString().isEmpty
+            json['fieldDouble']?.toString()?.isEmpty == true
         ? null
-        : double.tryParse(json['fieldDouble'].toString()) ??
+        : double.tryParse(json['fieldDouble']?.toString()) ??
             (throw FormatException(
                 "The expected type: `num` but the recived value is ${json['fieldDouble']} in json['fieldDouble']")) ??
             3.14
     ..fieldListEmpty = json['fieldListEmpty'] as List ?? []
     ..fieldMapEmpty = json['fieldMapEmpty'] as Map<String, dynamic> ?? {}
     ..fieldListSimple = (json['fieldListSimple'] as List)
-            ?.map((e) => e == null || e.toString().isEmpty
+            ?.map((e) => e == null || e?.toString()?.isEmpty == true
                 ? null
-                : int.tryParse(e.toString()) ??
+                : int.tryParse(e?.toString()) ??
                     (throw FormatException(
                         "The expected type: `num` but the recived value is ${e} in e")))
             ?.toList() ??
@@ -36,9 +37,9 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
     ..fieldMapSimple = (json['fieldMapSimple'] as Map<String, dynamic>)?.map(
           (k, e) => MapEntry(
               k,
-              e == null || e.toString().isEmpty
+              e == null || e?.toString()?.isEmpty == true
                   ? null
-                  : int.tryParse(e.toString()) ??
+                  : int.tryParse(e?.toString()) ??
                       (throw FormatException(
                           "The expected type: `num` but the recived value is ${e} in e"))),
         ) ??
@@ -46,7 +47,7 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
     ..fieldMapListString =
         (json['fieldMapListString'] as Map<String, dynamic>)?.map(
               (k, e) =>
-                  MapEntry(k, (e as List)?.map((e) => e.toString())?.toList()),
+                  MapEntry(k, (e as List)?.map((e) => e?.toString())?.toList()),
             ) ??
             {
               'root': ['child']

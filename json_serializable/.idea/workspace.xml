@@ -2,8 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a039bace-b36c-4ae4-811b-1af3e71aa963" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example/test/ensure_build_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../example/test/ensure_build_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/example.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/example.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/default_value/default_value.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/default_value/default_value.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/default_value/default_value.g_any_map__checked.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/default_value/default_value.g_any_map__checked.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/generic_files/generic_class.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/generic_files/generic_class.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/generic_files/generic_class.g_use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/generic_files/generic_class.g_use_wrappers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable__use_wrappers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g_use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_use_wrappers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__checked__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__checked__non_nullable.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable__use_wrappers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__non_nullable__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__non_nullable__use_wrappers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__use_wrappers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__non_nullable.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__use_wrappers.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_explicit_to_json.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_explicit_to_json.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty__non_nullable.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/simple_object.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/simple_object.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/strict_keys_object.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/strict_keys_object.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/yaml/build_config.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/yaml/build_config.g.dart" afterDir="false" />
     </list>
+    <ignored path="lib/generated/" />
+    <ignored path="../.idea/" />
+    <ignored path=".idea/" />
+    <ignored mask="*.arb" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,12 +47,42 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#1883#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/example/example.g.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/builder.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+            <state relative-caret-position="221">
+              <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
               <folding>
                 <element signature="e#0#1511#0" expanded="true" />
               </folding>
@@ -24,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+            <state relative-caret-position="255">
+              <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -38,6 +104,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>exa</find>
+      <find>toString()</find>
+      <find>toString</find>
+      <find>intl</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -47,6 +116,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/lib/generated/i18n.dart" />
       </list>
     </option>
   </component>
@@ -56,13 +126,16 @@
     <option name="width" value="1132" />
     <option name="height" value="534" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -73,13 +146,28 @@
             <path>
               <item name="json_serializable" type="b2602c69:ProjectViewProjectNode" />
               <item name="json_serializable" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="json_serializable" type="b2602c69:ProjectViewProjectNode" />
+              <item name="json_serializable" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="json_serializable" type="b2602c69:ProjectViewProjectNode" />
+              <item name="json_serializable" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="json_serializable" type="b2602c69:ProjectViewProjectNode" />
+              <item name="json_serializable" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -113,39 +201,89 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Capture Tool" />
-      <window_info content_ui="combo" id="Project" visible="true" weight="0.32980332" />
-      <window_info id="Structure" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="Resources Explorer" />
-      <window_info id="Spock ADB" side_tool="true" />
-      <window_info id="Favorites" side_tool="true" />
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info anchor="bottom" id="Dart Analysis" weight="0.32872504" />
-      <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Run" />
-      <window_info anchor="bottom" id="Debug" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.4669739" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Messages" weight="0.32872504" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Flutter Inspector" />
-      <window_info anchor="right" id="Flutter Outline" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Key Promoter X" />
+      <window_info id="Designer" order="1" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.34595004" />
+      <window_info id="Structure" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Resources Explorer" order="6" />
+      <window_info id="Spock ADB" order="7" side_tool="true" />
+      <window_info id="Favorites" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Dart Analysis" order="0" visible="true" weight="0.32872504" />
+      <window_info anchor="bottom" id="Run" order="1" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.4669739" />
+      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Flutter Performance" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.53456223" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.32872504" />
+      <window_info anchor="bottom" id="Find" order="9" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Flutter Inspector" order="2" />
+      <window_info anchor="right" id="Flutter Outline" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#1883#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/builder.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+        <state relative-caret-position="221">
+          <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
           <folding>
             <element signature="e#0#1511#0" expanded="true" />
           </folding>
@@ -154,8 +292,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        <state relative-caret-position="255">
+          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/generated/i18n.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/example.g.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
         </state>
       </provider>
     </entry>

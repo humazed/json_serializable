@@ -12,9 +12,9 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         ctorValidatedNo42: $checkedConvert(
             json,
             'no-42',
-            (v) => v == null || v.toString().isEmpty
+            (v) => v == null || v?.toString()?.isEmpty == true
                 ? null
-                : int.tryParse(v.toString()) ??
+                : int.tryParse(v?.toString()) ??
                     (throw FormatException(
                         "The expected type: `num` but the recived value is ${v} in v"))),
         iterable: $checkedConvert(json, 'iterable', (v) => v as List),
@@ -25,9 +25,9 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         intIterable: $checkedConvert(
             json,
             'intIterable',
-            (v) => (v as List).map((e) => e == null || e.toString().isEmpty
+            (v) => (v as List).map((e) => e == null || e?.toString()?.isEmpty == true
                 ? null
-                : int.tryParse(e.toString()) ??
+                : int.tryParse(e?.toString()) ??
                     (throw FormatException(
                         "The expected type: `num` but the recived value is ${e} in e")))),
         dateTimeIterable: $checkedConvert(json, 'datetime-iterable',
@@ -45,9 +45,9 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         json,
         'intSet',
         (v) => val.intSet = (v as List)
-            .map((e) => e == null || e.toString().isEmpty
+            .map((e) => e == null || e?.toString()?.isEmpty == true
                 ? null
-                : int.tryParse(e.toString()) ??
+                : int.tryParse(e?.toString()) ??
                     (throw FormatException(
                         "The expected type: `num` but the recived value is ${e} in e")))
             .toSet());
@@ -63,9 +63,9 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         json,
         'intList',
         (v) => val.intList = (v as List)
-            .map((e) => e == null || e.toString().isEmpty
+            .map((e) => e == null || e?.toString()?.isEmpty == true
                 ? null
-                : int.tryParse(e.toString()) ??
+                : int.tryParse(e?.toString()) ??
                     (throw FormatException(
                         "The expected type: `num` but the recived value is ${e} in e")))
             .toList());
@@ -106,7 +106,7 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
     $checkedConvert(
         json, 'val', (v) => val.val = Map<String, bool>.from(v as Map));
     $checkedConvert(json, 'writeNotNull', (v) => val.writeNotNull = v as bool);
-    $checkedConvert(json, r'$string', (v) => val.string = v.toString());
+    $checkedConvert(json, r'$string', (v) => val.string = v?.toString());
     $checkedConvert(json, 'simpleObject',
         (v) => val.simpleObject = SimpleObject.fromJson(v as Map));
     $checkedConvert(json, 'strictKeysObject',
@@ -114,9 +114,9 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
     $checkedConvert(
         json,
         'validatedPropertyNo42',
-        (v) => val.validatedPropertyNo42 = v == null || v.toString().isEmpty
+        (v) => val.validatedPropertyNo42 = v == null || v?.toString()?.isEmpty == true
             ? null
-            : int.tryParse(v.toString()) ??
+            : int.tryParse(v?.toString()) ??
                 (throw FormatException(
                     "The expected type: `num` but the recived value is ${v} in v")));
     return val;

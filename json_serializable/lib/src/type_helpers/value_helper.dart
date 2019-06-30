@@ -32,7 +32,7 @@ class ValueHelper extends TypeHelper {
     if (targetType.isUndefined) {
       return null;
     }
-    final stringExpression = '$expression.toString()';
+    final stringExpression = '$expression?.toString()';
 
     if (targetType.isDynamic || targetType.isObject) {
       // just return it as-is. We'll hope it's safe.

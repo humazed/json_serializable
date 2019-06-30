@@ -7,9 +7,9 @@ part of 'simple_object.dart';
 // **************************************************************************
 
 SimpleObject _$SimpleObjectFromJson(Map json) {
-  return SimpleObject(json['value'] == null || json['value'].toString().isEmpty
+  return SimpleObject(json['value'] == null || json['value']?.toString()?.isEmpty == true
       ? null
-      : int.tryParse(json['value'].toString()) ??
+      : int.tryParse(json['value']?.toString()) ??
           (throw FormatException(
               "The expected type: `num` but the recived value is ${json['value']} in json['value']")));
 }
