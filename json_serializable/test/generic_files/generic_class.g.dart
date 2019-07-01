@@ -54,7 +54,7 @@ GenericClassWithConverter<T, S>
   return GenericClassWithConverter<T, S>()
     ..fieldObject = json['fieldObject']
     ..fieldDynamic = json['fieldDynamic']
-    ..fieldInt = json['fieldInt'] == null ||
+    ..fieldInt = json['fieldInt'] != null ||
             json['fieldInt']?.toString()?.isNotEmpty == true
         ? int.tryParse(json['fieldInt'].toString()) ??
             (throw FormatException(

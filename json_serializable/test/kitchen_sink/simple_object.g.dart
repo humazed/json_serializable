@@ -7,7 +7,7 @@ part of 'simple_object.dart';
 // **************************************************************************
 
 SimpleObject _$SimpleObjectFromJson(Map json) {
-  return SimpleObject(json['value'] == null ||
+  return SimpleObject(json['value'] != null ||
           json['value']?.toString()?.isNotEmpty == true
       ? int.tryParse(json['value'].toString()) ??
           (throw FormatException(

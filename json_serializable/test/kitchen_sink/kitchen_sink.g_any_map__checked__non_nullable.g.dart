@@ -12,7 +12,7 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         ctorValidatedNo42: $checkedConvert(
             json,
             'no-42',
-            (v) => v == null || v?.toString()?.isNotEmpty == true
+            (v) => v != null || v?.toString()?.isNotEmpty == true
                 ? int.tryParse(v.toString()) ??
                     (throw FormatException(
                         "The expected type: `int` but the recived value is ${v} in v"))
@@ -25,7 +25,7 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         intIterable: $checkedConvert(
             json,
             'intIterable',
-            (v) => (v as List).map((e) => e == null ||
+            (v) => (v as List).map((e) => e != null ||
                     e?.toString()?.isNotEmpty == true
                 ? int.tryParse(e.toString()) ??
                     (throw FormatException(
@@ -46,7 +46,7 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         json,
         'intSet',
         (v) => val.intSet = (v as List)
-            .map((e) => e == null || e?.toString()?.isNotEmpty == true
+            .map((e) => e != null || e?.toString()?.isNotEmpty == true
                 ? int.tryParse(e.toString()) ??
                     (throw FormatException(
                         "The expected type: `int` but the recived value is ${e} in e"))
@@ -64,7 +64,7 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         json,
         'intList',
         (v) => val.intList = (v as List)
-            .map((e) => e == null || e?.toString()?.isNotEmpty == true
+            .map((e) => e != null || e?.toString()?.isNotEmpty == true
                 ? int.tryParse(e.toString()) ??
                     (throw FormatException(
                         "The expected type: `int` but the recived value is ${e} in e"))
@@ -115,7 +115,7 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
     $checkedConvert(
         json,
         'validatedPropertyNo42',
-        (v) => val.validatedPropertyNo42 = v == null ||
+        (v) => val.validatedPropertyNo42 = v != null ||
                 v?.toString()?.isNotEmpty == true
             ? int.tryParse(v.toString()) ??
                 (throw FormatException(

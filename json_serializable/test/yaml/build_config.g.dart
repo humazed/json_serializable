@@ -23,7 +23,7 @@ Config _$ConfigFromJson(Map json) {
         (v) => val.weights = (v as Map)?.map(
               (k, e) => MapEntry(
                   _$enumDecodeNullable(_$AutoApplyEnumMap, k),
-                  e == null || e?.toString()?.isNotEmpty == true
+                  e != null || e?.toString()?.isNotEmpty == true
                       ? int.tryParse(e.toString()) ??
                           (throw FormatException(
                               "The expected type: `int` but the recived value is ${e} in e"))

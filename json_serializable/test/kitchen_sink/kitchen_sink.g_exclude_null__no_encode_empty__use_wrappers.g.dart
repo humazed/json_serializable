@@ -9,7 +9,7 @@ part of 'kitchen_sink.g_exclude_null__no_encode_empty__use_wrappers.dart';
 KitchenSink _$KitchenSinkFromJson(Map<String, dynamic> json) {
   return KitchenSink(
       ctorValidatedNo42:
-          json['no-42'] == null || json['no-42']?.toString()?.isNotEmpty == true
+          json['no-42'] != null || json['no-42']?.toString()?.isNotEmpty == true
               ? int.tryParse(json['no-42'].toString()) ??
                   (throw FormatException(
                       "The expected type: `int` but the recived value is ${json['no-42']} in json['no-42']"))
@@ -18,7 +18,7 @@ KitchenSink _$KitchenSinkFromJson(Map<String, dynamic> json) {
       dynamicIterable: json['dynamicIterable'] as List,
       objectIterable: json['objectIterable'] as List,
       intIterable: (json['intIterable'] as List)?.map((e) =>
-          e == null || e?.toString()?.isNotEmpty == true
+          e != null || e?.toString()?.isNotEmpty == true
               ? int.tryParse(e.toString()) ??
                   (throw FormatException(
                       "The expected type: `int` but the recived value is ${e} in e"))
@@ -34,7 +34,7 @@ KitchenSink _$KitchenSinkFromJson(Map<String, dynamic> json) {
     ..dynamicSet = (json['dynamicSet'] as List)?.toSet()
     ..objectSet = (json['objectSet'] as List)?.toSet()
     ..intSet = (json['intSet'] as List)
-        ?.map((e) => e == null || e?.toString()?.isNotEmpty == true
+        ?.map((e) => e != null || e?.toString()?.isNotEmpty == true
             ? int.tryParse(e.toString()) ??
                 (throw FormatException("The expected type: `int` but the recived value is ${e} in e"))
             : null)
@@ -43,7 +43,7 @@ KitchenSink _$KitchenSinkFromJson(Map<String, dynamic> json) {
     ..list = json['list'] as List
     ..dynamicList = json['dynamicList'] as List
     ..objectList = json['objectList'] as List
-    ..intList = (json['intList'] as List)?.map((e) => e == null || e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)?.toList()
+    ..intList = (json['intList'] as List)?.map((e) => e != null || e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)?.toList()
     ..dateTimeList = (json['dateTimeList'] as List)?.map((e) => e == null ? null : DateTime.parse(e as String))?.toList()
     ..map = json['map'] as Map<String, dynamic>
     ..stringStringMap = (json['stringStringMap'] as Map<String, dynamic>)?.map(
@@ -52,7 +52,7 @@ KitchenSink _$KitchenSinkFromJson(Map<String, dynamic> json) {
     ..dynamicIntMap = (json['dynamicIntMap'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(
           k,
-          e == null || e?.toString()?.isNotEmpty == true
+          e != null || e?.toString()?.isNotEmpty == true
               ? int.tryParse(e.toString()) ??
                   (throw FormatException(
                       "The expected type: `int` but the recived value is ${e} in e"))
@@ -85,7 +85,7 @@ KitchenSink _$KitchenSinkFromJson(Map<String, dynamic> json) {
     ..string = json[r'$string']?.toString()
     ..simpleObject = json['simpleObject'] == null ? null : SimpleObject.fromJson(json['simpleObject'] as Map<String, dynamic>)
     ..strictKeysObject = json['strictKeysObject'] == null ? null : StrictKeysObject.fromJson(json['strictKeysObject'] as Map<String, dynamic>)
-    ..validatedPropertyNo42 = json['validatedPropertyNo42'] == null || json['validatedPropertyNo42']?.toString()?.isNotEmpty == true ? int.tryParse(json['validatedPropertyNo42'].toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${json['validatedPropertyNo42']} in json['validatedPropertyNo42']")) : null;
+    ..validatedPropertyNo42 = json['validatedPropertyNo42'] != null || json['validatedPropertyNo42']?.toString()?.isNotEmpty == true ? int.tryParse(json['validatedPropertyNo42'].toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${json['validatedPropertyNo42']} in json['validatedPropertyNo42']")) : null;
 }
 
 Map<String, dynamic> _$KitchenSinkToJson(KitchenSink instance) =>

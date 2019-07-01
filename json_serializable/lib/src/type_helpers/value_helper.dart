@@ -40,7 +40,7 @@ class ValueHelper extends TypeHelper {
     } else if (const TypeChecker.fromRuntime(num).isExactlyType(targetType) ||
         const TypeChecker.fromRuntime(double).isExactlyType(targetType) ||
         const TypeChecker.fromRuntime(int).isExactlyType(targetType)) {
-      return '$expression == null || $stringExpression?.isNotEmpty == true ? $targetType.tryParse($expression.toString()) ?? (throw FormatException("The expected type: `$targetType` but the recived value is \${$expression} in $expression")) : null';
+      return '$expression != null || $stringExpression?.isNotEmpty == true ? $targetType.tryParse($expression.toString()) ?? (throw FormatException("The expected type: `$targetType` but the recived value is \${$expression} in $expression")) : null';
     } else if (const TypeChecker.fromRuntime(String)
         .isExactlyType(targetType)) {
       return stringExpression;

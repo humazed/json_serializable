@@ -10,13 +10,13 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
   return DefaultValue()
     ..fieldBool = json['fieldBool'] as bool ?? true
     ..fieldString = json['fieldString']?.toString() ?? 'string'
-    ..fieldInt = json['fieldInt'] == null ||
+    ..fieldInt = json['fieldInt'] != null ||
             json['fieldInt']?.toString()?.isNotEmpty == true
         ? int.tryParse(json['fieldInt'].toString()) ??
             (throw FormatException(
                 "The expected type: `int` but the recived value is ${json['fieldInt']} in json['fieldInt']"))
         : null ?? 42
-    ..fieldDouble = json['fieldDouble'] == null ||
+    ..fieldDouble = json['fieldDouble'] != null ||
             json['fieldDouble']?.toString()?.isNotEmpty == true
         ? double.tryParse(json['fieldDouble'].toString()) ??
             (throw FormatException(
@@ -25,7 +25,7 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
     ..fieldListEmpty = json['fieldListEmpty'] as List ?? []
     ..fieldMapEmpty = json['fieldMapEmpty'] as Map<String, dynamic> ?? {}
     ..fieldListSimple = (json['fieldListSimple'] as List)
-            ?.map((e) => e == null || e?.toString()?.isNotEmpty == true
+            ?.map((e) => e != null || e?.toString()?.isNotEmpty == true
                 ? int.tryParse(e.toString()) ??
                     (throw FormatException(
                         "The expected type: `int` but the recived value is ${e} in e"))
@@ -35,7 +35,7 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
     ..fieldMapSimple = (json['fieldMapSimple'] as Map<String, dynamic>)?.map(
           (k, e) => MapEntry(
               k,
-              e == null || e?.toString()?.isNotEmpty == true
+              e != null || e?.toString()?.isNotEmpty == true
                   ? int.tryParse(e.toString()) ??
                       (throw FormatException(
                           "The expected type: `int` but the recived value is ${e} in e"))
