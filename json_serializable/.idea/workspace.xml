@@ -2,28 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a039bace-b36c-4ae4-811b-1af3e71aa963" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/example/example.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/default_value/default_value.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/default_value/default_value.g_any_map__checked.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/generic_files/generic_class.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/generic_files/generic_class.g_use_wrappers.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/integration/json_test_example.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable__use_wrappers.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_use_wrappers.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__checked__non_nullable.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable__use_wrappers.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__non_nullable__use_wrappers.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__use_wrappers.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__non_nullable.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__use_wrappers.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_explicit_to_json.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty__non_nullable.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/simple_object.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/kitchen_sink/strict_keys_object.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/literal/json_literal.g.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/yaml/build_config.g.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/default_value/default_value.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/default_value/default_value.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable__use_wrappers.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/integration/json_test_example.g_use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/integration/json_test_example.g_use_wrappers.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__checked__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__checked__non_nullable.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_any_map__non_nullable__use_wrappers.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__non_nullable__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__non_nullable__use_wrappers.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__no_encode_empty__use_wrappers.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__non_nullable.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__use_wrappers.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null__use_wrappers.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_explicit_to_json.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_explicit_to_json.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty__non_nullable.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_no_encode_empty__non_nullable.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/kitchen_sink/simple_object.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/kitchen_sink/simple_object.g.dart" afterDir="false" />
     </list>
     <ignored path="lib/generated/" />
     <ignored path="../.idea/" />
@@ -37,14 +44,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="42" column="228" lean-forward="true" selection-start-line="42" selection-start-column="228" selection-end-line="42" selection-end-column="228" />
-              <folding>
-                <element signature="e#0#1883#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="317">
+              <caret line="42" column="120" selection-start-line="42" selection-start-column="120" selection-end-line="42" selection-end-column="120" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/integration/json_test_example.g.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="72" column="39" selection-start-line="72" selection-start-column="39" selection-end-line="72" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -52,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/generated/i18n.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
+            <state>
               <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
@@ -64,7 +77,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/builder.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state>
               <caret line="18" selection-start-line="18" selection-end-line="18" />
               <folding>
                 <element signature="e#0#1511#0" expanded="true" />
@@ -87,7 +100,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state>
               <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
             </state>
           </provider>
@@ -104,6 +117,8 @@
       <find>.toString().isEmpty</find>
       <find>isem</find>
       <find>isEmpty</find>
+      <find>: null</find>
+      <find>?.toString(</find>
     </findStrings>
     <replaceStrings>
       <replace>.toString()?.isEmpty == true</replace>
@@ -138,8 +153,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -191,6 +204,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -227,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561889844173</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="when the value is null return null not 'null'">
+      <created>1561890346359</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1561890346359</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -236,7 +258,7 @@
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info id="Designer" order="1" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.3020439" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.2354277" />
       <window_info id="Structure" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Capture Tool" order="5" />
@@ -338,16 +360,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/generated/i18n.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/integration/json_test_example.g_non_nullable.g.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -373,13 +385,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/kitchen_sink/kitchen_sink.g_exclude_null.g.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -387,9 +392,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="42" column="120" selection-start-line="42" selection-start-column="120" selection-end-line="42" selection-end-column="120" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/generated/i18n.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/builder.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
+        <state>
           <caret line="18" selection-start-line="18" selection-end-line="18" />
           <folding>
             <element signature="e#0#1511#0" expanded="true" />
@@ -406,13 +428,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/type_helpers/value_helper.dart">
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="42" column="228" lean-forward="true" selection-start-line="42" selection-start-column="228" selection-end-line="42" selection-end-column="228" />
-          <folding>
-            <element signature="e#0#1883#0" expanded="true" />
-          </folding>
+        <state>
+          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/integration/json_test_example.g.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="72" column="39" selection-start-line="72" selection-start-column="39" selection-end-line="72" selection-end-column="39" />
         </state>
       </provider>
     </entry>
