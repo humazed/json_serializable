@@ -84,7 +84,10 @@ class IterableHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     final itemSubVal = context.deserialize(iterableGenericType, closureArg);
 
-    var output = '$expression as List';
+    final stringExpression = '$expression?.toString()';
+
+    var output =
+        '$expression != null && $stringExpression?.isNotEmpty == true && $expression is List ? $expression as $targetType : null';
 
     // If `itemSubVal` is the same and it's not a Set, then we don't need to do
     // anything fancy

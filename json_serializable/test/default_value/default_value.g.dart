@@ -10,46 +10,54 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
   return DefaultValue()
     ..fieldBool = json['fieldBool'] as bool ?? true
     ..fieldString = json['fieldString']?.toString() ?? 'string'
-    ..fieldInt = json['fieldInt'] != null ||
+    ..fieldInt = json['fieldInt'] != null &&
             json['fieldInt']?.toString()?.isNotEmpty == true
         ? int.tryParse(json['fieldInt'].toString()) ??
             (throw FormatException(
                 "The expected type: `int` but the recived value is ${json['fieldInt']} in json['fieldInt']"))
         : null ?? 42
-    ..fieldDouble = json['fieldDouble'] != null ||
+    ..fieldDouble = json['fieldDouble'] != null &&
             json['fieldDouble']?.toString()?.isNotEmpty == true
         ? double.tryParse(json['fieldDouble'].toString()) ??
             (throw FormatException(
                 "The expected type: `double` but the recived value is ${json['fieldDouble']} in json['fieldDouble']"))
         : null ?? 3.14
-    ..fieldListEmpty = json['fieldListEmpty'] as List ?? []
+    ..fieldListEmpty = json['fieldListEmpty'] != null &&
+            json['fieldListEmpty']?.toString()?.isNotEmpty == true &&
+            json['fieldListEmpty'] is List
+        ? json['fieldListEmpty'] as List<dynamic>
+        : null ?? []
     ..fieldMapEmpty = json['fieldMapEmpty'] as Map<String, dynamic> ?? {}
-    ..fieldListSimple = (json['fieldListSimple'] as List)
-            ?.map((e) => e != null || e?.toString()?.isNotEmpty == true
-                ? int.tryParse(e.toString()) ??
-                    (throw FormatException(
-                        "The expected type: `int` but the recived value is ${e} in e"))
+    ..fieldListSimple = (json['fieldListSimple'] != null &&
+                    json['fieldListSimple']?.toString()?.isNotEmpty == true &&
+                    json['fieldListSimple'] is List
+                ? json['fieldListSimple'] as List<int>
                 : null)
+            ?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)
             ?.toList() ??
         [1, 2, 3]
     ..fieldMapSimple = (json['fieldMapSimple'] as Map<String, dynamic>)?.map(
           (k, e) => MapEntry(
               k,
-              e != null || e?.toString()?.isNotEmpty == true
+              e != null && e?.toString()?.isNotEmpty == true
                   ? int.tryParse(e.toString()) ??
                       (throw FormatException(
                           "The expected type: `int` but the recived value is ${e} in e"))
                   : null),
         ) ??
         {'answer': 42}
-    ..fieldMapListString =
-        (json['fieldMapListString'] as Map<String, dynamic>)?.map(
-              (k, e) =>
-                  MapEntry(k, (e as List)?.map((e) => e?.toString())?.toList()),
-            ) ??
-            {
-              'root': ['child']
-            }
+    ..fieldMapListString = (json['fieldMapListString'] as Map<String, dynamic>)?.map(
+          (k, e) => MapEntry(
+              k,
+              (e != null && e?.toString()?.isNotEmpty == true && e is List
+                      ? e as List<String>
+                      : null)
+                  ?.map((e) => e?.toString())
+                  ?.toList()),
+        ) ??
+        {
+          'root': ['child']
+        }
     ..fieldEnum = _$enumDecodeNullable(_$GreekEnumMap, json['fieldEnum']) ?? Greek.beta;
 }
 

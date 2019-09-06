@@ -11,7 +11,7 @@ StrictKeysObject _$StrictKeysObjectFromJson(Map json) {
       allowedKeys: const ['value', 'custom_field'],
       requiredKeys: const ['value', 'custom_field']);
   return StrictKeysObject(
-      json['value'] != null || json['value']?.toString()?.isNotEmpty == true
+      json['value'] != null && json['value']?.toString()?.isNotEmpty == true
           ? int.tryParse(json['value'].toString()) ??
               (throw FormatException(
                   "The expected type: `int` but the recived value is ${json['value']} in json['value']"))

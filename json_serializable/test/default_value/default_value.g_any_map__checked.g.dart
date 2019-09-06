@@ -16,7 +16,7 @@ DefaultValue _$DefaultValueFromJson(Map json) {
     $checkedConvert(
         json,
         'fieldInt',
-        (v) => val.fieldInt = v != null || v?.toString()?.isNotEmpty == true
+        (v) => val.fieldInt = v != null && v?.toString()?.isNotEmpty == true
             ? int.tryParse(v.toString()) ??
                 (throw FormatException(
                     "The expected type: `int` but the recived value is ${v} in v"))
@@ -24,20 +24,29 @@ DefaultValue _$DefaultValueFromJson(Map json) {
     $checkedConvert(
         json,
         'fieldDouble',
-        (v) => val.fieldDouble = v != null || v?.toString()?.isNotEmpty == true
+        (v) => val.fieldDouble = v != null && v?.toString()?.isNotEmpty == true
             ? double.tryParse(v.toString()) ??
                 (throw FormatException(
                     "The expected type: `double` but the recived value is ${v} in v"))
             : null ?? 3.14);
     $checkedConvert(
-        json, 'fieldListEmpty', (v) => val.fieldListEmpty = v as List ?? []);
+        json,
+        'fieldListEmpty',
+        (v) => val.fieldListEmpty =
+            v != null && v?.toString()?.isNotEmpty == true && v is List
+                ? v as List<dynamic>
+                : null ?? []);
     $checkedConvert(
         json, 'fieldMapEmpty', (v) => val.fieldMapEmpty = v as Map ?? {});
     $checkedConvert(
         json,
         'fieldListSimple',
-        (v) => val.fieldListSimple = (v as List)
-                ?.map((e) => e != null || e?.toString()?.isNotEmpty == true
+        (v) => val.fieldListSimple = (v != null &&
+                        v?.toString()?.isNotEmpty == true &&
+                        v is List
+                    ? v as List<int>
+                    : null)
+                ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
                     ? int.tryParse(e.toString()) ??
                         (throw FormatException(
                             "The expected type: `int` but the recived value is ${e} in e"))
@@ -50,7 +59,7 @@ DefaultValue _$DefaultValueFromJson(Map json) {
         (v) => val.fieldMapSimple = (v as Map)?.map(
               (k, e) => MapEntry(
                   k as String,
-                  e != null || e?.toString()?.isNotEmpty == true
+                  e != null && e?.toString()?.isNotEmpty == true
                       ? int.tryParse(e.toString()) ??
                           (throw FormatException(
                               "The expected type: `int` but the recived value is ${e} in e"))
@@ -61,8 +70,13 @@ DefaultValue _$DefaultValueFromJson(Map json) {
         json,
         'fieldMapListString',
         (v) => val.fieldMapListString = (v as Map)?.map(
-              (k, e) => MapEntry(k as String,
-                  (e as List)?.map((e) => e?.toString())?.toList()),
+              (k, e) => MapEntry(
+                  k as String,
+                  (e != null && e?.toString()?.isNotEmpty == true && e is List
+                          ? e as List<String>
+                          : null)
+                      ?.map((e) => e?.toString())
+                      ?.toList()),
             ) ??
             {
               'root': ['child']
