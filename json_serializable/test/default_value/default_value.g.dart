@@ -24,14 +24,14 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
         : null ?? 3.14
     ..fieldListEmpty = json['fieldListEmpty'] != null &&
             json['fieldListEmpty']?.toString()?.isNotEmpty == true &&
-            json['fieldListEmpty'] is List<dynamic>
-        ? json['fieldListEmpty'] as List<dynamic>
+            json['fieldListEmpty'] is List
+        ? json['fieldListEmpty'] as List
         : null ?? []
     ..fieldMapEmpty = json['fieldMapEmpty'] as Map<String, dynamic> ?? {}
     ..fieldListSimple = (json['fieldListSimple'] != null &&
                     json['fieldListSimple']?.toString()?.isNotEmpty == true &&
-                    json['fieldListSimple'] is List<int>
-                ? json['fieldListSimple'] as List<int>
+                    json['fieldListSimple'] is List
+                ? json['fieldListSimple'] as List
                 : null)
             ?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)
             ?.toList() ??
@@ -49,10 +49,8 @@ DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
     ..fieldMapListString = (json['fieldMapListString'] as Map<String, dynamic>)?.map(
           (k, e) => MapEntry(
               k,
-              (e != null &&
-                          e?.toString()?.isNotEmpty == true &&
-                          e is List<String>
-                      ? e as List<String>
+              (e != null && e?.toString()?.isNotEmpty == true && e is List
+                      ? e as List
                       : null)
                   ?.map((e) => e?.toString())
                   ?.toList()),

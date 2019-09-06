@@ -12,8 +12,8 @@ Person _$PersonFromJson(Map<String, dynamic> json) {
       json['lastName']?.toString(),
       (json['extras'] != null &&
                   json['extras']?.toString()?.isNotEmpty == true &&
-                  json['extras'] is List<String>
-              ? json['extras'] as List<String>
+                  json['extras'] is List
+              ? json['extras'] as List
               : null)
           ?.map((e) => e?.toString())
           ?.toList(),

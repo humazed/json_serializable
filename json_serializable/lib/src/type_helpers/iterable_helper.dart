@@ -87,7 +87,7 @@ class IterableHelper extends TypeHelper<TypeHelperContextWithConfig> {
     final stringExpression = '$expression?.toString()';
 
     var output =
-        '$expression != null && $stringExpression?.isNotEmpty == true && $expression is $targetType ? $expression as $targetType : null';
+        '$expression != null && $stringExpression?.isNotEmpty == true && $expression is List ? $expression as List : null';
 //    var output = '$expression as List';
 
     // If `itemSubVal` is the same and it's not a Set, then we don't need to do

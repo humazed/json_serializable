@@ -33,8 +33,8 @@ DefaultValue _$DefaultValueFromJson(Map json) {
         json,
         'fieldListEmpty',
         (v) => val.fieldListEmpty =
-            v != null && v?.toString()?.isNotEmpty == true && v is List<dynamic>
-                ? v as List<dynamic>
+            v != null && v?.toString()?.isNotEmpty == true && v is List
+                ? v as List
                 : null ?? []);
     $checkedConvert(
         json, 'fieldMapEmpty', (v) => val.fieldMapEmpty = v as Map ?? {});
@@ -43,8 +43,8 @@ DefaultValue _$DefaultValueFromJson(Map json) {
         'fieldListSimple',
         (v) => val.fieldListSimple = (v != null &&
                         v?.toString()?.isNotEmpty == true &&
-                        v is List<int>
-                    ? v as List<int>
+                        v is List
+                    ? v as List
                     : null)
                 ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
                     ? int.tryParse(e.toString()) ??
@@ -72,10 +72,8 @@ DefaultValue _$DefaultValueFromJson(Map json) {
         (v) => val.fieldMapListString = (v as Map)?.map(
               (k, e) => MapEntry(
                   k as String,
-                  (e != null &&
-                              e?.toString()?.isNotEmpty == true &&
-                              e is List<String>
-                          ? e as List<String>
+                  (e != null && e?.toString()?.isNotEmpty == true && e is List
+                          ? e as List
                           : null)
                       ?.map((e) => e?.toString())
                       ?.toList()),
