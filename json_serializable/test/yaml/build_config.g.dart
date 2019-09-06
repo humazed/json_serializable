@@ -97,15 +97,15 @@ Builder _$BuilderFromJson(Map json) {
         builderFactories: $checkedConvert(
             json,
             'builder_factories',
-            (v) => (v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v) => (v != null && v?.toString()?.isNotEmpty == true && v is List<String>
                     ? v as List<String>
                     : null)
-                .map((e) => e?.toString())
-                .toList()),
+                ?.map((e) => e?.toString())
+                ?.toList()),
         appliesBuilders: $checkedConvert(
             json,
             'applies_builders',
-            (v) => (v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v) => (v != null && v?.toString()?.isNotEmpty == true && v is List<String>
                     ? v as List<String>
                     : null)
                 ?.map((e) => e?.toString())
@@ -113,7 +113,9 @@ Builder _$BuilderFromJson(Map json) {
         requiredInputs: $checkedConvert(
             json,
             'required_inputs',
-            (v) => (v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v) => (v != null &&
+                        v?.toString()?.isNotEmpty == true &&
+                        v is List<String>
                     ? v as List<String>
                     : null)
                 ?.map((e) => e?.toString())
@@ -126,7 +128,7 @@ Builder _$BuilderFromJson(Map json) {
                       k as String,
                       (e != null &&
                                   e?.toString()?.isNotEmpty == true &&
-                                  e is List
+                                  e is List<String>
                               ? e as List<String>
                               : null)
                           ?.map((e) => e?.toString())

@@ -16,46 +16,46 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
               : null,
       iterable: json['iterable'] != null &&
               json['iterable']?.toString()?.isNotEmpty == true &&
-              json['iterable'] is List
+              json['iterable'] is Iterable<dynamic>
           ? json['iterable'] as Iterable<dynamic>
           : null,
       dynamicIterable: json['dynamicIterable'] != null &&
               json['dynamicIterable']?.toString()?.isNotEmpty == true &&
-              json['dynamicIterable'] is List
+              json['dynamicIterable'] is Iterable<dynamic>
           ? json['dynamicIterable'] as Iterable<dynamic>
           : null,
       objectIterable: json['objectIterable'] != null &&
               json['objectIterable']?.toString()?.isNotEmpty == true &&
-              json['objectIterable'] is List
+              json['objectIterable'] is Iterable<Object>
           ? json['objectIterable'] as Iterable<Object>
           : null,
       intIterable: (json['intIterable'] != null &&
                   json['intIterable']?.toString()?.isNotEmpty == true &&
-                  json['intIterable'] is List
+                  json['intIterable'] is Iterable<int>
               ? json['intIterable'] as Iterable<int>
               : null)
-          .map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null),
-      dateTimeIterable: (json['datetime-iterable'] != null && json['datetime-iterable']?.toString()?.isNotEmpty == true && json['datetime-iterable'] is List ? json['datetime-iterable'] as Iterable<DateTime> : null).map((e) => DateTime.parse(e as String)))
+          ?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null),
+      dateTimeIterable: (json['datetime-iterable'] != null && json['datetime-iterable']?.toString()?.isNotEmpty == true && json['datetime-iterable'] is Iterable<DateTime> ? json['datetime-iterable'] as Iterable<DateTime> : null)?.map((e) => DateTime.parse(e as String)))
     ..dateTime = DateTime.parse(json['dateTime'] as String)
     ..bigInt = BigInt.parse(json['bigInt'] as String)
-    ..set = (json['set'] != null && json['set']?.toString()?.isNotEmpty == true && json['set'] is List ? json['set'] as Set<dynamic> : null).toSet()
-    ..dynamicSet = (json['dynamicSet'] != null && json['dynamicSet']?.toString()?.isNotEmpty == true && json['dynamicSet'] is List ? json['dynamicSet'] as Set<dynamic> : null).toSet()
-    ..objectSet = (json['objectSet'] != null && json['objectSet']?.toString()?.isNotEmpty == true && json['objectSet'] is List ? json['objectSet'] as Set<Object> : null).toSet()
-    ..intSet = (json['intSet'] != null && json['intSet']?.toString()?.isNotEmpty == true && json['intSet'] is List ? json['intSet'] as Set<int> : null).map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null).toSet()
-    ..dateTimeSet = (json['dateTimeSet'] != null && json['dateTimeSet']?.toString()?.isNotEmpty == true && json['dateTimeSet'] is List ? json['dateTimeSet'] as Set<DateTime> : null).map((e) => DateTime.parse(e as String)).toSet()
-    ..list = json['list'] != null && json['list']?.toString()?.isNotEmpty == true && json['list'] is List ? json['list'] as List<dynamic> : null
-    ..dynamicList = json['dynamicList'] != null && json['dynamicList']?.toString()?.isNotEmpty == true && json['dynamicList'] is List ? json['dynamicList'] as List<dynamic> : null
-    ..objectList = json['objectList'] != null && json['objectList']?.toString()?.isNotEmpty == true && json['objectList'] is List ? json['objectList'] as List<Object> : null
-    ..intList = (json['intList'] != null && json['intList']?.toString()?.isNotEmpty == true && json['intList'] is List ? json['intList'] as List<int> : null).map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null).toList()
-    ..dateTimeList = (json['dateTimeList'] != null && json['dateTimeList']?.toString()?.isNotEmpty == true && json['dateTimeList'] is List ? json['dateTimeList'] as List<DateTime> : null).map((e) => DateTime.parse(e as String)).toList()
+    ..set = (json['set'] != null && json['set']?.toString()?.isNotEmpty == true && json['set'] is Set<dynamic> ? json['set'] as Set<dynamic> : null)?.toSet()
+    ..dynamicSet = (json['dynamicSet'] != null && json['dynamicSet']?.toString()?.isNotEmpty == true && json['dynamicSet'] is Set<dynamic> ? json['dynamicSet'] as Set<dynamic> : null)?.toSet()
+    ..objectSet = (json['objectSet'] != null && json['objectSet']?.toString()?.isNotEmpty == true && json['objectSet'] is Set<Object> ? json['objectSet'] as Set<Object> : null)?.toSet()
+    ..intSet = (json['intSet'] != null && json['intSet']?.toString()?.isNotEmpty == true && json['intSet'] is Set<int> ? json['intSet'] as Set<int> : null)?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)?.toSet()
+    ..dateTimeSet = (json['dateTimeSet'] != null && json['dateTimeSet']?.toString()?.isNotEmpty == true && json['dateTimeSet'] is Set<DateTime> ? json['dateTimeSet'] as Set<DateTime> : null)?.map((e) => DateTime.parse(e as String))?.toSet()
+    ..list = json['list'] != null && json['list']?.toString()?.isNotEmpty == true && json['list'] is List<dynamic> ? json['list'] as List<dynamic> : null
+    ..dynamicList = json['dynamicList'] != null && json['dynamicList']?.toString()?.isNotEmpty == true && json['dynamicList'] is List<dynamic> ? json['dynamicList'] as List<dynamic> : null
+    ..objectList = json['objectList'] != null && json['objectList']?.toString()?.isNotEmpty == true && json['objectList'] is List<Object> ? json['objectList'] as List<Object> : null
+    ..intList = (json['intList'] != null && json['intList']?.toString()?.isNotEmpty == true && json['intList'] is List<int> ? json['intList'] as List<int> : null)?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)?.toList()
+    ..dateTimeList = (json['dateTimeList'] != null && json['dateTimeList']?.toString()?.isNotEmpty == true && json['dateTimeList'] is List<DateTime> ? json['dateTimeList'] as List<DateTime> : null)?.map((e) => DateTime.parse(e as String))?.toList()
     ..map = json['map'] as Map
     ..stringStringMap = Map<String, String>.from(json['stringStringMap'] as Map)
     ..dynamicIntMap = Map<String, int>.from(json['dynamicIntMap'] as Map)
     ..objectDateTimeMap = (json['objectDateTimeMap'] as Map).map(
       (k, e) => MapEntry(k, DateTime.parse(e as String)),
     )
-    ..crazyComplex = (json['crazyComplex'] != null && json['crazyComplex']?.toString()?.isNotEmpty == true && json['crazyComplex'] is List ? json['crazyComplex'] as List<Map<String, Map<String, List<List<DateTime>>>>> : null)
-        .map((e) => (e as Map).map(
+    ..crazyComplex = (json['crazyComplex'] != null && json['crazyComplex']?.toString()?.isNotEmpty == true && json['crazyComplex'] is List<Map<String, Map<String, List<List<DateTime>>>>> ? json['crazyComplex'] as List<Map<String, Map<String, List<List<DateTime>>>>> : null)
+        ?.map((e) => (e as Map).map(
               (k, e) => MapEntry(
                   k as String,
                   (e as Map).map(
@@ -63,20 +63,20 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
                         k as String,
                         (e != null &&
                                     e?.toString()?.isNotEmpty == true &&
-                                    e is List
+                                    e is List<List<DateTime>>
                                 ? e as List<List<DateTime>>
                                 : null)
-                            .map((e) => (e != null &&
+                            ?.map((e) => (e != null &&
                                         e?.toString()?.isNotEmpty == true &&
-                                        e is List
+                                        e is List<DateTime>
                                     ? e as List<DateTime>
                                     : null)
-                                .map((e) => DateTime.parse(e as String))
-                                .toList())
-                            .toList()),
+                                ?.map((e) => DateTime.parse(e as String))
+                                ?.toList())
+                            ?.toList()),
                   )),
             ))
-        .toList()
+        ?.toList()
     ..val = Map<String, bool>.from(json['val'] as Map)
     ..writeNotNull = json['writeNotNull'] as bool
     ..string = json[r'$string']?.toString()
@@ -135,11 +135,11 @@ JsonConverterTestClass _$JsonConverterTestClassFromJson(Map json) {
     ..duration = durationConverter.fromJson(json['duration'] as int)
     ..durationList = (json['durationList'] != null &&
                 json['durationList']?.toString()?.isNotEmpty == true &&
-                json['durationList'] is List
+                json['durationList'] is List<Duration>
             ? json['durationList'] as List<Duration>
             : null)
-        .map((e) => durationConverter.fromJson(e as int))
-        .toList()
+        ?.map((e) => durationConverter.fromJson(e as int))
+        ?.toList()
     ..bigInt = const BigIntStringConverter().fromJson(json['bigInt'] as String)
     ..bigIntMap = (json['bigIntMap'] as Map).map(
       (k, e) => MapEntry(
@@ -149,11 +149,11 @@ JsonConverterTestClass _$JsonConverterTestClassFromJson(Map json) {
         TrivialNumberConverter.instance.fromJson(json['numberSilly'] as int)
     ..numberSillySet = (json['numberSillySet'] != null &&
                 json['numberSillySet']?.toString()?.isNotEmpty == true &&
-                json['numberSillySet'] is List
+                json['numberSillySet'] is Set<TrivialNumber>
             ? json['numberSillySet'] as Set<TrivialNumber>
             : null)
-        .map((e) => TrivialNumberConverter.instance.fromJson(e as int))
-        .toSet()
+        ?.map((e) => TrivialNumberConverter.instance.fromJson(e as int))
+        ?.toSet()
     ..dateTime =
         const EpochDateTimeConverter().fromJson(json['dateTime'] as int);
 }
@@ -182,11 +182,11 @@ JsonConverterGeneric<S, T, U> _$JsonConverterGenericFromJson<S, T, U>(
         GenericConverter<S>().fromJson(json['item'] as Map<String, dynamic>)
     ..itemList = (json['itemList'] != null &&
                 json['itemList']?.toString()?.isNotEmpty == true &&
-                json['itemList'] is List
+                json['itemList'] is List<T>
             ? json['itemList'] as List<T>
             : null)
-        .map((e) => GenericConverter<T>().fromJson(e as Map<String, dynamic>))
-        .toList()
+        ?.map((e) => GenericConverter<T>().fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..itemMap = (json['itemMap'] as Map).map(
       (k, e) => MapEntry(k as String,
           GenericConverter<U>().fromJson(e as Map<String, dynamic>)),

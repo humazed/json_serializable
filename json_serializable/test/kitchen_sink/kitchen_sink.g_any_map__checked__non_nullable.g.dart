@@ -20,29 +20,26 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         iterable: $checkedConvert(
             json,
             'iterable',
-            (v) => v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v) => v != null && v?.toString()?.isNotEmpty == true && v is Iterable<dynamic>
                 ? v as Iterable<dynamic>
                 : null),
         dynamicIterable: $checkedConvert(
             json,
             'dynamicIterable',
-            (v) => v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v) => v != null &&
+                    v?.toString()?.isNotEmpty == true &&
+                    v is Iterable<dynamic>
                 ? v as Iterable<dynamic>
                 : null),
         objectIterable: $checkedConvert(
             json,
             'objectIterable',
-            (v) => v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v) => v != null && v?.toString()?.isNotEmpty == true && v is Iterable<Object>
                 ? v as Iterable<Object>
                 : null),
-        intIterable: $checkedConvert(
-            json,
-            'intIterable',
-            (v) => (v != null && v?.toString()?.isNotEmpty == true && v is List
-                    ? v as Iterable<int>
-                    : null)
-                .map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)),
-        dateTimeIterable: $checkedConvert(json, 'datetime-iterable', (v) => (v != null && v?.toString()?.isNotEmpty == true && v is List ? v as Iterable<DateTime> : null).map((e) => DateTime.parse(e as String))));
+        intIterable: $checkedConvert(json, 'intIterable',
+            (v) => (v != null && v?.toString()?.isNotEmpty == true && v is Iterable<int> ? v as Iterable<int> : null)?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)),
+        dateTimeIterable: $checkedConvert(json, 'datetime-iterable', (v) => (v != null && v?.toString()?.isNotEmpty == true && v is Iterable<DateTime> ? v as Iterable<DateTime> : null)?.map((e) => DateTime.parse(e as String))));
     $checkedConvert(
         json, 'dateTime', (v) => val.dateTime = DateTime.parse(v as String));
     $checkedConvert(
@@ -51,68 +48,69 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         json,
         'set',
         (v) => val.set =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v != null && v?.toString()?.isNotEmpty == true && v is Set<dynamic>
                     ? v as Set<dynamic>
                     : null)
-                .toSet());
+                ?.toSet());
     $checkedConvert(
         json,
         'dynamicSet',
         (v) => val.dynamicSet =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v != null && v?.toString()?.isNotEmpty == true && v is Set<dynamic>
                     ? v as Set<dynamic>
                     : null)
-                .toSet());
+                ?.toSet());
     $checkedConvert(
         json,
         'objectSet',
         (v) => val.objectSet =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v != null && v?.toString()?.isNotEmpty == true && v is Set<Object>
                     ? v as Set<Object>
                     : null)
-                .toSet());
+                ?.toSet());
     $checkedConvert(
         json,
         'intSet',
         (v) => val.intSet = (v != null &&
                     v?.toString()?.isNotEmpty == true &&
-                    v is List
+                    v is Set<int>
                 ? v as Set<int>
                 : null)
-            .map((e) => e != null && e?.toString()?.isNotEmpty == true
+            ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
                 ? int.tryParse(e.toString()) ??
                     (throw FormatException(
                         "The expected type: `int` but the recived value is ${e} in e"))
                 : null)
-            .toSet());
+            ?.toSet());
     $checkedConvert(
         json,
         'dateTimeSet',
-        (v) => val.dateTimeSet =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
-                    ? v as Set<DateTime>
-                    : null)
-                .map((e) => DateTime.parse(e as String))
-                .toSet());
+        (v) => val.dateTimeSet = (v != null &&
+                    v?.toString()?.isNotEmpty == true &&
+                    v is Set<DateTime>
+                ? v as Set<DateTime>
+                : null)
+            ?.map((e) => DateTime.parse(e as String))
+            ?.toSet());
     $checkedConvert(
         json,
         'list',
         (v) => val.list =
-            v != null && v?.toString()?.isNotEmpty == true && v is List
+            v != null && v?.toString()?.isNotEmpty == true && v is List<dynamic>
                 ? v as List<dynamic>
                 : null);
     $checkedConvert(
         json,
         'dynamicList',
         (v) => val.dynamicList =
-            v != null && v?.toString()?.isNotEmpty == true && v is List
+            v != null && v?.toString()?.isNotEmpty == true && v is List<dynamic>
                 ? v as List<dynamic>
                 : null);
     $checkedConvert(
         json,
         'objectList',
         (v) => val.objectList =
-            v != null && v?.toString()?.isNotEmpty == true && v is List
+            v != null && v?.toString()?.isNotEmpty == true && v is List<Object>
                 ? v as List<Object>
                 : null);
     $checkedConvert(
@@ -120,24 +118,25 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         'intList',
         (v) => val.intList = (v != null &&
                     v?.toString()?.isNotEmpty == true &&
-                    v is List
+                    v is List<int>
                 ? v as List<int>
                 : null)
-            .map((e) => e != null && e?.toString()?.isNotEmpty == true
+            ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
                 ? int.tryParse(e.toString()) ??
                     (throw FormatException(
                         "The expected type: `int` but the recived value is ${e} in e"))
                 : null)
-            .toList());
+            ?.toList());
     $checkedConvert(
         json,
         'dateTimeList',
-        (v) => val.dateTimeList =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
-                    ? v as List<DateTime>
-                    : null)
-                .map((e) => DateTime.parse(e as String))
-                .toList());
+        (v) => val.dateTimeList = (v != null &&
+                    v?.toString()?.isNotEmpty == true &&
+                    v is List<DateTime>
+                ? v as List<DateTime>
+                : null)
+            ?.map((e) => DateTime.parse(e as String))
+            ?.toList());
     $checkedConvert(json, 'map', (v) => val.map = v as Map);
     $checkedConvert(json, 'stringStringMap',
         (v) => val.stringStringMap = Map<String, String>.from(v as Map));
@@ -154,10 +153,10 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
         'crazyComplex',
         (v) => val.crazyComplex = (v != null &&
                     v?.toString()?.isNotEmpty == true &&
-                    v is List
+                    v is List<Map<String, Map<String, List<List<DateTime>>>>>
                 ? v as List<Map<String, Map<String, List<List<DateTime>>>>>
                 : null)
-            .map((e) => (e as Map).map(
+            ?.map((e) => (e as Map).map(
                   (k, e) => MapEntry(
                       k as String,
                       (e as Map).map(
@@ -165,20 +164,20 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
                             k as String,
                             (e != null &&
                                         e?.toString()?.isNotEmpty == true &&
-                                        e is List
+                                        e is List<List<DateTime>>
                                     ? e as List<List<DateTime>>
                                     : null)
-                                .map((e) => (e != null &&
+                                ?.map((e) => (e != null &&
                                             e?.toString()?.isNotEmpty == true &&
-                                            e is List
+                                            e is List<DateTime>
                                         ? e as List<DateTime>
                                         : null)
-                                    .map((e) => DateTime.parse(e as String))
-                                    .toList())
-                                .toList()),
+                                    ?.map((e) => DateTime.parse(e as String))
+                                    ?.toList())
+                                ?.toList()),
                       )),
                 ))
-            .toList());
+            ?.toList());
     $checkedConvert(
         json, 'val', (v) => val.val = Map<String, bool>.from(v as Map));
     $checkedConvert(json, 'writeNotNull', (v) => val.writeNotNull = v as bool);
@@ -257,12 +256,13 @@ JsonConverterTestClass _$JsonConverterTestClassFromJson(Map json) {
     $checkedConvert(
         json,
         'durationList',
-        (v) => val.durationList =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
-                    ? v as List<Duration>
-                    : null)
-                .map((e) => durationConverter.fromJson(e as int))
-                .toList());
+        (v) => val.durationList = (v != null &&
+                    v?.toString()?.isNotEmpty == true &&
+                    v is List<Duration>
+                ? v as List<Duration>
+                : null)
+            ?.map((e) => durationConverter.fromJson(e as int))
+            ?.toList());
     $checkedConvert(
         json,
         'bigInt',
@@ -283,12 +283,13 @@ JsonConverterTestClass _$JsonConverterTestClassFromJson(Map json) {
     $checkedConvert(
         json,
         'numberSillySet',
-        (v) => val.numberSillySet =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
-                    ? v as Set<TrivialNumber>
-                    : null)
-                .map((e) => TrivialNumberConverter.instance.fromJson(e as int))
-                .toSet());
+        (v) => val.numberSillySet = (v != null &&
+                    v?.toString()?.isNotEmpty == true &&
+                    v is Set<TrivialNumber>
+                ? v as Set<TrivialNumber>
+                : null)
+            ?.map((e) => TrivialNumberConverter.instance.fromJson(e as int))
+            ?.toSet());
     $checkedConvert(
         json,
         'dateTime',
@@ -328,12 +329,12 @@ JsonConverterGeneric<S, T, U> _$JsonConverterGenericFromJson<S, T, U>(
         json,
         'itemList',
         (v) => val.itemList =
-            (v != null && v?.toString()?.isNotEmpty == true && v is List
+            (v != null && v?.toString()?.isNotEmpty == true && v is List<T>
                     ? v as List<T>
                     : null)
-                .map((e) =>
+                ?.map((e) =>
                     GenericConverter<T>().fromJson(e as Map<String, dynamic>))
-                .toList());
+                ?.toList());
     $checkedConvert(
         json,
         'itemMap',
