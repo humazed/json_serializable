@@ -1,3 +1,7 @@
+## 2.3.0
+
+- updated deps.
+
 ## 2.2.1
 
 - Require at least Dart `2.2.0`.
