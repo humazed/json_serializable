@@ -19,7 +19,7 @@ import 'shared_config.dart';
 
 LibraryReader _libraryReader;
 
-void main() async {
+Future<void> main() async {
   initializeBuildLogTracking();
   _libraryReader = await initializeLibraryReaderForDirectory(
     p.join('test', 'test_sources'),
@@ -29,13 +29,9 @@ void main() async {
   group('without wrappers', () {
     _registerTests(JsonSerializable.defaults);
   });
-  group(
-      'with wrapper',
-      () => _registerTests(
-          const JsonSerializable(useWrappers: true).withDefaults()));
 
   group('configuration', () {
-    Future<Null> runWithConfigAndLogger(
+    Future<void> runWithConfigAndLogger(
         JsonSerializable config, String className) async {
       await generateForElement(
           JsonSerializableGenerator(
@@ -90,26 +86,28 @@ void main() async {
     });
 
     test(
-        'explicit values in annotation override corresponding settings in config',
-        () async {
-      await runWithConfigAndLogger(
-          JsonSerializable.fromJson(generatorConfigNonDefaultJson),
-          'ConfigurationExplicitDefaults');
+      'explicit values in annotation override corresponding settings in config',
+      () async {
+        await runWithConfigAndLogger(
+            JsonSerializable.fromJson(generatorConfigNonDefaultJson),
+            'ConfigurationExplicitDefaults');
 
-      expect(_ConfigLogger.configurations, hasLength(2));
-      expect(_ConfigLogger.configurations.first,
-          same(_ConfigLogger.configurations.last));
+        expect(_ConfigLogger.configurations, hasLength(2));
+        expect(_ConfigLogger.configurations.first,
+            same(_ConfigLogger.configurations.last));
 
-      // The effective configuration should be non-Default configuration, but
-      // with all fields set from JsonSerializable as the defaults
+        // The effective configuration should be non-Default configuration, but
+        // with all fields set from JsonSerializable as the defaults
 
-      final expected = Map.from(generatorConfigNonDefaultJson);
-      for (var jsonSerialKey in jsonSerializableFields) {
-        expected[jsonSerialKey] = generatorConfigDefaultJson[jsonSerialKey];
-      }
+        final expected =
+            Map<String, dynamic>.from(generatorConfigNonDefaultJson);
+        for (var jsonSerialKey in jsonSerializableFields) {
+          expected[jsonSerialKey] = generatorConfigDefaultJson[jsonSerialKey];
+        }
 
-      expect(_ConfigLogger.configurations.first.toJson(), expected);
-    });
+        expect(_ConfigLogger.configurations.first.toJson(), expected);
+      },
+    );
   });
 }
 
@@ -125,42 +123,14 @@ void _registerTests(JsonSerializable generator) {
   group('explicit toJson', () {
     test('nullable', () async {
       final output = await _runForElementNamed(
-          JsonSerializable(useWrappers: generator.useWrappers),
-          'TrivialNestedNullable');
+          const JsonSerializable(), 'TrivialNestedNullable');
 
-      final expected = generator.useWrappers
-          ? r'''
-Map<String, dynamic> _$TrivialNestedNullableToJson(
-        TrivialNestedNullable instance) =>
-    _$TrivialNestedNullableJsonMapWrapper(instance);
-
-class _$TrivialNestedNullableJsonMapWrapper extends $JsonMapWrapper {
-  final TrivialNestedNullable _v;
-  _$TrivialNestedNullableJsonMapWrapper(this._v);
-
-  @override
-  Iterable<String> get keys => const ['child', 'otherField'];
-
-  @override
-  dynamic operator [](Object key) {
-    if (key is String) {
-      switch (key) {
-        case 'child':
-          return _v.child?.toJson();
-        case 'otherField':
-          return _v.otherField;
-      }
-    }
-    return null;
-  }
-}
-'''
-          : r'''
+      const expected = r'''
 Map<String, dynamic> _$TrivialNestedNullableToJson(
         TrivialNestedNullable instance) =>
     <String, dynamic>{
       'child': instance.child?.toJson(),
-      'otherField': instance.otherField
+      'otherField': instance.otherField,
     };
 ''';
 
@@ -168,42 +138,14 @@ Map<String, dynamic> _$TrivialNestedNullableToJson(
     });
     test('non-nullable', () async {
       final output = await _runForElementNamed(
-          JsonSerializable(useWrappers: generator.useWrappers),
-          'TrivialNestedNonNullable');
+          const JsonSerializable(), 'TrivialNestedNonNullable');
 
-      final expected = generator.useWrappers
-          ? r'''
-Map<String, dynamic> _$TrivialNestedNonNullableToJson(
-        TrivialNestedNonNullable instance) =>
-    _$TrivialNestedNonNullableJsonMapWrapper(instance);
-
-class _$TrivialNestedNonNullableJsonMapWrapper extends $JsonMapWrapper {
-  final TrivialNestedNonNullable _v;
-  _$TrivialNestedNonNullableJsonMapWrapper(this._v);
-
-  @override
-  Iterable<String> get keys => const ['child', 'otherField'];
-
-  @override
-  dynamic operator [](Object key) {
-    if (key is String) {
-      switch (key) {
-        case 'child':
-          return _v.child.toJson();
-        case 'otherField':
-          return _v.otherField;
-      }
-    }
-    return null;
-  }
-}
-'''
-          : r'''
+      const expected = r'''
 Map<String, dynamic> _$TrivialNestedNonNullableToJson(
         TrivialNestedNonNullable instance) =>
     <String, dynamic>{
       'child': instance.child.toJson(),
-      'otherField': instance.otherField
+      'otherField': instance.otherField,
     };
 ''';
 
@@ -230,8 +172,7 @@ Map<String, dynamic> _$TrivialNestedNonNullableToJson(
 
     test('class with child json-able object - anyMap', () async {
       final output = await _runForElementNamed(
-          JsonSerializable(anyMap: true, useWrappers: generator.useWrappers),
-          'ParentObject');
+          const JsonSerializable(anyMap: true), 'ParentObject');
 
       expect(output, contains("ChildObject.fromJson(json['child'] as Map)"));
     });

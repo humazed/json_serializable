@@ -39,17 +39,13 @@ class InvalidFromFunc2Args {
 ValidToFromFuncClassStatic _$ValidToFromFuncClassStaticFromJson(
     Map<String, dynamic> json) {
   return ValidToFromFuncClassStatic()
-    ..field = json['field'] == null
-        ? null
-        : ValidToFromFuncClassStatic._staticFunc(json['field'] as String);
+    ..field = ValidToFromFuncClassStatic._staticFunc(json['field'] as String);
 }
 
 Map<String, dynamic> _$ValidToFromFuncClassStaticToJson(
         ValidToFromFuncClassStatic instance) =>
     <String, dynamic>{
-      'field': instance.field == null
-          ? null
-          : ValidToFromFuncClassStatic._staticFunc(instance.field)
+      'field': ValidToFromFuncClassStatic._staticFunc(instance.field),
     };
 ''',
   configurations: ['default'],
@@ -134,86 +130,16 @@ Map<String, dynamic> _$ToJsonNullableFalseIncludeIfNullFalseToJson(
   return val;
 }
 ''',
+  expectedLogItems: [
+    'The `JsonKey.nullable` value on '
+        '`ToJsonNullableFalseIncludeIfNullFalse.field` will be ignored because '
+        'a custom conversion function is being used.',
+  ],
   configurations: ['default'],
 )
 @JsonSerializable(createFactory: false)
 class ToJsonNullableFalseIncludeIfNullFalse {
   @JsonKey(toJson: _toString, includeIfNull: false, nullable: false)
-  String field;
-}
-
-@ShouldGenerate(
-  r'''
-Map<String, dynamic> _$ToJsonNullableFalseIncludeIfNullFalseWrappedToJson(
-        ToJsonNullableFalseIncludeIfNullFalseWrapped instance) =>
-    _$ToJsonNullableFalseIncludeIfNullFalseWrappedJsonMapWrapper(instance);
-
-class _$ToJsonNullableFalseIncludeIfNullFalseWrappedJsonMapWrapper
-    extends $JsonMapWrapper {
-  final ToJsonNullableFalseIncludeIfNullFalseWrapped _v;
-  _$ToJsonNullableFalseIncludeIfNullFalseWrappedJsonMapWrapper(this._v);
-
-  @override
-  Iterable<String> get keys sync* {
-    if (_toString(_v.field) != null) {
-      yield 'field';
-    }
-  }
-
-  @override
-  dynamic operator [](Object key) {
-    if (key is String) {
-      switch (key) {
-        case 'field':
-          return _toString(_v.field);
-      }
-    }
-    return null;
-  }
-}
-''',
-  configurations: ['wrapped'],
-)
-@JsonSerializable(createFactory: false)
-class ToJsonNullableFalseIncludeIfNullFalseWrapped {
-  @JsonKey(toJson: _toString, includeIfNull: false, nullable: false)
-  String field;
-}
-
-@ShouldGenerate(
-  r'''
-Map<String, dynamic> _$ToJsonIncludeIfNullFalseWrappedToJson(
-        ToJsonIncludeIfNullFalseWrapped instance) =>
-    _$ToJsonIncludeIfNullFalseWrappedJsonMapWrapper(instance);
-
-class _$ToJsonIncludeIfNullFalseWrappedJsonMapWrapper extends $JsonMapWrapper {
-  final ToJsonIncludeIfNullFalseWrapped _v;
-  _$ToJsonIncludeIfNullFalseWrappedJsonMapWrapper(this._v);
-
-  @override
-  Iterable<String> get keys sync* {
-    if ((_v.field == null ? null : _toString(_v.field)) != null) {
-      yield 'field';
-    }
-  }
-
-  @override
-  dynamic operator [](Object key) {
-    if (key is String) {
-      switch (key) {
-        case 'field':
-          return _v.field == null ? null : _toString(_v.field);
-      }
-    }
-    return null;
-  }
-}
-''',
-  configurations: ['wrapped'],
-)
-@JsonSerializable(createFactory: false)
-class ToJsonIncludeIfNullFalseWrapped {
-  @JsonKey(toJson: _toString, includeIfNull: false)
   String field;
 }
 
@@ -228,15 +154,9 @@ String _fromDynamicIterable(Iterable input) => null;
 FromDynamicCollection _$FromDynamicCollectionFromJson(
     Map<String, dynamic> json) {
   return FromDynamicCollection()
-    ..mapField = json['mapField'] == null
-        ? null
-        : _fromDynamicMap(json['mapField'] as Map)
-    ..listField = json['listField'] == null
-        ? null
-        : _fromDynamicList(json['listField'] as List)
-    ..iterableField = json['iterableField'] == null
-        ? null
-        : _fromDynamicIterable(json['iterableField'] as List);
+    ..mapField = _fromDynamicMap(json['mapField'] as Map)
+    ..listField = _fromDynamicList(json['listField'] as List)
+    ..iterableField = _fromDynamicIterable(json['iterableField'] as List);
 }
 ''',
   configurations: ['default'],

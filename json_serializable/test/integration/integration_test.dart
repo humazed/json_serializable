@@ -82,7 +82,11 @@ void main() {
       final order = Order.fromJson({'category': 'not_discovered_yet'});
       expect(order.items, isEmpty);
       expect(order.category, Category.notDiscoveredYet);
-      expect(order.statusCode, StatusCode.success);
+      expect(
+        order.statusCode,
+        StatusCode.success,
+        reason: 'success is the default on an unset value',
+      );
       roundTripOrder(order);
     });
 
@@ -122,15 +126,32 @@ void main() {
           'f': Platform.foo,
           'null': null
         }
-        ..homepage = Uri.parse('https://dartlang.org');
+        ..homepage = Uri.parse('https://dart.dev');
 
       roundTripOrder(order);
     });
 
     test('statusCode', () {
       final order = Order.fromJson(
-          {'category': 'not_discovered_yet', 'status_code': 404});
+        {'category': 'not_discovered_yet', 'status_code': 404},
+      );
       expect(order.statusCode, StatusCode.notFound);
+      roundTripOrder(order);
+    });
+
+    test('statusCode "500" - weird', () {
+      final order = Order.fromJson(
+        {'category': 'not_discovered_yet', 'status_code': '500'},
+      );
+      expect(order.statusCode, StatusCode.weird);
+      roundTripOrder(order);
+    });
+
+    test('statusCode `500` - unknown', () {
+      final order = Order.fromJson(
+        {'category': 'not_discovered_yet', 'status_code': 500},
+      );
+      expect(order.statusCode, StatusCode.unknown);
       roundTripOrder(order);
     });
 
@@ -231,5 +252,18 @@ void main() {
 
       expect(() => Numbers.fromJson(value), throwsCastError);
     });
+  });
+
+  test('MapKeyVariety', () {
+    final instance = MapKeyVariety()
+      ..bigIntMap = {BigInt.from(1): 1}
+      ..dateTimeIntMap = {DateTime.parse('2018-01-01'): 2}
+      ..intIntMap = {3: 3}
+      ..uriIntMap = {Uri.parse('https://example.com'): 4};
+
+    final roundTrip =
+        roundTripObject(instance, (j) => MapKeyVariety.fromJson(j));
+
+    expect(roundTrip, instance);
   });
 }

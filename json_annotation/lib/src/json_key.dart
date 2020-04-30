@@ -12,7 +12,7 @@ class JsonKey {
   final Object defaultValue;
 
   /// If `true`, generated code will throw a [DisallowedNullValueException] if
-  /// the corresponding key exits, but the value is `null`.
+  /// the corresponding key exists, but the value is `null`.
   ///
   /// Note: this value does not affect the behavior of a JSON map *without* the
   /// associated key.
@@ -23,27 +23,6 @@ class JsonKey {
   /// If both [includeIfNull] and [disallowNullValue] are set to `true` on the
   /// same field, an exception will be thrown during code generation.
   final bool disallowNullValue;
-
-  /// Whether the generator should include the annotated field value in the
-  /// serialized output if it is empty.
-  ///
-  /// If `true` (the default), empty values are included in the generated
-  /// `toJson` function.
-  ///
-  /// If `false`, fields with empty collections are omitted from `toJson`.
-  ///
-  /// Note: setting this property to `false` overrides the [includeIfNull]
-  /// value to `false` as well. Explicitly setting [includeIfNull] to `true`
-  /// and setting this property to `false` will cause an error at build time.
-  ///
-  /// Note: setting this property to `false` on a non-collection field
-  /// (of types other than [Iterable], [Set], [List], and [Map])
-  /// will cause an error at build time.
-  ///
-  /// The default value, `null`, indicates that the behavior should be
-  /// acquired from the [JsonSerializable.encodeEmptyCollection] annotation on
-  /// the enclosing class.
-  final bool encodeEmptyCollection;
 
   /// A [Function] to use when decoding the associated JSON value to the
   /// annotated field.
@@ -118,13 +97,18 @@ class JsonKey {
   /// Values returned by [toJson] should "round-trip" through [fromJson].
   final Function toJson;
 
+  /// The value to use for an enum field when the value provided is not in the
+  /// source enum.
+  ///
+  /// Valid only on enum fields with a compatible enum value.
+  final Object unknownEnumValue;
+
   /// Creates a new [JsonKey] instance.
   ///
   /// Only required when the default behavior is not desired.
   const JsonKey({
     this.defaultValue,
     this.disallowNullValue,
-    this.encodeEmptyCollection,
     this.fromJson,
     this.ignore,
     this.includeIfNull,
@@ -132,5 +116,6 @@ class JsonKey {
     this.nullable,
     this.required,
     this.toJson,
+    this.unknownEnumValue,
   });
 }

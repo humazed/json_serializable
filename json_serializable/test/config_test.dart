@@ -79,9 +79,10 @@ void main() {
     expect(configMap.keys, unorderedEquals(generatorConfigDefaultJson.keys),
         reason: 'All supported keys are documented.');
 
-    expect(JsonSerializable.fromJson(configMap).toJson(),
-        generatorConfigDefaultJson,
-        reason: 'All keys specify their default value.');
+    expect(
+      JsonSerializable.fromJson(configMap).toJson(),
+      generatorConfigDefaultJson,
+    );
 
     final builder = jsonSerializable(BuilderOptions(configMap));
     expect(builder, isNotNull);
@@ -111,7 +112,8 @@ void main() {
         config[entry.key] = entry.value;
 
         final lastLine = entry.key == 'field_rename'
-            ? '`42` is not one of the supported values: none, kebab, snake'
+            ? '`42` is not one of the supported values: none, kebab, snake, '
+                'pascal'
             : "type 'int' is not a subtype of type 'bool' in type cast";
 
         final matcher = isA<StateError>().having(
@@ -135,11 +137,9 @@ const _invalidConfig = {
   'create_factory': 42,
   'create_to_json': 42,
   'disallow_unrecognized_keys': 42,
-  'encode_empty_collection': 42,
   'explicit_to_json': 42,
   'field_rename': 42,
-  'generate_to_json_function': 42,
+  'ignore_unannotated': 42,
   'include_if_null': 42,
   'nullable': 42,
-  'use_wrappers': 42,
 };

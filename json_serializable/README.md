@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dart-lang/json_serializable.svg?branch=master)](https://travis-ci.org/dart-lang/json_serializable)
+[![Pub Package](https://img.shields.io/pub/v/json_serializable.svg)](https://pub.dev/packages/json_serializable)
 
 Provides [Dart Build System] builders for handling JSON.
 
@@ -46,15 +46,16 @@ part of 'example.dart';
 
 Person _$PersonFromJson(Map<String, dynamic> json) {
   return Person(
-      firstName: json['firstName'] as String,
-      lastName: json['lastName'] as String,
-      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String));
+    firstName: json['firstName'] as String,
+    lastName: json['lastName'] as String,
+    dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
+  );
 }
 
 Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'firstName': instance.firstName,
       'lastName': instance.lastName,
-      'dateOfBirth': instance.dateOfBirth.toIso8601String()
+      'dateOfBirth': instance.dateOfBirth.toIso8601String(),
     };
 ```
 
@@ -69,57 +70,54 @@ is generated:
 2. Add a `@JsonKey` annotation to a field and set properties there.
 3. Add configuration to `build.yaml` – [see below](#build-configuration). 
 
-| `build.yaml` key           | JsonSerializable                            | JsonKey                         |
-| -------------------------- | ------------------------------------------- | ------------------------------- |
-| any_map                    | [JsonSerializable.anyMap]                   |                                 |
-| checked                    | [JsonSerializable.checked]                  |                                 |
-| create_factory             | [JsonSerializable.createFactory]            |                                 |
-| create_to_json             | [JsonSerializable.createToJson]             |                                 |
-| disallow_unrecognized_keys | [JsonSerializable.disallowUnrecognizedKeys] |                                 |
-| explicit_to_json           | [JsonSerializable.explicitToJson]           |                                 |
-| field_rename               | [JsonSerializable.fieldRename]              |                                 |
-| generate_to_json_function  | [JsonSerializable.generateToJsonFunction]   |                                 |
-| use_wrappers               | [JsonSerializable.useWrappers]              |                                 |
-| encode_empty_collection    | [JsonSerializable.encodeEmptyCollection]    | [JsonKey.encodeEmptyCollection] |
-| include_if_null            | [JsonSerializable.includeIfNull]            | [JsonKey.includeIfNull]         |
-| nullable                   | [JsonSerializable.nullable]                 | [JsonKey.nullable]              |
-|                            |                                             | [JsonKey.defaultValue]          |
-|                            |                                             | [JsonKey.disallowNullValue]     |
-|                            |                                             | [JsonKey.fromJson]              |
-|                            |                                             | [JsonKey.ignore]                |
-|                            |                                             | [JsonKey.name]                  |
-|                            |                                             | [JsonKey.required]              |
-|                            |                                             | [JsonKey.toJson]                |
+| `build.yaml` key           | JsonSerializable                            | JsonKey                     |
+| -------------------------- | ------------------------------------------- | --------------------------- |
+| any_map                    | [JsonSerializable.anyMap]                   |                             |
+| checked                    | [JsonSerializable.checked]                  |                             |
+| create_factory             | [JsonSerializable.createFactory]            |                             |
+| create_to_json             | [JsonSerializable.createToJson]             |                             |
+| disallow_unrecognized_keys | [JsonSerializable.disallowUnrecognizedKeys] |                             |
+| explicit_to_json           | [JsonSerializable.explicitToJson]           |                             |
+| field_rename               | [JsonSerializable.fieldRename]              |                             |
+| ignore_unannotated         | [JsonSerializable.ignoreUnannotated]        |                             |
+| include_if_null            | [JsonSerializable.includeIfNull]            | [JsonKey.includeIfNull]     |
+| nullable                   | [JsonSerializable.nullable]                 | [JsonKey.nullable]          |
+|                            |                                             | [JsonKey.defaultValue]      |
+|                            |                                             | [JsonKey.disallowNullValue] |
+|                            |                                             | [JsonKey.fromJson]          |
+|                            |                                             | [JsonKey.ignore]            |
+|                            |                                             | [JsonKey.name]              |
+|                            |                                             | [JsonKey.required]          |
+|                            |                                             | [JsonKey.toJson]            |
+|                            |                                             | [JsonKey.unknownEnumValue]  |
 
-[JsonSerializable.anyMap]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/anyMap.html
-[JsonSerializable.checked]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/checked.html
-[JsonSerializable.createFactory]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/createFactory.html
-[JsonSerializable.createToJson]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/createToJson.html
-[JsonSerializable.disallowUnrecognizedKeys]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/disallowUnrecognizedKeys.html
-[JsonSerializable.explicitToJson]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/explicitToJson.html
-[JsonSerializable.fieldRename]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/fieldRename.html
-[JsonSerializable.generateToJsonFunction]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/generateToJsonFunction.html
-[JsonSerializable.useWrappers]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/useWrappers.html
-[JsonSerializable.encodeEmptyCollection]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/encodeEmptyCollection.html
-[JsonKey.encodeEmptyCollection]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/encodeEmptyCollection.html
-[JsonSerializable.includeIfNull]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/includeIfNull.html
-[JsonKey.includeIfNull]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/includeIfNull.html
-[JsonSerializable.nullable]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonSerializable/nullable.html
-[JsonKey.nullable]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/nullable.html
-[JsonKey.defaultValue]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/defaultValue.html
-[JsonKey.disallowNullValue]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/disallowNullValue.html
-[JsonKey.fromJson]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/fromJson.html
-[JsonKey.ignore]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/ignore.html
-[JsonKey.name]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/name.html
-[JsonKey.required]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/required.html
-[JsonKey.toJson]: https://pub.dartlang.org/documentation/json_annotation/2.2.0/json_annotation/JsonKey/toJson.html
+[JsonSerializable.anyMap]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/anyMap.html
+[JsonSerializable.checked]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/checked.html
+[JsonSerializable.createFactory]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/createFactory.html
+[JsonSerializable.createToJson]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/createToJson.html
+[JsonSerializable.disallowUnrecognizedKeys]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/disallowUnrecognizedKeys.html
+[JsonSerializable.explicitToJson]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/explicitToJson.html
+[JsonSerializable.fieldRename]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/fieldRename.html
+[JsonSerializable.ignoreUnannotated]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/ignoreUnannotated.html
+[JsonSerializable.includeIfNull]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/includeIfNull.html
+[JsonKey.includeIfNull]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/includeIfNull.html
+[JsonSerializable.nullable]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonSerializable/nullable.html
+[JsonKey.nullable]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/nullable.html
+[JsonKey.defaultValue]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/defaultValue.html
+[JsonKey.disallowNullValue]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/disallowNullValue.html
+[JsonKey.fromJson]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/fromJson.html
+[JsonKey.ignore]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/ignore.html
+[JsonKey.name]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/name.html
+[JsonKey.required]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/required.html
+[JsonKey.toJson]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/toJson.html
+[JsonKey.unknownEnumValue]: https://pub.dev/documentation/json_annotation/3.0.1/json_annotation/JsonKey/unknownEnumValue.html
 
 > Note: every `JsonSerializable` field is configurable via `build.yaml` –
   see the table for the corresponding key.
   If you find you want all or most of your classes with the same configuration,
   it may be easier to specify values once in the YAML file. Values set
   explicitly on `@JsonSerializable` take precedence over settings in
-  `buildy.yaml`.
+  `build.yaml`.
 
 > Note: There is some overlap between fields on `JsonKey` and
   `JsonSerializable`. In these cases, if a value is set explicitly via `JsonKey`
@@ -145,15 +143,13 @@ targets:
           create_factory: true
           create_to_json: true
           disallow_unrecognized_keys: false
-          encode_empty_collection: true
           explicit_to_json: false
           field_rename: none
-          generate_to_json_function: true
+          ignore_unannotated: false
           include_if_null: true
           nullable: true
-          use_wrappers: false
 ```
 
 [example]: https://github.com/dart-lang/json_serializable/blob/master/example
 [Dart Build System]: https://github.com/dart-lang/build
-[package:json_annotation]: https://pub.dartlang.org/packages/json_annotation
+[package:json_annotation]: https://pub.dev/packages/json_annotation

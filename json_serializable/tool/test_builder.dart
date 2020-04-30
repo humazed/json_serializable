@@ -14,7 +14,7 @@ import 'package:yaml/yaml.dart';
 final _formatter = DartFormatter();
 
 Builder internal([_]) {
-  final builder = const _SmartBuilder();
+  const builder = _SmartBuilder();
   _validateBuilder(builder);
   return builder;
 }
@@ -93,12 +93,12 @@ class _SmartBuilder implements Builder {
     if (baseName == _kitchenSinkBaseName) {
       final newId = buildStep.inputId.changeExtension('.factories.dart');
 
-      final lines = <String>[]..addAll(
-          factories.entries.map((e) => "import '${e.key}' as ${e.value};"));
-
-      lines.add('const factories = [');
-      lines.addAll(factories.values.map((e) => '$e.factory,'));
-      lines.add('];');
+      final lines = <String>[
+        ...factories.entries.map((e) => "import '${e.key}' as ${e.value};"),
+        'const factories = [',
+        ...factories.values.map((e) => '$e.factory,'),
+        '];',
+      ];
 
       await buildStep.writeAsString(newId, _formatter.format(lines.join('\n')));
     }
@@ -113,12 +113,9 @@ const _configReplacements = {
   'any_map': _Replacement.addJsonSerializableKey('anyMap', true),
   'checked': _Replacement.addJsonSerializableKey('checked', true),
   'non_nullable': _Replacement.addJsonSerializableKey('nullable', false),
-  'use_wrappers': _Replacement.addJsonSerializableKey('useWrappers', true),
   'explicit_to_json':
       _Replacement.addJsonSerializableKey('explicitToJson', true),
   'exclude_null': _Replacement.addJsonSerializableKey('includeIfNull', false),
-  'no_encode_empty':
-      _Replacement.addJsonSerializableKey('encodeEmptyCollection', false),
 };
 
 const _kitchenSinkReplacements = {
@@ -145,12 +142,6 @@ const _kitchenSinkReplacements = {
       'bool get checked => false;',
       'bool get checked => true;',
     )
-  ],
-  'no_encode_empty': [
-    _Replacement(
-      'bool get noEncodeEmpty => false;',
-      'bool get noEncodeEmpty => true;',
-    ),
   ],
   'exclude_null': [
     _Replacement(
@@ -230,29 +221,20 @@ const _kitchenSinkBaseName = 'kitchen_sink';
 const _fileConfigurationMap = <String, Set<Set<String>>>{
   _kitchenSinkBaseName: {
     {'any_map', 'checked', 'non_nullable'},
-    {'any_map', 'non_nullable', 'use_wrappers'},
     {'any_map', 'non_nullable'},
     {'any_map'},
-    {'no_encode_empty'},
-    {'no_encode_empty', 'exclude_null', 'use_wrappers'},
-    {'no_encode_empty', 'non_nullable'},
-    {'no_encode_empty', 'exclude_null'},
-    {'no_encode_empty', 'exclude_null', 'non_nullable', 'use_wrappers'},
-    {'exclude_null', 'non_nullable'},
-    {'exclude_null', 'use_wrappers'},
     {'exclude_null'},
+    {'non_nullable'},
+    {'exclude_null', 'non_nullable'},
     {'explicit_to_json'},
   },
   'default_value': {
     {'any_map', 'checked'},
   },
-  'generic_class': {
-    {'use_wrappers'},
-  },
+  'generic_class': <Set<String>>{},
   'json_test_example': {
-    {'non_nullable', 'use_wrappers'},
+    {'any_map'},
     {'non_nullable'},
-    {'use_wrappers'},
   }
 };
 

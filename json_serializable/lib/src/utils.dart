@@ -9,23 +9,36 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart' show alwaysThrows;
 import 'package:source_gen/source_gen.dart';
 
-final _jsonKeyChecker = const TypeChecker.fromRuntime(JsonKey);
+import 'helper_core.dart';
 
-DartObject jsonKeyAnnotation(FieldElement element) =>
-    _jsonKeyChecker.firstAnnotationOfExact(element) ??
+const _jsonKeyChecker = TypeChecker.fromRuntime(JsonKey);
+
+DartObject _jsonKeyAnnotation(FieldElement element) =>
+    _jsonKeyChecker.firstAnnotationOf(element) ??
     (element.getter == null
         ? null
-        : _jsonKeyChecker.firstAnnotationOfExact(element.getter));
+        : _jsonKeyChecker.firstAnnotationOf(element.getter));
+
+ConstantReader jsonKeyAnnotation(FieldElement element) =>
+    ConstantReader(_jsonKeyAnnotation(element));
 
 /// Returns `true` if [element] is annotated with [JsonKey].
 bool hasJsonKeyAnnotation(FieldElement element) =>
-    jsonKeyAnnotation(element) != null;
+    _jsonKeyAnnotation(element) != null;
 
 final _upperCase = RegExp('[A-Z]');
 
 String kebabCase(String input) => _fixCase(input, '-');
 
 String snakeCase(String input) => _fixCase(input, '_');
+
+String pascalCase(String input) {
+  if (input.isEmpty) {
+    return '';
+  }
+
+  return input[0].toUpperCase() + input.substring(1);
+}
 
 String _fixCase(String input, String separator) =>
     input.replaceAllMapped(_upperCase, (match) {
@@ -69,19 +82,15 @@ JsonSerializable _valueForAnnotation(ConstantReader reader) => JsonSerializable(
       createToJson: reader.read('createToJson').literalValue as bool,
       disallowUnrecognizedKeys:
           reader.read('disallowUnrecognizedKeys').literalValue as bool,
-      encodeEmptyCollection:
-          reader.read('encodeEmptyCollection').literalValue as bool,
       explicitToJson: reader.read('explicitToJson').literalValue as bool,
       fieldRename: _fromDartObject(reader.read('fieldRename')),
-      generateToJsonFunction:
-          reader.read('generateToJsonFunction').literalValue as bool,
+      ignoreUnannotated: reader.read('ignoreUnannotated').literalValue as bool,
       includeIfNull: reader.read('includeIfNull').literalValue as bool,
       nullable: reader.read('nullable').literalValue as bool,
-      useWrappers: reader.read('useWrappers').literalValue as bool,
     );
 
-/// Returns a [JsonSerializable] with values from the [JsonSerializable] instance
-/// represented by [reader].
+/// Returns a [JsonSerializable] with values from the [JsonSerializable]
+/// instance represented by [reader].
 ///
 /// For fields that are not defined in [JsonSerializable] or `null` in [reader],
 /// use the values in [config].
@@ -95,15 +104,11 @@ JsonSerializable mergeConfig(JsonSerializable config, ConstantReader reader) {
     createToJson: annotation.createToJson ?? config.createToJson,
     disallowUnrecognizedKeys:
         annotation.disallowUnrecognizedKeys ?? config.disallowUnrecognizedKeys,
-    encodeEmptyCollection:
-        annotation.encodeEmptyCollection ?? config.encodeEmptyCollection,
     explicitToJson: annotation.explicitToJson ?? config.explicitToJson,
     fieldRename: annotation.fieldRename ?? config.fieldRename,
-    generateToJsonFunction:
-        annotation.generateToJsonFunction ?? config.generateToJsonFunction,
+    ignoreUnannotated: annotation.ignoreUnannotated ?? config.ignoreUnannotated,
     includeIfNull: annotation.includeIfNull ?? config.includeIfNull,
     nullable: annotation.nullable ?? config.nullable,
-    useWrappers: annotation.useWrappers ?? config.useWrappers,
   );
 }
 
@@ -137,8 +142,9 @@ Map<FieldElement, dynamic> enumFieldsMap(DartType targetType) {
       if (valueReader.isString || valueReader.isNull || valueReader.isInt) {
         fieldValue = valueReader.literalValue;
       } else {
+        final targetTypeCode = typeToCode(targetType);
         throw InvalidGenerationSourceError(
-            'The `JsonValue` annotation on `$targetType.${fe.name}` does '
+            'The `JsonValue` annotation on `$targetTypeCode.${fe.name}` does '
             'not have a value of type String, int, or null.',
             element: fe);
       }
@@ -245,4 +251,11 @@ String _getHexLiteral(String input) {
   final rune = input.runes.single;
   final value = rune.toRadixString(16).toUpperCase().padLeft(2, '0');
   return '\\x$value';
+}
+
+extension DartTypeExtension on DartType {
+  bool isAssignableTo(DartType other) =>
+      // If the library is `null`, treat it like dynamic => `true`
+      element.library == null ||
+      element.library.typeSystem.isAssignableTo(this, other);
 }

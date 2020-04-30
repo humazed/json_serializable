@@ -6,12 +6,13 @@
 import 'dart:collection';
 
 import 'package:json_annotation/json_annotation.dart';
+
 import 'json_test_common.dart';
 
-part 'json_test_example.g_use_wrappers.g.dart';
+part 'json_test_example.g_any_map.g.dart';
 
 @JsonSerializable(
-  useWrappers: true,
+  anyMap: true,
 )
 class Person {
   final String firstName, middleName, lastName;
@@ -45,7 +46,7 @@ class Person {
 }
 
 @JsonSerializable(
-  useWrappers: true,
+  anyMap: true,
 )
 class Order {
   /// Used to test that `disallowNullValues: true` forces `includeIfNull: false`
@@ -64,7 +65,11 @@ class Order {
   Uri homepage;
 
   @JsonKey(
-      name: 'status_code', defaultValue: StatusCode.success, nullable: true)
+    name: 'status_code',
+    defaultValue: StatusCode.success,
+    nullable: true,
+    unknownEnumValue: StatusCode.unknown,
+  )
   StatusCode statusCode;
 
   @JsonKey(ignore: true)
@@ -98,7 +103,7 @@ class Order {
 }
 
 @JsonSerializable(
-  useWrappers: true,
+  anyMap: true,
 )
 class Item extends ItemCore {
   @JsonKey(includeIfNull: false, name: 'item-number')
@@ -121,7 +126,7 @@ class Item extends ItemCore {
 }
 
 @JsonSerializable(
-  useWrappers: true,
+  anyMap: true,
 )
 class Numbers {
   List<int> ints;
@@ -153,4 +158,29 @@ class Numbers {
       deepEquals(nnDoubles, other.nnDoubles) &&
       deepEquals(duration, other.duration) &&
       deepEquals(date, other.date);
+}
+
+@JsonSerializable(
+  anyMap: true,
+)
+class MapKeyVariety {
+  Map<int, int> intIntMap;
+  Map<Uri, int> uriIntMap;
+  Map<DateTime, int> dateTimeIntMap;
+  Map<BigInt, int> bigIntMap;
+
+  MapKeyVariety();
+
+  factory MapKeyVariety.fromJson(Map<String, dynamic> json) =>
+      _$MapKeyVarietyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MapKeyVarietyToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      other is MapKeyVariety &&
+      deepEquals(other.intIntMap, intIntMap) &&
+      deepEquals(other.uriIntMap, uriIntMap) &&
+      deepEquals(other.dateTimeIntMap, dateTimeIntMap) &&
+      deepEquals(other.bigIntMap, bigIntMap);
 }

@@ -11,17 +11,13 @@ StrictKeysObject _$StrictKeysObjectFromJson(Map json) {
       allowedKeys: const ['value', 'custom_field'],
       requiredKeys: const ['value', 'custom_field']);
   return StrictKeysObject(
-      json['value'] != null && json['value']?.toString()?.isNotEmpty == true
-          ? int.tryParse(json['value'].toString()) ??
-              (throw FormatException(
-                  "The expected type: `int` but the recived value is ${json['value']} in json['value']"))
-          : null,
-      json['custom_field']?.toString());
+    json['value'] as int,
+    json['custom_field'] as String,
+  );
 }
 
-abstract class _$StrictKeysObjectSerializerMixin {
-  int get value;
-  String get customField;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'value': value, 'custom_field': customField};
-}
+Map<String, dynamic> _$StrictKeysObjectToJson(StrictKeysObject instance) =>
+    <String, dynamic>{
+      'value': instance.value,
+      'custom_field': instance.customField,
+    };

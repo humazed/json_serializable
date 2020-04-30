@@ -30,17 +30,6 @@ abstract class TypeHelperContext {
   void addMember(String memberContent);
 }
 
-abstract class TypeHelperContextWithEmptyCollectionLogic
-    extends TypeHelperContext {
-  /// Returns `true` if `this` is being used in the first (or "root") invocation
-  /// of a [TypeHelper.serialize] or [TypeHelper.deserialize] call.
-  bool get skipEncodingEmptyCollection;
-
-  static bool isSkipEncodingEmptyCollection(TypeHelperContext context) =>
-      context is TypeHelperContextWithEmptyCollectionLogic &&
-      context.skipEncodingEmptyCollection;
-}
-
 /// Extended context information with includes configuration values
 /// corresponding to `JsonSerializableGenerator` settings.
 abstract class TypeHelperContextWithConfig extends TypeHelperContext {
@@ -93,41 +82,8 @@ abstract class TypeHelper<T extends TypeHelperContext> {
   Object deserialize(DartType targetType, String expression, T context);
 }
 
-class LambdaResult {
-  final String expression;
-  final String lambda;
-
-  LambdaResult(this.expression, this.lambda);
-
-  @override
-  String toString() => '$lambda($expression)';
-
-  static String process(Object subField, String closureArg) =>
-      (subField is LambdaResult && closureArg == subField.expression)
-          ? subField.lambda
-          : '($closureArg) => $subField';
-}
-
-class UnsupportedTypeError extends Error {
-  final String expression;
-  final DartType type;
-  final String reason;
-
-  UnsupportedTypeError(this.type, this.expression, this.reason);
-}
-
 Object commonNullPrefix(
         bool nullable, String expression, Object unsafeExpression) =>
     nullable
         ? '$expression == null ? null : $unsafeExpression'
         : unsafeExpression;
-
-/// Returns `true` if [context] represents a field where
-/// `encodeEmptyCollection` is `false` and the caller is running on the
-/// "root" value and not for a nested type.
-///
-/// This ensures we don't add wrapper functions for the nested lists within
-/// `Map<String, List<String>`, for instance.
-bool encodeEmptyAsNullRoot(TypeHelperContext context) =>
-    TypeHelperContextWithEmptyCollectionLogic.isSkipEncodingEmptyCollection(
-        context);

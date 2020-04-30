@@ -5,11 +5,11 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:build/build.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'json_literal_generator.dart';
-import 'shared_checkers.dart';
 import 'utils.dart';
 
 final _jsonKeyExpando = Expando<JsonKey>();
@@ -17,17 +17,42 @@ final _jsonKeyExpando = Expando<JsonKey>();
 JsonKey jsonKeyForField(FieldElement field, JsonSerializable classAnnotation) =>
     _jsonKeyExpando[field] ??= _from(field, classAnnotation);
 
+/// Will log "info" if [element] has an explicit value for [JsonKey.nullable]
+/// telling the programmer that it will be ignored.
+void logFieldWithConversionFunction(FieldElement element) {
+  final jsonKey = _jsonKeyExpando[element];
+  if (_explicitNullableExpando[jsonKey] ?? false) {
+    log.info(
+      'The `JsonKey.nullable` value on '
+      '`${element.enclosingElement.name}.${element.name}` will be ignored '
+      'because a custom conversion function is being used.',
+    );
+
+    _explicitNullableExpando[jsonKey] = null;
+  }
+}
+
 JsonKey _from(FieldElement element, JsonSerializable classAnnotation) {
   // If an annotation exists on `element` the source is a 'real' field.
   // If the result is `null`, check the getter – it is a property.
   // TODO(kevmoo) setters: github.com/dart-lang/json_serializable/issues/24
   final obj = jsonKeyAnnotation(element);
 
-  if (obj == null) {
-    return _populateJsonKey(classAnnotation, element);
+  if (obj.isNull) {
+    return _populateJsonKey(
+      classAnnotation,
+      element,
+      ignore: classAnnotation.ignoreUnannotated,
+    );
   }
 
-  Object _getLiteral(DartObject dartObject, Iterable<String> things) {
+  /// Returns a literal value for [dartObject] if possible, otherwise throws
+  /// an [InvalidGenerationSourceError] using [typeInformation] to describe
+  /// the unsupported type.
+  Object literalForObject(
+    DartObject dartObject,
+    Iterable<String> typeInformation,
+  ) {
     if (dartObject.isNull) {
       return null;
     }
@@ -43,11 +68,11 @@ JsonKey _from(FieldElement element, JsonSerializable classAnnotation) {
       // TODO(kevmoo): Support calling function for the default value?
       badType = 'Function';
     } else if (!reader.isLiteral) {
-      badType = dartObject.type.name;
+      badType = dartObject.type.element.name;
     }
 
     if (badType != null) {
-      badType = things.followedBy([badType]).join(' > ');
+      badType = typeInformation.followedBy([badType]).join(' > ');
       throwUnsupported(
           element, '`defaultValue` is `$badType`, it must be a literal.');
     }
@@ -57,16 +82,27 @@ JsonKey _from(FieldElement element, JsonSerializable classAnnotation) {
     if (literal is num || literal is String || literal is bool) {
       return literal;
     } else if (literal is List<DartObject>) {
-      return literal
-          .map((e) => _getLiteral(e, things.followedBy(['List'])))
-          .toList();
+      return [
+        for (var e in literal)
+          literalForObject(e, [
+            ...typeInformation,
+            'List',
+          ])
+      ];
     } else if (literal is Map<DartObject, DartObject>) {
-      final mapThings = things.followedBy(['Map']);
-      return literal.map((k, v) =>
-          MapEntry(_getLiteral(k, mapThings), _getLiteral(v, mapThings)));
+      final mapTypeInformation = [
+        ...typeInformation,
+        'Map',
+      ];
+      return literal.map(
+        (k, v) => MapEntry(
+          literalForObject(k, mapTypeInformation),
+          literalForObject(v, mapTypeInformation),
+        ),
+      );
     }
 
-    badType = things.followedBy(['$dartObject']).join(' > ');
+    badType = typeInformation.followedBy(['$dartObject']).join(' > ');
 
     throwUnsupported(
         element,
@@ -75,42 +111,61 @@ JsonKey _from(FieldElement element, JsonSerializable classAnnotation) {
         'Please rerun your build with `--verbose` and file an issue.');
   }
 
-  final defaultValueObject = obj.getField('defaultValue');
+  /// Returns a literal object representing the value of [fieldName] in [obj].
+  ///
+  /// If [mustBeEnum] is `true`, throws an [InvalidGenerationSourceError] if
+  /// either the annotated field is not an `enum` or if the value in
+  /// [fieldName] is not an `enum` value.
+  Object _annotationValue(String fieldName, {bool mustBeEnum = false}) {
+    final annotationValue = obj.read(fieldName);
 
-  Object defaultValueLiteral;
+    final enumFields = annotationValue.isNull
+        ? null
+        : iterateEnumFields(annotationValue.objectValue.type);
+    if (enumFields != null) {
+      if (mustBeEnum && !isEnum(element.type)) {
+        throwUnsupported(
+          element,
+          '`$fieldName` can only be set on fields of type enum.',
+        );
+      }
+      final enumValueNames =
+          enumFields.map((p) => p.name).toList(growable: false);
 
-  final enumFields = iterateEnumFields(defaultValueObject.type);
-  if (enumFields != null) {
-    final enumValueNames =
-        enumFields.map((p) => p.name).toList(growable: false);
+      final enumValueName = enumValueForDartObject<String>(
+          annotationValue.objectValue, enumValueNames, (n) => n);
 
-    final enumValueName = enumValueForDartObject<String>(
-        defaultValueObject, enumValueNames, (n) => n);
-
-    defaultValueLiteral = '${defaultValueObject.type.name}.$enumValueName';
-  } else {
-    defaultValueLiteral = _getLiteral(defaultValueObject, []);
-    if (defaultValueLiteral != null) {
-      defaultValueLiteral = jsonLiteralAsDart(defaultValueLiteral);
+      return '${annotationValue.objectValue.type.element.name}.$enumValueName';
+    } else {
+      final defaultValueLiteral = annotationValue.isNull
+          ? null
+          : literalForObject(annotationValue.objectValue, []);
+      if (defaultValueLiteral == null) {
+        return null;
+      }
+      if (mustBeEnum) {
+        throwUnsupported(
+          element,
+          'The value provided for `$fieldName` must be a matching enum.',
+        );
+      }
+      return jsonLiteralAsDart(defaultValueLiteral);
     }
   }
 
   return _populateJsonKey(
     classAnnotation,
     element,
-    defaultValue: defaultValueLiteral,
-    disallowNullValue: obj.getField('disallowNullValue').toBoolValue(),
-    encodeEmptyCollection: obj.getField('encodeEmptyCollection').toBoolValue(),
-    ignore: obj.getField('ignore').toBoolValue(),
-    includeIfNull: obj.getField('includeIfNull').toBoolValue(),
-    name: obj.getField('name').toStringValue(),
-    nullable: obj.getField('nullable').toBoolValue(),
-    required: obj.getField('required').toBoolValue(),
+    defaultValue: _annotationValue('defaultValue'),
+    disallowNullValue: obj.read('disallowNullValue').literalValue as bool,
+    ignore: obj.read('ignore').literalValue as bool,
+    includeIfNull: obj.read('includeIfNull').literalValue as bool,
+    name: obj.read('name').literalValue as String,
+    nullable: obj.read('nullable').literalValue as bool,
+    required: obj.read('required').literalValue as bool,
+    unknownEnumValue: _annotationValue('unknownEnumValue', mustBeEnum: true),
   );
 }
-
-const _iterableOrMapChecker =
-    TypeChecker.any([coreIterableTypeChecker, coreMapTypeChecker]);
 
 JsonKey _populateJsonKey(
   JsonSerializable classAnnotation,
@@ -122,7 +177,7 @@ JsonKey _populateJsonKey(
   String name,
   bool nullable,
   bool required,
-  bool encodeEmptyCollection,
+  Object unknownEnumValue,
 }) {
   if (disallowNullValue == true) {
     if (includeIfNull == true) {
@@ -133,37 +188,7 @@ JsonKey _populateJsonKey(
     }
   }
 
-  if (encodeEmptyCollection == null) {
-    // If set on the class, but not set on the field – set the key to false
-    // iif the type is compatible.
-    if (_iterableOrMapChecker.isAssignableFromType(element.type) &&
-        !classAnnotation.encodeEmptyCollection) {
-      encodeEmptyCollection = false;
-    } else {
-      encodeEmptyCollection = true;
-    }
-  } else if (encodeEmptyCollection == false &&
-      !_iterableOrMapChecker.isAssignableFromType(element.type)) {
-    // If explicitly set of the field, throw an error if the type is not a
-    // compatible type.
-    throwUnsupported(
-      element,
-      '`encodeEmptyCollection: false` is only valid fields of type '
-      'Iterable, List, Set, or Map.',
-    );
-  }
-
-  if (!encodeEmptyCollection) {
-    if (includeIfNull == true) {
-      throwUnsupported(
-        element,
-        'Cannot set `encodeEmptyCollection: false` if `includeIfNull: true`.',
-      );
-    }
-    includeIfNull = false;
-  }
-
-  return JsonKey(
+  final jsonKey = JsonKey(
     defaultValue: defaultValue,
     disallowNullValue: disallowNullValue ?? false,
     ignore: ignore ?? false,
@@ -172,9 +197,15 @@ JsonKey _populateJsonKey(
     name: _encodedFieldName(classAnnotation, name, element),
     nullable: nullable ?? classAnnotation.nullable,
     required: required ?? false,
-    encodeEmptyCollection: encodeEmptyCollection,
+    unknownEnumValue: unknownEnumValue,
   );
+
+  _explicitNullableExpando[jsonKey] = nullable != null;
+
+  return jsonKey;
 }
+
+final _explicitNullableExpando = Expando<bool>('explicit nullable');
 
 String _encodedFieldName(JsonSerializable classAnnotation,
     String jsonKeyNameValue, FieldElement fieldElement) {
@@ -184,15 +215,21 @@ String _encodedFieldName(JsonSerializable classAnnotation,
 
   switch (classAnnotation.fieldRename) {
     case FieldRename.none:
-      // noop
-      break;
+      return fieldElement.name;
     case FieldRename.snake:
       return snakeCase(fieldElement.name);
     case FieldRename.kebab:
       return kebabCase(fieldElement.name);
+    case FieldRename.pascal:
+      return pascalCase(fieldElement.name);
   }
 
-  return fieldElement.name;
+  throw ArgumentError.value(
+    classAnnotation,
+    'classAnnotation',
+    'The provided `fieldRename` (${classAnnotation.fieldRename}) is not '
+        'supported.',
+  );
 }
 
 bool _includeIfNull(

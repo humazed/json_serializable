@@ -6,14 +6,9 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:source_gen/source_gen.dart' show TypeChecker;
 
 import '../constants.dart';
+import '../lambda_result.dart';
 import '../shared_checkers.dart';
 import '../type_helper.dart';
-
-const _helperFunctionDefinition =
-    '''T $_helperName<T extends Iterable>(T source) =>
-    (source == null || source.isEmpty) ? null : source;''';
-
-const _helperName = r'_$nullIfEmptyIterable';
 
 class IterableHelper extends TypeHelper<TypeHelperContextWithConfig> {
   const IterableHelper();
@@ -33,28 +28,13 @@ class IterableHelper extends TypeHelper<TypeHelperContextWithConfig> {
     var isList = _coreListChecker.isAssignableFromType(targetType);
     final subField = context.serialize(itemType, closureArg);
 
-    final contextNullable = context.nullable || encodeEmptyAsNullRoot(context);
-
-    final optionalQuestion = contextNullable ? '?' : '';
-
-    if (encodeEmptyAsNullRoot(context)) {
-      context.addMember(_helperFunctionDefinition);
-      expression = '$_helperName($expression)';
-    }
+    final optionalQuestion = context.nullable ? '?' : '';
 
     // In the case of trivial JSON types (int, String, etc), `subField`
     // will be identical to `substitute` – so no explicit mapping is needed.
     // If they are not equal, then we to write out the substitution.
     if (subField != closureArg) {
       final lambda = LambdaResult.process(subField, closureArg);
-      if (context.config.useWrappers && isList) {
-        var method = '\$wrapList';
-        if (contextNullable) {
-          method = '${method}HandleNull';
-        }
-
-        return '$method<$itemType>($expression, $lambda)';
-      }
 
       expression = '$expression$optionalQuestion.map($lambda)';
 
@@ -116,5 +96,5 @@ class IterableHelper extends TypeHelper<TypeHelperContextWithConfig> {
   }
 }
 
-final _coreListChecker = const TypeChecker.fromUrl('dart:core#List');
-final _coreSetChecker = const TypeChecker.fromUrl('dart:core#Set');
+const _coreListChecker = TypeChecker.fromUrl('dart:core#List');
+const _coreSetChecker = TypeChecker.fromUrl('dart:core#Set');

@@ -7,14 +7,11 @@ import 'package:analyzer/dart/element/type.dart';
 import '../constants.dart';
 import '../shared_checkers.dart';
 import '../type_helper.dart';
+import '../unsupported_type_error.dart';
 import '../utils.dart';
+import 'to_from_string.dart';
 
 const _keyParam = 'k';
-
-const _helperFunctionDefinition = '''T $_helperName<T extends Map>(T source) =>
-    (source == null || source.isEmpty) ? null : source;''';
-
-const _helperName = r'_$nullIfEmptyMap';
 
 class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
   const MapHelper();
@@ -34,33 +31,19 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
     _checkSafeKeyType(expression, keyType);
 
     final subFieldValue = context.serialize(valueType, closureArg);
-    final subKeyValue = context.serialize(keyType, _keyParam);
-
-    final contextNullable = context.nullable || encodeEmptyAsNullRoot(context);
-
-    if (encodeEmptyAsNullRoot(context)) {
-      context.addMember(_helperFunctionDefinition);
-      expression = '$_helperName($expression)';
-    }
+    final subKeyValue =
+        _forType(keyType)?.serialize(keyType, _keyParam, false) ??
+            context.serialize(keyType, _keyParam);
 
     if (closureArg == subFieldValue && _keyParam == subKeyValue) {
       return expression;
     }
 
-    if (context.config.useWrappers) {
-      var method = '\$wrapMap';
-      if (contextNullable) {
-        method = '${method}HandleNull';
-      }
-
-      final lambda = LambdaResult.process(subFieldValue, closureArg);
-      return '$method<$keyType, $valueType>($expression, $lambda)';
-    }
-
-    final optionalQuestion = contextNullable ? '?' : '';
+    final optionalQuestion = context.nullable ? '?' : '';
 
     return '$expression$optionalQuestion'
-        '.map(($_keyParam, $closureArg) => MapEntry($subKeyValue, $subFieldValue))';
+        '.map(($_keyParam, $closureArg) => '
+        'MapEntry($subKeyValue, $subFieldValue))';
   }
 
   @override
@@ -78,17 +61,17 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
     _checkSafeKeyType(expression, keyArg);
 
     final valueArgIsAny = _isObjectOrDynamic(valueArg);
-    final isEnumKey = isEnum(keyArg);
+    final isKeyStringable = _isKeyStringable(keyArg);
 
-    if (!isEnumKey) {
+    if (!isKeyStringable) {
       if (valueArgIsAny) {
         if (context.config.anyMap) {
           if (_isObjectOrDynamic(keyArg)) {
             return '$expression as Map';
           }
         } else {
-          // this is the trivial case. Do a runtime cast to the known type of JSON
-          // map values - `Map<String, dynamic>`
+          // this is the trivial case. Do a runtime cast to the known type of
+          // JSON map values - `Map<String, dynamic>`
           return '$expression as Map<String, dynamic>';
         }
       }
@@ -112,7 +95,7 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
         context.config.anyMap ? 'as Map' : 'as Map<String, dynamic>';
 
     String keyUsage;
-    if (isEnumKey) {
+    if (isEnum(keyArg)) {
       keyUsage = context.deserialize(keyArg, _keyParam).toString();
     } else if (context.config.anyMap && !_isObjectOrDynamic(keyArg)) {
       keyUsage = '$_keyParam as String';
@@ -120,22 +103,57 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
       keyUsage = _keyParam;
     }
 
-    return '($expression $mapCast)$optionalQuestion.map('
+    final toFromString = _forType(keyArg);
+    if (toFromString != null) {
+      keyUsage = toFromString.deserialize(keyArg, keyUsage, false, true);
+    }
+
+    return '($expression $mapCast)$optionalQuestion.map( '
         '($_keyParam, $closureArg) => MapEntry($keyUsage, $itemSubVal),)';
   }
 }
 
+final _intString = ToFromStringHelper('int.parse', 'toString()', 'int');
+
+/// [ToFromStringHelper] instances representing non-String types that can
+/// be used as [Map] keys.
+final _instances = [
+  bigIntString,
+  dateTimeString,
+  _intString,
+  uriString,
+];
+
+ToFromStringHelper _forType(DartType type) =>
+    _instances.singleWhere((i) => i.matches(type), orElse: () => null);
+
 bool _isObjectOrDynamic(DartType type) => type.isObject || type.isDynamic;
+
+/// Returns `true` if [keyType] can be automatically converted to/from String –
+/// and is therefor usable as a key in a [Map].
+bool _isKeyStringable(DartType keyType) =>
+    isEnum(keyType) || _instances.any((inst) => inst.matches(keyType));
 
 void _checkSafeKeyType(String expression, DartType keyArg) {
   // We're not going to handle converting key types at the moment
   // So the only safe types for key are dynamic/Object/String/enum
   final safeKey = _isObjectOrDynamic(keyArg) ||
       coreStringTypeChecker.isExactlyType(keyArg) ||
-      isEnum(keyArg);
+      _isKeyStringable(keyArg);
 
   if (!safeKey) {
     throw UnsupportedTypeError(keyArg, expression,
-        'Map keys must be of type `String`, enum, `Object` or `dynamic`.');
+        'Map keys must be one of: ${_allowedTypeNames.join(', ')}.');
   }
 }
+
+/// The names of types that can be used as [Map] keys.
+///
+/// Used in [_checkSafeKeyType] to provide a helpful error with unsupported
+/// types.
+Iterable<String> get _allowedTypeNames => const [
+      'Object',
+      'dynamic',
+      'enum',
+      'String',
+    ].followedBy(_instances.map((i) => i.coreTypeName));

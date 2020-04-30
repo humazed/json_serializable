@@ -1,9 +1,30 @@
+## 3.0.1
+
+- Require at least Dart `2.6.0`.
+- Fix lint that was affecting `pub.dev` score.
+
+## 3.0.0
+
+- **BREAKING** Removed `JsonSerializable.useWrappers` and associated
+  `$`-prefixed helpers.
+- **BREAKING** Removed `JsonSerializable.generateToJsonFunction`.
+- **BREAKING** Removed `encodeEmptyCollection` from `JsonSerializable` and
+  `JsonKey`.
+- Added `JsonSerializable.ignoreUnannotated`.
+- Added `JsonKey.unknownEnumValue`.
+- Require at least Dart `2.3.0`.
+
+## 2.4.0
+
+- Deprecate members that will be removed in `json_annotation` `3.0.0` and that
+  are not supported in `json_serializable` `3.0.0`.
+  - `JsonSerializable.useWrappers` and associated `$`-prefixed helpers
+  - `JsonSerializable.generateToJsonFunction`,
+  - `encodeEmptyCollection` from `JsonSerializable` and `JsonKey`.
+
 ## 2.3.0
 
-- updated deps.
-
-## 2.2.1
-
+- Added `pascal` as an additional `fieldRename` option.
 - Require at least Dart `2.2.0`.
 
 ## 2.2.0

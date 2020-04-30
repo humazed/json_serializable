@@ -39,8 +39,10 @@ class _DocBuilder extends Builder {
     final descriptionMap = <String, _FieldInfo>{};
 
     for (var className in _annotationClasses) {
-      for (var fe
-          in lib.findType(className).fields.where((fe) => !fe.isStatic)) {
+      for (var fe in lib
+          .findType(className)
+          .fields
+          .where((fe) => !fe.isStatic && !fe.hasDeprecated)) {
         descriptionMap[fe.name] =
             _FieldInfo.update(fe, descriptionMap[fe.name]);
       }
@@ -48,20 +50,18 @@ class _DocBuilder extends Builder {
 
     final buffer = StringBuffer();
 
-    final rows = <List<String>>[];
-
-    rows.add(['`build.yaml` key', _jsonSerializable, _jsonKey]);
-    rows.add(['-', '-', '-']);
-
     final sortedValues = descriptionMap.values.toList()..sort();
 
-    for (var info in sortedValues) {
-      rows.add([
-        info.buildKey,
-        info.classAnnotationName,
-        info.fieldAnnotationName,
-      ]);
-    }
+    final rows = <List<String>>[
+      ['`build.yaml` key', _jsonSerializable, _jsonKey],
+      ['-', '-', '-'],
+      for (var info in sortedValues)
+        [
+          info.buildKey,
+          info.classAnnotationName,
+          info.fieldAnnotationName,
+        ],
+    ];
 
     final longest = List<int>.generate(rows.first.length, (_) => 0);
     for (var row in rows) {
@@ -112,7 +112,7 @@ String _anchorUriForName(String owner, String name) => '[$owner.$name]';
 
 String _link(String version, String owner, String name) =>
     '${_anchorUriForName(owner, name)}: '
-    'https://pub.dartlang.org/documentation/json_annotation/$version/'
+    'https://pub.dev/documentation/json_annotation/$version/'
     'json_annotation/$owner/$name.html';
 
 class _FieldInfo implements Comparable<_FieldInfo> {

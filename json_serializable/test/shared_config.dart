@@ -16,11 +16,9 @@ final generatorConfigNonDefaultJson =
   createFactory: false,
   createToJson: false,
   disallowUnrecognizedKeys: true,
-  encodeEmptyCollection: false,
   explicitToJson: true,
   fieldRename: FieldRename.kebab,
-  generateToJsonFunction: false,
+  ignoreUnannotated: true,
   includeIfNull: false,
   nullable: false,
-  useWrappers: true,
 ).toJson());

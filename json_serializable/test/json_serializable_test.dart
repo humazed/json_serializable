@@ -3,13 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-import 'package:json_annotation/json_annotation.dart';
 import 'package:json_serializable/json_serializable.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_gen_test/source_gen_test.dart';
 import 'package:test/test.dart';
 
-void main() async {
+Future<void> main() async {
   initializeBuildLogTracking();
   final reader = await initializeLibraryReaderForDirectory(
     p.join('test', 'src'),
@@ -19,13 +18,6 @@ void main() async {
   testAnnotatedElements(
     reader,
     const JsonSerializableGenerator(),
-    additionalGenerators: const {
-      'wrapped': JsonSerializableGenerator(
-        config: JsonSerializable(useWrappers: true),
-      ),
-      'mixin': JsonSerializableGenerator(
-          config: JsonSerializable(generateToJsonFunction: false)),
-    },
     expectedAnnotatedTests: _expectedAnnotatedTests,
   );
 }
@@ -37,6 +29,7 @@ const _expectedAnnotatedTests = [
   'BadOneNamed',
   'BadToFuncReturnType',
   'BadTwoRequiredPositional',
+  'DefaultDoubleConstants',
   'DefaultWithConstObject',
   'DefaultWithDisallowNullRequiredClass',
   'DefaultWithFunction',
@@ -48,25 +41,20 @@ const _expectedAnnotatedTests = [
   'DefaultWithType',
   'DupeKeys',
   'DynamicConvertMethods',
-  'EmptyCollectionAsNullAndIncludeIfNullClass',
-  'EmptyCollectionAsNullAndIncludeIfNullField',
-  'EncodeEmptyCollectionAsNullOnField',
-  'EncodeEmptyCollectionAsNullOnNonCollectionField',
   'FieldNamerKebab',
   'FieldNamerNone',
+  'FieldNamerPascal',
   'FieldNamerSnake',
   'FieldWithFromJsonCtorAndTypeParams',
   'FinalFields',
   'FinalFieldsNotSetInCtor',
   'FromDynamicCollection',
   'GeneralTestClass1',
-  'GeneralTestClass1',
   'GeneralTestClass2',
-  'GenericClass',
-  'GenericClass',
   'GenericClass',
   'IgnoredFieldClass',
   'IgnoredFieldCtorClass',
+  'IgnoreUnannotated',
   'IncludeIfNullDisallowNullClass',
   'IncludeIfNullOverride',
   'InvalidFromFunc2Args',
@@ -74,6 +62,7 @@ const _expectedAnnotatedTests = [
   'JsonConverterCtorParams',
   'JsonConverterDuplicateAnnotations',
   'JsonConverterNamedCtor',
+  'JsonConverterOnGetter',
   'JsonConverterWithBadTypeArg',
   'JsonConvertOnField',
   'JsonValueValid',
@@ -82,6 +71,7 @@ const _expectedAnnotatedTests = [
   'JustSetterNoFromJson',
   'JustSetterNoToJson',
   'KeyDupesField',
+  'MapKeyVariety',
   'NoCtorClass',
   'NoDeserializeBadKey',
   'NoDeserializeFieldType',
@@ -95,21 +85,17 @@ const _expectedAnnotatedTests = [
   'PrivateFieldCtorClass',
   'PropInMixinI448Regression',
   'SetSupport',
-  'SubType',
+  'SubclassedJsonKey',
   'SubType',
   'SubTypeWithAnnotatedFieldOverrideExtends',
   'SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides',
   'SubTypeWithAnnotatedFieldOverrideImplements',
   'theAnswer',
-  'ToJsonIncludeIfNullFalseWrapped',
   'ToJsonNullableFalseIncludeIfNullFalse',
-  'ToJsonNullableFalseIncludeIfNullFalseWrapped',
   'TypedConvertMethods',
-  'UnknownCtorParamType',
-  'UnknownFieldType',
-  'UnknownFieldTypeToJsonOnly',
-  'UnknownFieldTypeWithConvert',
-  'UnknownFieldTypeWithConvert',
+  'UnknownEnumValue',
+  'UnknownEnumValueNotEnumValue',
+  'UnknownEnumValueNotEnumField',
   'UnsupportedDateTimeField',
   'UnsupportedDurationField',
   'UnsupportedListField',

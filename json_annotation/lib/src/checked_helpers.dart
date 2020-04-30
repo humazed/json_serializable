@@ -8,7 +8,7 @@ import 'allowed_keys_helpers.dart';
 /// `JsonSerializableGenerator.checked` is `true`.
 ///
 /// Should not be used directly.
-T $checkedNew<T>(String className, Map map, T constructor(),
+T $checkedNew<T>(String className, Map map, T Function() constructor,
     {Map<String, String> fieldKeyMap}) {
   fieldKeyMap ??= const {};
 
@@ -37,7 +37,7 @@ T $checkedNew<T>(String className, Map map, T constructor(),
 /// `JsonSerializableGenerator.checked` is `true`.
 ///
 /// Should not be used directly.
-T $checkedConvert<T>(Map map, String key, T castFunc(Object value)) {
+T $checkedConvert<T>(Map map, String key, T Function(Object) castFunc) {
   try {
     return castFunc(map[key]);
   } on CheckedFromJsonException {
@@ -121,20 +121,11 @@ class CheckedFromJsonException implements Exception {
   }
 
   @override
-  String toString() {
-    final lines = <String>['CheckedFromJsonException'];
-
-    if (_className != null) {
-      lines.add('Could not create `$_className`.');
-    }
-    if (key != null) {
-      lines.add('There is a problem with "$key".');
-    }
-    if (message != null) {
-      lines.add(message);
-    } else if (innerError != null) {
-      lines.add(innerError.toString());
-    }
-    return lines.join('\n');
-  }
+  String toString() => <String>[
+        'CheckedFromJsonException',
+        if (_className != null) 'Could not create `$_className`.',
+        if (key != null) 'There is a problem with "$key".',
+        if (message != null) message,
+        if (message == null && innerError != null) innerError.toString(),
+      ].join('\n');
 }

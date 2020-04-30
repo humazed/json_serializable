@@ -21,11 +21,13 @@ part 'inheritance_test_input.dart';
 
 part 'json_converter_test_input.dart';
 
+part 'map_key_variety_test_input.dart';
+
 part 'setter_test_input.dart';
 
 part 'to_from_json_test_input.dart';
 
-part 'unknown_type_test_input.dart';
+part 'unknown_enum_value_test_input.dart';
 
 @ShouldThrow('Generator cannot target `theAnswer`.',
     todo: 'Remove the JsonSerializable annotation from `theAnswer`.')
@@ -35,7 +37,7 @@ const theAnswer = 42;
 @ShouldThrow('Generator cannot target `annotatedMethod`.',
     todo: 'Remove the JsonSerializable annotation from `annotatedMethod`.')
 @JsonSerializable()
-void annotatedMethod() => null;
+Object annotatedMethod() => null;
 
 @ShouldGenerate(
   r'''
@@ -52,13 +54,12 @@ Map<String, dynamic> _$OnlyStaticMembersToJson(OnlyStaticMembers instance) =>
 class OnlyStaticMembers {
   // To ensure static members are not considered for serialization.
   static const answer = 42;
-  static final reason = 42;
+  static final reason = DateTime.now();
 
   static int get understand => 42;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 GeneralTestClass1 _$GeneralTestClass1FromJson(Map<String, dynamic> json) {
   return GeneralTestClass1()
     ..firstName = json['firstName'] as String
@@ -80,47 +81,9 @@ Map<String, dynamic> _$GeneralTestClass1ToJson(GeneralTestClass1 instance) =>
       'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'dynamicType': instance.dynamicType,
       'varType': instance.varType,
-      'listOfInts': instance.listOfInts
+      'listOfInts': instance.listOfInts,
     };
-''',
-  configurations: ['default'],
-)
-@ShouldGenerate(
-  r'''
-GeneralTestClass1 _$GeneralTestClass1FromJson(Map<String, dynamic> json) {
-  return GeneralTestClass1()
-    ..firstName = json['firstName'] as String
-    ..lastName = json['lastName'] as String
-    ..height = json['h'] as int
-    ..dateOfBirth = json['dateOfBirth'] == null
-        ? null
-        : DateTime.parse(json['dateOfBirth'] as String)
-    ..dynamicType = json['dynamicType']
-    ..varType = json['varType']
-    ..listOfInts = (json['listOfInts'] as List)?.map((e) => e as int)?.toList();
-}
-
-abstract class _$GeneralTestClass1SerializerMixin {
-  String get firstName;
-  String get lastName;
-  int get height;
-  DateTime get dateOfBirth;
-  dynamic get dynamicType;
-  dynamic get varType;
-  List<int> get listOfInts;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'firstName': firstName,
-        'lastName': lastName,
-        'h': height,
-        'dateOfBirth': dateOfBirth?.toIso8601String(),
-        'dynamicType': dynamicType,
-        'varType': varType,
-        'listOfInts': listOfInts
-      };
-}
-''',
-  configurations: ['mixin'],
-)
+''')
 @JsonSerializable()
 class GeneralTestClass1 {
   String firstName, lastName;
@@ -134,14 +97,15 @@ class GeneralTestClass1 {
   List<int> listOfInts;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 GeneralTestClass2 _$GeneralTestClass2FromJson(Map<String, dynamic> json) {
-  return GeneralTestClass2(json['height'] as int, json['firstName'] as String,
-      json['lastName'] as String)
-    ..dateOfBirth = json['dateOfBirth'] == null
-        ? null
-        : DateTime.parse(json['dateOfBirth'] as String);
+  return GeneralTestClass2(
+    json['height'] as int,
+    json['firstName'] as String,
+    json['lastName'] as String,
+  )..dateOfBirth = json['dateOfBirth'] == null
+      ? null
+      : DateTime.parse(json['dateOfBirth'] as String);
 }
 
 Map<String, dynamic> _$GeneralTestClass2ToJson(GeneralTestClass2 instance) =>
@@ -149,11 +113,9 @@ Map<String, dynamic> _$GeneralTestClass2ToJson(GeneralTestClass2 instance) =>
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'height': instance.height,
-      'dateOfBirth': instance.dateOfBirth?.toIso8601String()
+      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
     };
-''',
-  configurations: ['default'],
-)
+''')
 @JsonSerializable()
 class GeneralTestClass2 {
   final String firstName, lastName;
@@ -166,17 +128,18 @@ class GeneralTestClass2 {
         firstName = firstName;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 FinalFields _$FinalFieldsFromJson(Map<String, dynamic> json) {
-  return FinalFields(json['a'] as int);
+  return FinalFields(
+    json['a'] as int,
+  );
 }
 
 Map<String, dynamic> _$FinalFieldsToJson(FinalFields instance) =>
-    <String, dynamic>{'a': instance.a};
-''',
-  configurations: ['default'],
-)
+    <String, dynamic>{
+      'a': instance.a,
+    };
+''')
 @JsonSerializable()
 class FinalFields {
   final int a;
@@ -206,17 +169,18 @@ class FinalFieldsNotSetInCtor {
   FinalFieldsNotSetInCtor();
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 SetSupport _$SetSupportFromJson(Map<String, dynamic> json) {
-  return SetSupport((json['values'] as List)?.map((e) => e as int)?.toSet());
+  return SetSupport(
+    (json['values'] as List)?.map((e) => e as int)?.toSet(),
+  );
 }
 
 Map<String, dynamic> _$SetSupportToJson(SetSupport instance) =>
-    <String, dynamic>{'values': instance.values?.toList()};
-''',
-  configurations: ['default'],
-)
+    <String, dynamic>{
+      'values': instance.values?.toList(),
+    };
+''')
 @JsonSerializable()
 class SetSupport {
   final Set<int> values;
@@ -245,23 +209,25 @@ class NoDeserializeFieldType {
 }
 
 @ShouldThrow(
-  'Could not generate `toJson` code for `intDateTimeMap` because of type `int`.\n'
-  'Map keys must be of type `String`, enum, `Object` or `dynamic`.',
+  '''
+Could not generate `toJson` code for `durationDateTimeMap` because of type `Duration`.
+Map keys must be one of: Object, dynamic, enum, String, BigInt, DateTime, int, Uri.''',
   configurations: ['default'],
 )
 @JsonSerializable(createFactory: false)
 class NoSerializeBadKey {
-  Map<int, DateTime> intDateTimeMap;
+  Map<Duration, DateTime> durationDateTimeMap;
 }
 
 @ShouldThrow(
-  'Could not generate `fromJson` code for `intDateTimeMap` because of type `int`.\n'
-  'Map keys must be of type `String`, enum, `Object` or `dynamic`.',
+  '''
+Could not generate `fromJson` code for `durationDateTimeMap` because of type `Duration`.
+Map keys must be one of: Object, dynamic, enum, String, BigInt, DateTime, int, Uri.''',
   configurations: ['default'],
 )
 @JsonSerializable(createToJson: false)
 class NoDeserializeBadKey {
-  Map<int, DateTime> intDateTimeMap;
+  Map<Duration, DateTime> durationDateTimeMap;
 }
 
 @ShouldGenerate(
@@ -331,16 +297,13 @@ class DupeKeys {
   String str;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 Map<String, dynamic> _$IgnoredFieldClassToJson(IgnoredFieldClass instance) =>
     <String, dynamic>{
       'ignoredFalseField': instance.ignoredFalseField,
-      'ignoredNullField': instance.ignoredNullField
+      'ignoredNullField': instance.ignoredNullField,
     };
-''',
-  configurations: ['default'],
-)
+''')
 @JsonSerializable(createFactory: false)
 class IgnoredFieldClass {
   @JsonKey(ignore: true)
@@ -373,7 +336,7 @@ class IgnoredFieldCtorClass {
 @JsonSerializable()
 class PrivateFieldCtorClass {
   // ignore: unused_field
-  int _privateField;
+  final int _privateField;
 
   PrivateFieldCtorClass(this._privateField);
 }
@@ -405,12 +368,12 @@ enum BadEnum {
   value
 }
 
-@ShouldGenerate(r'''const _$GoodEnumEnumMap = <GoodEnum, dynamic>{
+@ShouldGenerate(r'''const _$GoodEnumEnumMap = {
   GoodEnum.noAnnotation: 'noAnnotation',
   GoodEnum.stringAnnotation: 'string annotation',
   GoodEnum.stringAnnotationWeird: r"string annotation with $ funky 'values'",
   GoodEnum.intValue: 42,
-  GoodEnum.nullValue: null
+  GoodEnum.nullValue: null,
 };
 ''', contains: true)
 @JsonSerializable()
@@ -472,100 +435,12 @@ class MyList<T, Q> extends ListBase<T> {
   }
 }
 
-@ShouldGenerate(
-  r'''
-EncodeEmptyCollectionAsNullOnField _$EncodeEmptyCollectionAsNullOnFieldFromJson(
-    Map<String, dynamic> json) {
-  return EncodeEmptyCollectionAsNullOnField()..field = json['field'] as List;
-}
-
-Map<String, dynamic> _$EncodeEmptyCollectionAsNullOnFieldToJson(
-    EncodeEmptyCollectionAsNullOnField instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('field', _$nullIfEmptyIterable(instance.field));
-  return val;
-}
-
-T _$nullIfEmptyIterable<T extends Iterable>(T source) =>
-    (source == null || source.isEmpty) ? null : source;
-''',
-  configurations: ['default'],
-)
-@JsonSerializable()
-class EncodeEmptyCollectionAsNullOnField {
-  @JsonKey(encodeEmptyCollection: false)
-  List field;
-}
-
-@ShouldThrow(
-  'Error with `@JsonKey` on `field`. `encodeEmptyCollection: false` is only '
-  'valid fields of type Iterable, List, Set, or Map.',
-  element: 'field',
-)
-@JsonSerializable()
-class EncodeEmptyCollectionAsNullOnNonCollectionField {
-  @JsonKey(encodeEmptyCollection: false)
-  int field;
-}
-
-@ShouldThrow(
-  'Error with `@JsonKey` on `field`. Cannot set `encodeEmptyCollection: false` '
-  'if `includeIfNull: true`.',
-  element: 'field',
-)
-@JsonSerializable()
-class EmptyCollectionAsNullAndIncludeIfNullField {
-  @JsonKey(encodeEmptyCollection: false, includeIfNull: true)
-  List field;
-}
-
-@ShouldGenerate(
-  r'''
-EmptyCollectionAsNullAndIncludeIfNullClass
-    _$EmptyCollectionAsNullAndIncludeIfNullClassFromJson(
-        Map<String, dynamic> json) {
-  return EmptyCollectionAsNullAndIncludeIfNullClass()
-    ..field = json['field'] as List;
-}
-
-Map<String, dynamic> _$EmptyCollectionAsNullAndIncludeIfNullClassToJson(
-    EmptyCollectionAsNullAndIncludeIfNullClass instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('field', _$nullIfEmptyIterable(instance.field));
-  return val;
-}
-
-T _$nullIfEmptyIterable<T extends Iterable>(T source) =>
-    (source == null || source.isEmpty) ? null : source;
-''',
-  configurations: ['default'],
-)
-@JsonSerializable(encodeEmptyCollection: false, includeIfNull: true)
-class EmptyCollectionAsNullAndIncludeIfNullClass {
-  List field;
-}
-
 mixin _PropInMixinI448RegressionMixin {
   @JsonKey(nullable: true)
   int nullable;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 PropInMixinI448Regression _$PropInMixinI448RegressionFromJson(
     Map<String, dynamic> json) {
   return PropInMixinI448Regression()
@@ -577,13 +452,53 @@ Map<String, dynamic> _$PropInMixinI448RegressionToJson(
         PropInMixinI448Regression instance) =>
     <String, dynamic>{
       'nullable': instance.nullable,
-      'notNullable': instance.notNullable
+      'notNullable': instance.notNullable,
     };
-''',
-  configurations: ['default'],
-)
+''')
 @JsonSerializable()
 class PropInMixinI448Regression with _PropInMixinI448RegressionMixin {
   @JsonKey(nullable: false)
   int notNullable;
+}
+
+@ShouldGenerate(
+  r'''
+IgnoreUnannotated _$IgnoreUnannotatedFromJson(Map<String, dynamic> json) {
+  return IgnoreUnannotated()..annotated = json['annotated'] as int;
+}
+
+Map<String, dynamic> _$IgnoreUnannotatedToJson(IgnoreUnannotated instance) =>
+    <String, dynamic>{
+      'annotated': instance.annotated,
+    };
+''',
+)
+@JsonSerializable(ignoreUnannotated: true)
+class IgnoreUnannotated {
+  @JsonKey()
+  int annotated;
+
+  int unannotated;
+}
+
+@ShouldGenerate(
+  r'''
+SubclassedJsonKey _$SubclassedJsonKeyFromJson(Map<String, dynamic> json) {
+  return SubclassedJsonKey()..annotatedWithSubclass = json['bob'] as int;
+}
+
+Map<String, dynamic> _$SubclassedJsonKeyToJson(SubclassedJsonKey instance) =>
+    <String, dynamic>{
+      'bob': instance.annotatedWithSubclass,
+    };
+''',
+)
+@JsonSerializable(ignoreUnannotated: true)
+class SubclassedJsonKey {
+  @MyJsonKey()
+  int annotatedWithSubclass;
+}
+
+class MyJsonKey extends JsonKey {
+  const MyJsonKey() : super(name: 'bob');
 }

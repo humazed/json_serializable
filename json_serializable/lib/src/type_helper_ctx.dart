@@ -10,6 +10,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'helper_core.dart';
 import 'type_helper.dart';
 import 'type_helpers/convert_helper.dart';
+import 'unsupported_type_error.dart';
 import 'utils.dart';
 
 TypeHelperCtx typeHelperContext(
@@ -17,10 +18,7 @@ TypeHelperCtx typeHelperContext(
     TypeHelperCtx._(helperCore, fieldElement, key);
 
 class TypeHelperCtx
-    implements
-        TypeHelperContextWithConfig,
-        TypeHelperContextWithConvert,
-        TypeHelperContextWithEmptyCollectionLogic {
+    implements TypeHelperContextWithConfig, TypeHelperContextWithConvert {
   final HelperCore _helperCore;
   final JsonKey _key;
 
@@ -53,43 +51,35 @@ class TypeHelperCtx
 
   @override
   Object serialize(DartType targetType, String expression) => _run(
-      targetType,
-      expression,
-      (TypeHelper th) => th.serialize(targetType, expression, this));
+        targetType,
+        expression,
+        (TypeHelper th) => th.serialize(targetType, expression, this),
+      );
 
   @override
   Object deserialize(DartType targetType, String expression) => _run(
-      targetType,
-      expression,
-      (TypeHelper th) => th.deserialize(targetType, expression, this));
+        targetType,
+        expression,
+        (TypeHelper th) => th.deserialize(targetType, expression, this),
+      );
 
-  Object _run(DartType targetType, String expression,
-      Object invoke(TypeHelper instance)) {
-    _depth++;
-
-    try {
-      return _helperCore.allTypeHelpers.map(invoke).firstWhere((r) => r != null,
-          orElse: () => throw UnsupportedTypeError(
-              targetType, expression, _notSupportedWithTypeHelpersMsg));
-    } finally {
-      _depth--;
-    }
-  }
-
-  int _depth = 0;
-
-  @override
-  bool get skipEncodingEmptyCollection =>
-      !_key.encodeEmptyCollection && _depth == 1;
+  Object _run(
+    DartType targetType,
+    String expression,
+    Object Function(TypeHelper) invoke,
+  ) =>
+      _helperCore.allTypeHelpers.map(invoke).firstWhere(
+            (r) => r != null,
+            orElse: () => throw UnsupportedTypeError(
+                targetType, expression, _notSupportedWithTypeHelpersMsg),
+          );
 }
 
-final _notSupportedWithTypeHelpersMsg =
+const _notSupportedWithTypeHelpersMsg =
     'None of the provided `TypeHelper` instances support the defined type.';
 
 class _ConvertPair {
   static final _expando = Expando<_ConvertPair>();
-
-  static _ConvertPair fromJsonKey(JsonKey key) => _expando[key];
 
   final ConvertData fromJson, toJson;
 
@@ -100,11 +90,11 @@ class _ConvertPair {
 
     if (pair == null) {
       final obj = jsonKeyAnnotation(element);
-      if (obj == null) {
+      if (obj.isNull) {
         pair = _ConvertPair._(null, null);
       } else {
-        final toJson = _convertData(obj, element, false);
-        final fromJson = _convertData(obj, element, true);
+        final toJson = _convertData(obj.objectValue, element, false);
+        final fromJson = _convertData(obj.objectValue, element, true);
         pair = _ConvertPair._(fromJson, toJson);
       }
       _expando[element] = pair;
@@ -117,13 +107,11 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
   final paramName = isFrom ? 'fromJson' : 'toJson';
   final objectValue = obj.getField(paramName);
 
-  if (objectValue.isNull) {
+  if (objectValue == null || objectValue.isNull) {
     return null;
   }
 
-  final type = objectValue.type as FunctionType;
-
-  final executableElement = type.element as ExecutableElement;
+  final executableElement = objectValue.toFunctionValue();
 
   if (executableElement.parameters.isEmpty ||
       executableElement.parameters.first.isNamed ||
@@ -143,10 +131,13 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
       // to the `fromJson` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!returnType.isAssignableTo(element.type)) {
+      final returnTypeCode = typeToCode(returnType);
+      final elementTypeCode = typeToCode(element.type);
       throwUnsupported(
           element,
           'The `$paramName` function `${executableElement.name}` return type '
-          '`$returnType` is not compatible with field type `${element.type}`.');
+          '`$returnTypeCode` is not compatible with field type '
+          '`$elementTypeCode`.');
     }
   } else {
     if (argType is TypeParameterType) {
@@ -154,11 +145,13 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
       // to the `fromJson` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!element.type.isAssignableTo(argType)) {
+      final argTypeCode = typeToCode(argType);
+      final elementTypeCode = typeToCode(element.type);
       throwUnsupported(
           element,
           'The `$paramName` function `${executableElement.name}` argument type '
-          '`$argType` is not compatible with field type'
-          ' `${element.type}`.');
+          '`$argTypeCode` is not compatible with field type'
+          ' `$elementTypeCode`.');
     }
   }
 

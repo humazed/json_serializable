@@ -8,6 +8,9 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
+import '../helper_core.dart';
+import '../json_key_utils.dart';
+import '../lambda_result.dart';
 import '../shared_checkers.dart';
 import '../type_helper.dart';
 
@@ -25,8 +28,9 @@ class JsonConverterHelper extends TypeHelper {
       return null;
     }
 
-    return commonNullPrefix(context.nullable, expression,
-        LambdaResult(expression, '${converter.accessString}.toJson'));
+    logFieldWithConversionFunction(context.fieldElement);
+
+    return LambdaResult(expression, '${converter.accessString}.toJson');
   }
 
   @override
@@ -39,11 +43,10 @@ class JsonConverterHelper extends TypeHelper {
 
     final asContent = asStatement(converter.jsonType);
 
-    return commonNullPrefix(
-        context.nullable,
-        expression,
-        LambdaResult(
-            '$expression$asContent', '${converter.accessString}.fromJson'));
+    logFieldWithConversionFunction(context.fieldElement);
+
+    return LambdaResult(
+        '$expression$asContent', '${converter.accessString}.fromJson');
   }
 }
 
@@ -74,7 +77,12 @@ _JsonConvertData _typeConverter(DartType targetType, TypeHelperContext ctx) {
   var matchingAnnotations = converterMatches(ctx.fieldElement.metadata);
 
   if (matchingAnnotations.isEmpty) {
-    matchingAnnotations = converterMatches(ctx.classElement.metadata);
+    matchingAnnotations =
+        converterMatches(ctx.fieldElement.getter?.metadata ?? []);
+
+    if (matchingAnnotations.isEmpty) {
+      matchingAnnotations = converterMatches(ctx.classElement.metadata);
+    }
   }
 
   return _typeConverterFrom(matchingAnnotations, targetType);
@@ -87,8 +95,9 @@ _JsonConvertData _typeConverterFrom(
   }
 
   if (matchingAnnotations.length > 1) {
+    final targetTypeCode = typeToCode(targetType);
     throw InvalidGenerationSourceError(
-        'Found more than one matching converter for `$targetType`.',
+        'Found more than one matching converter for `$targetTypeCode`.',
         element: matchingAnnotations[1].elementAnnotation.element);
   }
 
@@ -117,12 +126,19 @@ _JsonConvertData _typeConverterFrom(
   }
 
   if (match.genericTypeArg != null) {
-    return _JsonConvertData.genericClass(match.annotation.type.name,
-        match.genericTypeArg, reviver.accessor, match.jsonType);
+    return _JsonConvertData.genericClass(
+      match.annotation.type.element.name,
+      match.genericTypeArg,
+      reviver.accessor,
+      match.jsonType,
+    );
   }
 
   return _JsonConvertData.className(
-      match.annotation.type.name, reviver.accessor, match.jsonType);
+    match.annotation.type.element.name,
+    reviver.accessor,
+    match.jsonType,
+  );
 }
 
 class _ConverterMatch {
@@ -149,12 +165,12 @@ _ConverterMatch _compatibleMatch(
     return null;
   }
 
-  assert(jsonConverterSuper.typeParameters.length == 2);
+  assert(jsonConverterSuper.element.typeParameters.length == 2);
   assert(jsonConverterSuper.typeArguments.length == 2);
 
   final fieldType = jsonConverterSuper.typeArguments[0];
 
-  if (fieldType.isEquivalentTo(targetType)) {
+  if (fieldType == targetType) {
     return _ConverterMatch(
         annotation, constantValue, jsonConverterSuper.typeArguments[1], null);
   }
@@ -170,8 +186,12 @@ _ConverterMatch _compatibleMatch(
           element: converterClassElement);
     }
 
-    return _ConverterMatch(annotation, constantValue,
-        jsonConverterSuper.typeArguments[1], targetType.name);
+    return _ConverterMatch(
+      annotation,
+      constantValue,
+      jsonConverterSuper.typeArguments[1],
+      targetType.element.name,
+    );
   }
 
   return null;

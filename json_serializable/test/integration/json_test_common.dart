@@ -22,14 +22,25 @@ enum StatusCode {
   @JsonValue(200)
   success,
   @JsonValue(404)
-  notFound
+  notFound,
+
+  // Intentionally using a non-int value to validate heterogeneous
+  // type-inference.
+  @JsonValue('500')
+  weird,
+
+  unknown,
 }
 
-Duration durationFromInt(int ms) => Duration(milliseconds: ms);
-int durationToInt(Duration duration) => duration.inMilliseconds;
+Duration durationFromInt(int ms) =>
+    ms == null ? null : Duration(milliseconds: ms);
 
-DateTime dateTimeFromEpochUs(int us) => DateTime.fromMicrosecondsSinceEpoch(us);
-int dateTimeToEpochUs(DateTime dateTime) => dateTime.microsecondsSinceEpoch;
+int durationToInt(Duration duration) => duration?.inMilliseconds;
+
+DateTime dateTimeFromEpochUs(int us) =>
+    us == null ? null : DateTime.fromMicrosecondsSinceEpoch(us);
+
+int dateTimeToEpochUs(DateTime dateTime) => dateTime?.microsecondsSinceEpoch;
 
 bool deepEquals(a, b) => const DeepCollectionEquality().equals(a, b);
 
@@ -38,6 +49,7 @@ class Platform {
 
   static const Platform foo = Platform._('foo');
   static const Platform undefined = Platform._('undefined');
+
   const Platform._(this.description);
 
   factory Platform.fromJson(String value) {

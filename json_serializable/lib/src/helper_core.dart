@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/element/element.dart';
-import 'package:build/build.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:source_gen/source_gen.dart';
@@ -11,6 +11,7 @@ import 'package:source_gen/source_gen.dart';
 import 'json_key_utils.dart';
 import 'type_helper.dart';
 import 'type_helper_ctx.dart';
+import 'unsupported_type_error.dart';
 import 'utils.dart';
 
 abstract class HelperCore {
@@ -56,23 +57,16 @@ abstract class HelperCore {
 InvalidGenerationSourceError createInvalidGenerationError(
     String targetMember, FieldElement field, UnsupportedTypeError e) {
   var message = 'Could not generate `$targetMember` code for `${field.name}`';
-
-  var todo = 'Make sure all of the types are serializable.';
-
-  if (e.type.isUndefined) {
-    message = '$message because the type is undefined.';
-    todo = "Check your imports. If you're trying to generate code for a "
-        'Platform-provided type, you may have to specify a custom '
-        '`$targetMember` in the associated `@JsonKey` annotation.';
-  } else {
-    if (field.type != e.type) {
-      message = '$message because of type `${e.type}`';
-    }
-
-    message = '$message.\n${e.reason}';
+  if (field.type != e.type) {
+    message = '$message because of type `${typeToCode(e.type)}`';
   }
+  message = '$message.\n${e.reason}';
 
-  return InvalidGenerationSourceError(message, todo: todo, element: field);
+  return InvalidGenerationSourceError(
+    message,
+    todo: 'Make sure all of the types are serializable.',
+    element: field,
+  );
 }
 
 /// Returns a [String] representing the type arguments that exist on
@@ -101,18 +95,34 @@ String genericClassArguments(ClassElement element, bool withConstraints) {
   if (withConstraints == null || element.typeParameters.isEmpty) {
     return '';
   }
-  final values = element.typeParameters
-      .map((t) => withConstraints ? t.toString() : t.name)
-      .join(', ');
+  final values = element.typeParameters.map((t) {
+    if (withConstraints && t.bound != null) {
+      final boundCode = typeToCode(t.bound);
+      return '${t.name} extends $boundCode';
+    } else {
+      return t.name;
+    }
+  }).join(', ');
   return '<$values>';
 }
 
-void warnUndefinedElements(Iterable<VariableElement> elements) {
-  for (final element in elements.where((fe) => fe.type.isUndefined)) {
-    final span = spanForElement(element);
-    log.warning('''
-This element has an undefined type. It may causes issues when generated code.
-${span.start.toolString}
-${span.highlight()}''');
+/// Return the Dart code presentation for the given [type].
+///
+/// This function is intentionally limited, and does not support all possible
+/// types and locations of these files in code. Specifically, it supports
+/// only [InterfaceType]s, with optional type arguments that are also should
+/// be [InterfaceType]s.
+String typeToCode(DartType type) {
+  if (type.isDynamic) {
+    return 'dynamic';
+  } else if (type is InterfaceType) {
+    final typeArguments = type.typeArguments;
+    if (typeArguments.isEmpty) {
+      return type.element.name;
+    } else {
+      final typeArgumentsCode = typeArguments.map(typeToCode).join(', ');
+      return '${type.element.name}<$typeArgumentsCode>';
+    }
   }
+  throw UnimplementedError('(${type.runtimeType}) $type');
 }

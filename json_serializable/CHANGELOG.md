@@ -1,10 +1,82 @@
+## 3.4.0-dev
+
+- Added support for `double` constants as default values.
+
+## 3.3.0
+
+- Add support for fields annotated subclasses of `JsonKey`.
+- Export the following `TypeHelper` implementations and interfaces in
+  `package:json_serializable/type_helper.dart`:
+  - `DurationHelper`
+  - `TypeHelperContextWithConfig`
+
+## 3.2.5
+
+- Fix lint affecting `pub.dev` score.
+
+## 3.2.4
+
+* Require `package:analyzer` `^0.39.0`.
+
+## 3.2.3
+
+* Bug fix for analyzer 0.38.5.
+
+## 3.2.2
+
+* Support `JsonConverter` annotations on property getters
+
+## 3.2.1
+
+* Support `package:analyzer` `>=0.33.3 <0.39.0`
+
+## 3.2.0
+
+- Require `package:json_annotation` `^3.0.0`.
+- Added support for `JsonSerializable.ignoreUnannotated`.
+- Added support for `JsonKey.unknownEnumValue`.
+- Small change to how `enum` support code is generated.
+- Require at least Dart `2.3.0`.
+
+## 3.1.0
+
+- Support `Map` keys of type `int`, `BigInt`, `DateTime`, and `Uri`.
+- Trailing commas are now added to generated constructor arguments and the
+  elements in `Map` literals.
+- Support `package:analyzer` `>=0.33.3 <0.38.0`
+
+## 3.0.0
+
+This release is entirely **BREAKING** changes. It removes underused features
+that added disproportionate complexity to this package. This cleanup should ease
+future feature work.
+
+- Removed support for `JsonSerializable.useWrappers`.
+- Removed support for `JsonSerializable.generateToJsonFunction`.
+- Removed support for `encodeEmptyCollection`.
+- If a field has a conversion function defined – either 
+  `JsonKey.toJson` or a custom `JsonConverter` annotation – don't intercept
+  `null` values, even if `nullable` is explicitly set to `false`. This allows
+  these functions to provide alternative values for `null` – such as an empty
+  collection – which replaces the functionality provided by
+  `encodeEmptyCollection`.
+    - **NOTE: this is SILENTLY BREAKING.** There is no corresponding deprecation
+      for this change. If you use converters, please make sure to test your
+      code!
+ 
 ## 2.3.0
 
-- updated deps.
+- Added `pascal` as an additional `fieldRename` option.
+
+## 2.2.3
+
+- Removed special handling of undefined types due to changes in
+  `package:analyzer`. These types are now treated as `dynamic`.
 
 ## 2.2.2
 
 - Require at least Dart `2.2.0`.
+- Allow `build_config` `0.4.x`.
 
 ## 2.2.1
 
@@ -481,7 +553,7 @@
 
 ## 0.1.0
 
-* Split off from [source_gen](https://pub.dartlang.org/packages/source_gen).
+* Split off from [source_gen](https://pub.dev/packages/source_gen).
 
 * Add `/* unsafe */` comments to generated output likely to be unsafe.
 
