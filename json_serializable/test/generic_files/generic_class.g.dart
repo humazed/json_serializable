@@ -37,7 +37,12 @@ GenericClassWithConverter<T, S>
   return GenericClassWithConverter<T, S>()
     ..fieldObject = json['fieldObject']
     ..fieldDynamic = json['fieldDynamic']
-    ..fieldInt = json['fieldInt'] as int
+    ..fieldInt = json['fieldInt'] != null &&
+            json['fieldInt']?.toString()?.isNotEmpty == true
+        ? int.tryParse(json['fieldInt'].toString()) ??
+            (throw FormatException(
+                "The expected type: `int` but the recived value is ${json['fieldInt']} in json['fieldInt']"))
+        : null
     ..fieldT =
         _SimpleConverter<T>().fromJson(json['fieldT'] as Map<String, dynamic>)
     ..fieldS =

@@ -8,21 +8,31 @@ part of 'json_test_example.g_non_nullable.dart';
 
 Person _$PersonFromJson(Map<String, dynamic> json) {
   return Person(
-    json['firstName'] as String,
-    json['lastName'] as String,
+    json['firstName']?.toString(),
+    json['lastName']?.toString(),
     _$enumDecode(_$CategoryEnumMap, json[r'$house']),
-    middleName: json['middleName'] as String,
+    middleName: json['middleName']?.toString(),
     dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
   )
     ..order = Order.fromJson(json['order'] as Map<String, dynamic>)
-    ..customOrders = MyList.fromJson((json['customOrders'] as List)
-        .map((e) => Order.fromJson(e as Map<String, dynamic>))
-        .toList())
+    ..customOrders = MyList.fromJson((json['customOrders'] != null &&
+                json['customOrders']?.toString()?.isNotEmpty == true &&
+                json['customOrders'] is List
+            ? json['customOrders'] as List
+            : null)
+        ?.map((e) => Order.fromJson(e as Map<String, dynamic>))
+        ?.toList())
     ..houseMap = (json['houseMap'] as Map<String, dynamic>).map(
       (k, e) => MapEntry(k, _$enumDecode(_$CategoryEnumMap, e)),
     )
     ..categoryCounts = (json['categoryCounts'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$CategoryEnumMap, k), e as int),
+      (k, e) => MapEntry(
+          _$enumDecode(_$CategoryEnumMap, k),
+          e != null && e?.toString()?.isNotEmpty == true
+              ? int.tryParse(e.toString()) ??
+                  (throw FormatException(
+                      "The expected type: `int` but the recived value is ${e} in e"))
+              : null),
     );
 }
 
@@ -75,15 +85,24 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
   $checkKeys(json, disallowNullValues: const ['count']);
   return Order(
     _$enumDecode(_$CategoryEnumMap, json['category']),
-    (json['items'] as List)
-        .map((e) => Item.fromJson(e as Map<String, dynamic>)),
+    (json['items'] != null &&
+                json['items']?.toString()?.isNotEmpty == true &&
+                json['items'] is List
+            ? json['items'] as List
+            : null)
+        ?.map((e) => Item.fromJson(e as Map<String, dynamic>)),
   )
-    ..count = json['count'] as int
+    ..count = json['count'] != null &&
+            json['count']?.toString()?.isNotEmpty == true
+        ? int.tryParse(json['count'].toString()) ??
+            (throw FormatException(
+                "The expected type: `int` but the recived value is ${json['count']} in json['count']"))
+        : null
     ..isRushed = json['isRushed'] as bool
     ..duration = Duration(microseconds: json['duration'] as int)
-    ..platform = Platform.fromJson(json['platform'] as String)
+    ..platform = Platform.fromJson(json['platform']?.toString())
     ..altPlatforms = (json['altPlatforms'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, Platform.fromJson(e as String)),
+      (k, e) => MapEntry(k, Platform.fromJson(e?.toString())),
     )
     ..homepage = Uri.parse(json['homepage'] as String)
     ..statusCode = _$enumDecodeNullable(
@@ -124,13 +143,35 @@ const _$StatusCodeEnumMap = {
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
   return Item(
-    json['price'] as int,
+    json['price'] != null && json['price']?.toString()?.isNotEmpty == true
+        ? int.tryParse(json['price'].toString()) ??
+            (throw FormatException(
+                "The expected type: `int` but the recived value is ${json['price']} in json['price']"))
+        : null,
   )
-    ..itemNumber = json['item-number'] as int
-    ..saleDates = (json['saleDates'] as List)
-        .map((e) => DateTime.parse(e as String))
-        .toList()
-    ..rates = (json['rates'] as List).map((e) => e as int).toList();
+    ..itemNumber = json['item-number'] != null &&
+            json['item-number']?.toString()?.isNotEmpty == true
+        ? int.tryParse(json['item-number'].toString()) ??
+            (throw FormatException(
+                "The expected type: `int` but the recived value is ${json['item-number']} in json['item-number']"))
+        : null
+    ..saleDates = (json['saleDates'] != null &&
+                json['saleDates']?.toString()?.isNotEmpty == true &&
+                json['saleDates'] is List
+            ? json['saleDates'] as List
+            : null)
+        ?.map((e) => DateTime.parse(e as String))
+        ?.toList()
+    ..rates = (json['rates'] != null &&
+                json['rates']?.toString()?.isNotEmpty == true &&
+                json['rates'] is List
+            ? json['rates'] as List
+            : null)
+        ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
+            ? int.tryParse(e.toString()) ??
+                (throw FormatException("The expected type: `int` but the recived value is ${e} in e"))
+            : null)
+        ?.toList();
 }
 
 Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
@@ -142,12 +183,32 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
 
 Numbers _$NumbersFromJson(Map<String, dynamic> json) {
   return Numbers()
-    ..ints = (json['ints'] as List).map((e) => e as int).toList()
-    ..nums = (json['nums'] as List).map((e) => e as num).toList()
-    ..doubles =
-        (json['doubles'] as List).map((e) => (e as num).toDouble()).toList()
-    ..nnDoubles =
-        (json['nnDoubles'] as List).map((e) => (e as num).toDouble()).toList()
+    ..ints = (json['ints'] != null && json['ints']?.toString()?.isNotEmpty == true && json['ints'] is List
+            ? json['ints'] as List
+            : null)
+        ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
+            ? int.tryParse(e.toString()) ??
+                (throw FormatException(
+                    "The expected type: `int` but the recived value is ${e} in e"))
+            : null)
+        ?.toList()
+    ..nums = (json['nums'] != null && json['nums']?.toString()?.isNotEmpty == true && json['nums'] is List
+            ? json['nums'] as List
+            : null)
+        ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
+            ? num.tryParse(e.toString()) ??
+                (throw FormatException(
+                    "The expected type: `num` but the recived value is ${e} in e"))
+            : null)
+        ?.toList()
+    ..doubles = (json['doubles'] != null &&
+                json['doubles']?.toString()?.isNotEmpty == true &&
+                json['doubles'] is List
+            ? json['doubles'] as List
+            : null)
+        ?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? double.tryParse(e.toString()) ?? (throw FormatException("The expected type: `double` but the recived value is ${e} in e")) : null)
+        ?.toList()
+    ..nnDoubles = (json['nnDoubles'] != null && json['nnDoubles']?.toString()?.isNotEmpty == true && json['nnDoubles'] is List ? json['nnDoubles'] as List : null)?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? double.tryParse(e.toString()) ?? (throw FormatException("The expected type: `double` but the recived value is ${e} in e")) : null)?.toList()
     ..duration = durationFromInt(json['duration'] as int)
     ..date = dateTimeFromEpochUs(json['date'] as int);
 }
@@ -164,16 +225,40 @@ Map<String, dynamic> _$NumbersToJson(Numbers instance) => <String, dynamic>{
 MapKeyVariety _$MapKeyVarietyFromJson(Map<String, dynamic> json) {
   return MapKeyVariety()
     ..intIntMap = (json['intIntMap'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as int),
+      (k, e) => MapEntry(
+          int.parse(k),
+          e != null && e?.toString()?.isNotEmpty == true
+              ? int.tryParse(e.toString()) ??
+                  (throw FormatException(
+                      "The expected type: `int` but the recived value is ${e} in e"))
+              : null),
     )
     ..uriIntMap = (json['uriIntMap'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as int),
+      (k, e) => MapEntry(
+          Uri.parse(k),
+          e != null && e?.toString()?.isNotEmpty == true
+              ? int.tryParse(e.toString()) ??
+                  (throw FormatException(
+                      "The expected type: `int` but the recived value is ${e} in e"))
+              : null),
     )
     ..dateTimeIntMap = (json['dateTimeIntMap'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as int),
+      (k, e) => MapEntry(
+          DateTime.parse(k),
+          e != null && e?.toString()?.isNotEmpty == true
+              ? int.tryParse(e.toString()) ??
+                  (throw FormatException(
+                      "The expected type: `int` but the recived value is ${e} in e"))
+              : null),
     )
     ..bigIntMap = (json['bigIntMap'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as int),
+      (k, e) => MapEntry(
+          BigInt.parse(k),
+          e != null && e?.toString()?.isNotEmpty == true
+              ? int.tryParse(e.toString()) ??
+                  (throw FormatException(
+                      "The expected type: `int` but the recived value is ${e} in e"))
+              : null),
     );
 }
 

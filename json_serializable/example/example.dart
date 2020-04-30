@@ -12,8 +12,11 @@ class Person {
   final String lastName;
   final List<String> extras;
   final DateTime dateOfBirth;
+  final int year;
+  final double age;
 
-  Person(this.firstName, this.lastName, this.extras, this.dateOfBirth);
+  Person(this.year, this.age,
+      {this.firstName, this.lastName, this.extras, this.dateOfBirth});
 
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 

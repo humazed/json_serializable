@@ -27,12 +27,20 @@ class ValueHelper extends TypeHelper {
   @override
   String deserialize(
       DartType targetType, String expression, TypeHelperContext context) {
+    final stringExpression = '$expression?.toString()';
+
     if (targetType.isDynamic || targetType.isObject) {
       // just return it as-is. We'll hope it's safe.
       return expression;
-    } else if (const TypeChecker.fromUrl('dart:core#double')
+    } else if (const TypeChecker.fromUrl('dart:core#num')
+            .isExactlyType(targetType) ||
+        const TypeChecker.fromUrl('dart:core#double')
+            .isExactlyType(targetType) ||
+        const TypeChecker.fromUrl('dart:core#int').isExactlyType(targetType)) {
+      return '$expression != null && $stringExpression?.isNotEmpty == true ? $targetType.tryParse($expression.toString()) ?? (throw FormatException("The expected type: `$targetType` but the recived value is \${$expression} in $expression")) : null';
+    } else if (const TypeChecker.fromUrl('dart:core#String')
         .isExactlyType(targetType)) {
-      return '($expression as num)${context.nullable ? '?' : ''}.toDouble()';
+      return stringExpression;
     } else if (simpleJsonTypeChecker.isAssignableFromType(targetType)) {
       final typeCode = typeToCode(targetType);
       return '$expression as $typeCode';
