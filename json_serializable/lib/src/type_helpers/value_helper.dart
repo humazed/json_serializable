@@ -14,9 +14,11 @@ class ValueHelper extends TypeHelper {
 
   @override
   String serialize(
-      DartType targetType, String expression, TypeHelperContext context) {
-    if (targetType.isDynamic ||
-        targetType.isObject ||
+    DartType targetType,
+    String expression,
+    TypeHelperContext context,
+  ) {
+    if (isObjectOrDynamic(targetType) ||
         simpleJsonTypeChecker.isAssignableFromType(targetType)) {
       return expression;
     }
@@ -26,10 +28,13 @@ class ValueHelper extends TypeHelper {
 
   @override
   String deserialize(
-      DartType targetType, String expression, TypeHelperContext context) {
+    DartType targetType,
+    String expression,
+    TypeHelperContext context,
+  ) {
     final stringExpression = '$expression?.toString()';
 
-    if (targetType.isDynamic || targetType.isObject) {
+    if (isObjectOrDynamic(targetType)) {
       // just return it as-is. We'll hope it's safe.
       return expression;
     } else if (const TypeChecker.fromUrl('dart:core#num')

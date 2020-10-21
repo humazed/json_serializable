@@ -9,56 +9,32 @@ part of 'default_value.dart';
 DefaultValue _$DefaultValueFromJson(Map<String, dynamic> json) {
   return DefaultValue()
     ..fieldBool = json['fieldBool'] as bool ?? true
-    ..fieldString = json['fieldString']?.toString() ?? 'string'
-    ..fieldInt = json['fieldInt'] != null &&
-            json['fieldInt']?.toString()?.isNotEmpty == true
-        ? int.tryParse(json['fieldInt'].toString()) ??
-            (throw FormatException(
-                "The expected type: `int` but the recived value is ${json['fieldInt']} in json['fieldInt']"))
-        : null ?? 42
-    ..fieldDouble = json['fieldDouble'] != null &&
-            json['fieldDouble']?.toString()?.isNotEmpty == true
-        ? double.tryParse(json['fieldDouble'].toString()) ??
-            (throw FormatException(
-                "The expected type: `double` but the recived value is ${json['fieldDouble']} in json['fieldDouble']"))
-        : null ?? 3.14
-    ..fieldListEmpty = json['fieldListEmpty'] != null &&
-            json['fieldListEmpty']?.toString()?.isNotEmpty == true &&
-            json['fieldListEmpty'] is List
-        ? json['fieldListEmpty'] as List
-        : null ?? []
+    ..fieldString = json['fieldString'] as String ?? 'string'
+    ..fieldInt = json['fieldInt'] as int ?? 42
+    ..fieldDouble = (json['fieldDouble'] as num)?.toDouble() ?? 3.14
+    ..fieldListEmpty = json['fieldListEmpty'] as List ?? []
+    ..fieldSetEmpty = (json['fieldSetEmpty'] as List)?.toSet() ?? {}
     ..fieldMapEmpty = json['fieldMapEmpty'] as Map<String, dynamic> ?? {}
-    ..fieldListSimple = (json['fieldListSimple'] != null &&
-                    json['fieldListSimple']?.toString()?.isNotEmpty == true &&
-                    json['fieldListSimple'] is List
-                ? json['fieldListSimple'] as List
-                : null)
-            ?.map((e) => e != null && e?.toString()?.isNotEmpty == true ? int.tryParse(e.toString()) ?? (throw FormatException("The expected type: `int` but the recived value is ${e} in e")) : null)
-            ?.toList() ??
-        [1, 2, 3]
+    ..fieldListSimple =
+        (json['fieldListSimple'] as List)?.map((e) => e as int)?.toList() ??
+            [1, 2, 3]
+    ..fieldSetSimple =
+        (json['fieldSetSimple'] as List)?.map((e) => e as String)?.toSet() ??
+            {'entry1', 'entry2'}
     ..fieldMapSimple = (json['fieldMapSimple'] as Map<String, dynamic>)?.map(
-          (k, e) => MapEntry(
-              k,
-              e != null && e?.toString()?.isNotEmpty == true
-                  ? int.tryParse(e.toString()) ??
-                      (throw FormatException(
-                          "The expected type: `int` but the recived value is ${e} in e"))
-                  : null),
+          (k, e) => MapEntry(k, e as int),
         ) ??
         {'answer': 42}
-    ..fieldMapListString = (json['fieldMapListString'] as Map<String, dynamic>)?.map(
-          (k, e) => MapEntry(
-              k,
-              (e != null && e?.toString()?.isNotEmpty == true && e is List
-                      ? e as List
-                      : null)
-                  ?.map((e) => e?.toString())
-                  ?.toList()),
-        ) ??
-        {
-          'root': ['child']
-        }
-    ..fieldEnum = _$enumDecodeNullable(_$GreekEnumMap, json['fieldEnum']) ?? Greek.beta;
+    ..fieldMapListString =
+        (json['fieldMapListString'] as Map<String, dynamic>)?.map(
+              (k, e) =>
+                  MapEntry(k, (e as List)?.map((e) => e as String)?.toList()),
+            ) ??
+            {
+              'root': ['child']
+            }
+    ..fieldEnum =
+        _$enumDecodeNullable(_$GreekEnumMap, json['fieldEnum']) ?? Greek.beta;
 }
 
 Map<String, dynamic> _$DefaultValueToJson(DefaultValue instance) {
@@ -76,8 +52,10 @@ Map<String, dynamic> _$DefaultValueToJson(DefaultValue instance) {
   val['fieldInt'] = instance.fieldInt;
   val['fieldDouble'] = instance.fieldDouble;
   val['fieldListEmpty'] = instance.fieldListEmpty;
+  val['fieldSetEmpty'] = instance.fieldSetEmpty?.toList();
   val['fieldMapEmpty'] = instance.fieldMapEmpty;
   val['fieldListSimple'] = instance.fieldListSimple;
+  val['fieldSetSimple'] = instance.fieldSetSimple?.toList();
   val['fieldMapSimple'] = instance.fieldMapSimple;
   val['fieldMapListString'] = instance.fieldMapListString;
   val['fieldEnum'] = _$GreekEnumMap[instance.fieldEnum];

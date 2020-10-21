@@ -11,59 +11,33 @@ DefaultValue _$DefaultValueFromJson(Map json) {
     final val = DefaultValue();
     $checkedConvert(
         json, 'fieldBool', (v) => val.fieldBool = v as bool ?? true);
-    $checkedConvert(json, 'fieldString',
-        (v) => val.fieldString = v?.toString() ?? 'string');
     $checkedConvert(
-        json,
-        'fieldInt',
-        (v) => val.fieldInt = v != null && v?.toString()?.isNotEmpty == true
-            ? int.tryParse(v.toString()) ??
-                (throw FormatException(
-                    "The expected type: `int` but the recived value is ${v} in v"))
-            : null ?? 42);
+        json, 'fieldString', (v) => val.fieldString = v as String ?? 'string');
+    $checkedConvert(json, 'fieldInt', (v) => val.fieldInt = v as int ?? 42);
+    $checkedConvert(json, 'fieldDouble',
+        (v) => val.fieldDouble = (v as num)?.toDouble() ?? 3.14);
     $checkedConvert(
-        json,
-        'fieldDouble',
-        (v) => val.fieldDouble = v != null && v?.toString()?.isNotEmpty == true
-            ? double.tryParse(v.toString()) ??
-                (throw FormatException(
-                    "The expected type: `double` but the recived value is ${v} in v"))
-            : null ?? 3.14);
-    $checkedConvert(
-        json,
-        'fieldListEmpty',
-        (v) => val.fieldListEmpty =
-            v != null && v?.toString()?.isNotEmpty == true && v is List
-                ? v as List
-                : null ?? []);
+        json, 'fieldListEmpty', (v) => val.fieldListEmpty = v as List ?? []);
+    $checkedConvert(json, 'fieldSetEmpty',
+        (v) => val.fieldSetEmpty = (v as List)?.toSet() ?? {});
     $checkedConvert(
         json, 'fieldMapEmpty', (v) => val.fieldMapEmpty = v as Map ?? {});
     $checkedConvert(
         json,
         'fieldListSimple',
-        (v) => val.fieldListSimple = (v != null &&
-                        v?.toString()?.isNotEmpty == true &&
-                        v is List
-                    ? v as List
-                    : null)
-                ?.map((e) => e != null && e?.toString()?.isNotEmpty == true
-                    ? int.tryParse(e.toString()) ??
-                        (throw FormatException(
-                            "The expected type: `int` but the recived value is ${e} in e"))
-                    : null)
-                ?.toList() ??
-            [1, 2, 3]);
+        (v) => val.fieldListSimple =
+            (v as List)?.map((e) => e as int)?.toList() ?? [1, 2, 3]);
+    $checkedConvert(
+        json,
+        'fieldSetSimple',
+        (v) => val.fieldSetSimple =
+            (v as List)?.map((e) => e as String)?.toSet() ??
+                {'entry1', 'entry2'});
     $checkedConvert(
         json,
         'fieldMapSimple',
         (v) => val.fieldMapSimple = (v as Map)?.map(
-              (k, e) => MapEntry(
-                  k as String,
-                  e != null && e?.toString()?.isNotEmpty == true
-                      ? int.tryParse(e.toString()) ??
-                          (throw FormatException(
-                              "The expected type: `int` but the recived value is ${e} in e"))
-                      : null),
+              (k, e) => MapEntry(k as String, e as int),
             ) ??
             {'answer': 42});
     $checkedConvert(
@@ -71,12 +45,7 @@ DefaultValue _$DefaultValueFromJson(Map json) {
         'fieldMapListString',
         (v) => val.fieldMapListString = (v as Map)?.map(
               (k, e) => MapEntry(
-                  k as String,
-                  (e != null && e?.toString()?.isNotEmpty == true && e is List
-                          ? e as List
-                          : null)
-                      ?.map((e) => e?.toString())
-                      ?.toList()),
+                  k as String, (e as List)?.map((e) => e as String)?.toList()),
             ) ??
             {
               'root': ['child']
@@ -105,8 +74,10 @@ Map<String, dynamic> _$DefaultValueToJson(DefaultValue instance) {
   val['fieldInt'] = instance.fieldInt;
   val['fieldDouble'] = instance.fieldDouble;
   val['fieldListEmpty'] = instance.fieldListEmpty;
+  val['fieldSetEmpty'] = instance.fieldSetEmpty?.toList();
   val['fieldMapEmpty'] = instance.fieldMapEmpty;
   val['fieldListSimple'] = instance.fieldListSimple;
+  val['fieldSetSimple'] = instance.fieldSetSimple?.toList();
   val['fieldMapSimple'] = instance.fieldMapSimple;
   val['fieldMapListString'] = instance.fieldMapListString;
   val['fieldEnum'] = _$GreekEnumMap[instance.fieldEnum];

@@ -17,8 +17,11 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
   const MapHelper();
 
   @override
-  String serialize(DartType targetType, String expression,
-      TypeHelperContextWithConfig context) {
+  String serialize(
+    DartType targetType,
+    String expression,
+    TypeHelperContextWithConfig context,
+  ) {
     if (!coreMapTypeChecker.isAssignableFromType(targetType)) {
       return null;
     }
@@ -47,8 +50,11 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
   }
 
   @override
-  String deserialize(DartType targetType, String expression,
-      TypeHelperContextWithConfig context) {
+  String deserialize(
+    DartType targetType,
+    String expression,
+    TypeHelperContextWithConfig context,
+  ) {
     if (!coreMapTypeChecker.isExactlyType(targetType)) {
       return null;
     }
@@ -60,13 +66,13 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     _checkSafeKeyType(expression, keyArg);
 
-    final valueArgIsAny = _isObjectOrDynamic(valueArg);
+    final valueArgIsAny = isObjectOrDynamic(valueArg);
     final isKeyStringable = _isKeyStringable(keyArg);
 
     if (!isKeyStringable) {
       if (valueArgIsAny) {
         if (context.config.anyMap) {
-          if (_isObjectOrDynamic(keyArg)) {
+          if (isObjectOrDynamic(keyArg)) {
             return '$expression as Map';
           }
         } else {
@@ -80,7 +86,8 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
           (valueArgIsAny ||
               simpleJsonTypeChecker.isAssignableFromType(valueArg))) {
         // No mapping of the values or null check required!
-        return 'Map<String, $valueArg>.from($expression as Map)';
+        final valueString = valueArg.getDisplayString(withNullability: false);
+        return 'Map<String, $valueString>.from($expression as Map)';
       }
     }
 
@@ -97,7 +104,7 @@ class MapHelper extends TypeHelper<TypeHelperContextWithConfig> {
     String keyUsage;
     if (isEnum(keyArg)) {
       keyUsage = context.deserialize(keyArg, _keyParam).toString();
-    } else if (context.config.anyMap && !_isObjectOrDynamic(keyArg)) {
+    } else if (context.config.anyMap && !isObjectOrDynamic(keyArg)) {
       keyUsage = '$_keyParam as String';
     } else {
       keyUsage = _keyParam;
@@ -127,8 +134,6 @@ final _instances = [
 ToFromStringHelper _forType(DartType type) =>
     _instances.singleWhere((i) => i.matches(type), orElse: () => null);
 
-bool _isObjectOrDynamic(DartType type) => type.isObject || type.isDynamic;
-
 /// Returns `true` if [keyType] can be automatically converted to/from String –
 /// and is therefor usable as a key in a [Map].
 bool _isKeyStringable(DartType keyType) =>
@@ -137,14 +142,17 @@ bool _isKeyStringable(DartType keyType) =>
 void _checkSafeKeyType(String expression, DartType keyArg) {
   // We're not going to handle converting key types at the moment
   // So the only safe types for key are dynamic/Object/String/enum
-  final safeKey = _isObjectOrDynamic(keyArg) ||
+  if (isObjectOrDynamic(keyArg) ||
       coreStringTypeChecker.isExactlyType(keyArg) ||
-      _isKeyStringable(keyArg);
-
-  if (!safeKey) {
-    throw UnsupportedTypeError(keyArg, expression,
-        'Map keys must be one of: ${_allowedTypeNames.join(', ')}.');
+      _isKeyStringable(keyArg)) {
+    return;
   }
+
+  throw UnsupportedTypeError(
+    keyArg,
+    expression,
+    'Map keys must be one of: ${_allowedTypeNames.join(', ')}.',
+  );
 }
 
 /// The names of types that can be used as [Map] keys.
