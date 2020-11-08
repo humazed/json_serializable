@@ -13,6 +13,9 @@ class SimpleClass {
   @JsonKey(nullable: false)
   final Object nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClass(
     this.value,
     this.nullable,

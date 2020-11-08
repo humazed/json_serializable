@@ -14,8 +14,8 @@ class SimpleClass {
   @JsonKey(nullable: false)
   final List nullable;
 
-  @JsonKey(defaultValue: [42, true, false, null])
-  List withDefault;
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClass(
     this.value,
@@ -35,6 +35,9 @@ class SimpleClassBigInt {
   @JsonKey(nullable: false)
   final List<BigInt> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigInt(
     this.value,
     this.nullable,
@@ -52,6 +55,9 @@ class SimpleClassBool {
 
   @JsonKey(nullable: false)
   final List<bool> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassBool(
     this.value,
@@ -71,6 +77,9 @@ class SimpleClassDateTime {
   @JsonKey(nullable: false)
   final List<DateTime> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDateTime(
     this.value,
     this.nullable,
@@ -88,6 +97,9 @@ class SimpleClassDouble {
 
   @JsonKey(nullable: false)
   final List<double> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDouble(
     this.value,
@@ -107,6 +119,9 @@ class SimpleClassDuration {
   @JsonKey(nullable: false)
   final List<Duration> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDuration(
     this.value,
     this.nullable,
@@ -124,6 +139,9 @@ class SimpleClassDynamic {
 
   @JsonKey(nullable: false)
   final List<dynamic> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDynamic(
     this.value,
@@ -143,6 +161,9 @@ class SimpleClassEnumType {
   @JsonKey(nullable: false)
   final List<EnumType> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassEnumType(
     this.value,
     this.nullable,
@@ -160,6 +181,9 @@ class SimpleClassInt {
 
   @JsonKey(nullable: false)
   final List<int> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassInt(
     this.value,
@@ -179,6 +203,9 @@ class SimpleClassNum {
   @JsonKey(nullable: false)
   final List<num> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassNum(
     this.value,
     this.nullable,
@@ -196,6 +223,9 @@ class SimpleClassObject {
 
   @JsonKey(nullable: false)
   final List<Object> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObject(
     this.value,
@@ -215,6 +245,9 @@ class SimpleClassString {
   @JsonKey(nullable: false)
   final List<String> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassString(
     this.value,
     this.nullable,
@@ -232,6 +265,9 @@ class SimpleClassUri {
 
   @JsonKey(nullable: false)
   final List<Uri> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUri(
     this.value,

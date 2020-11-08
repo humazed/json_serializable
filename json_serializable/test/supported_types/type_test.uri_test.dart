@@ -23,8 +23,8 @@ void main() {
   });
 }
 
-final _defaultValue = 'https://example.com';
-final _altValue = 'https://dart.dev';
+final _defaultValue = 42;
+final _altValue = 43;
 
 final _emptyInput = <String, dynamic>{
   'nullable': _defaultValue,
@@ -33,9 +33,11 @@ final _emptyInput = <String, dynamic>{
 final _defaultOutput = {
   'value': null,
   'nullable': _defaultValue,
+  'withDefault': _defaultValue,
 };
 
 final _nonDefaultJson = {
   'value': null,
   'nullable': _altValue,
+  'withDefault': _altValue,
 };

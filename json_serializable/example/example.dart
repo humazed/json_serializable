@@ -10,12 +10,13 @@ part 'example.g.dart';
 class Person {
   final String firstName;
   final String lastName;
+  final String lastNameaa;
   final List<String> extras;
   final DateTime dateOfBirth;
   final int year;
   final double age;
 
-  Person(this.year, this.age,
+  Person(this.year, this.age, this.lastNameaa,
       {this.firstName, this.lastName, this.extras, this.dateOfBirth});
 
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);

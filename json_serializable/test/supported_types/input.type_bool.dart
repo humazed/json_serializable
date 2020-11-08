@@ -13,8 +13,8 @@ class SimpleClass {
   @JsonKey(nullable: false)
   final bool nullable;
 
-  @JsonKey(defaultValue: true)
-  bool withDefault;
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClass(
     this.value,

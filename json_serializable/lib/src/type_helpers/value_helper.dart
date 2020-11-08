@@ -42,7 +42,8 @@ class ValueHelper extends TypeHelper {
         const TypeChecker.fromUrl('dart:core#double')
             .isExactlyType(targetType) ||
         const TypeChecker.fromUrl('dart:core#int').isExactlyType(targetType)) {
-      return '$expression != null && $stringExpression?.isNotEmpty == true ? $targetType.tryParse($expression.toString()) ?? (throw FormatException("The expected type: `$targetType` but the recived value is \${$expression} in $expression")) : null';
+      final type = targetType.getDisplayString(withNullability: false);
+      return '$expression != null && $stringExpression?.isNotEmpty == true ? $type.tryParse($expression.toString()) ?? (throw FormatException("The expected type: `$type` but the received value is \${$expression} in $expression")) : null';
     } else if (const TypeChecker.fromUrl('dart:core#String')
         .isExactlyType(targetType)) {
       return stringExpression;

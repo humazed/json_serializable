@@ -23,8 +23,8 @@ void main() {
   });
 }
 
-final _defaultValue = 'a string';
-final _altValue = 'another string';
+final _defaultValue = 42;
+final _altValue = 43;
 
 final _emptyInput = <String, dynamic>{
   'nullable': _defaultValue,

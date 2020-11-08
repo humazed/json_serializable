@@ -14,8 +14,8 @@ class SimpleClass {
   @JsonKey(nullable: false)
   final Map nullable;
 
-  @JsonKey(defaultValue: {'a': 1})
-  Map withDefault;
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClass(
     this.value,
@@ -35,6 +35,9 @@ class SimpleClassBigIntToBigInt {
   @JsonKey(nullable: false)
   final Map<BigInt, BigInt> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToBigInt(
     this.value,
     this.nullable,
@@ -52,6 +55,9 @@ class SimpleClassDateTimeToBigInt {
 
   @JsonKey(nullable: false)
   final Map<DateTime, BigInt> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToBigInt(
     this.value,
@@ -71,6 +77,9 @@ class SimpleClassDynamicToBigInt {
   @JsonKey(nullable: false)
   final Map<dynamic, BigInt> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToBigInt(
     this.value,
     this.nullable,
@@ -88,6 +97,9 @@ class SimpleClassEnumTypeToBigInt {
 
   @JsonKey(nullable: false)
   final Map<EnumType, BigInt> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToBigInt(
     this.value,
@@ -107,6 +119,9 @@ class SimpleClassIntToBigInt {
   @JsonKey(nullable: false)
   final Map<int, BigInt> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToBigInt(
     this.value,
     this.nullable,
@@ -124,6 +139,9 @@ class SimpleClassObjectToBigInt {
 
   @JsonKey(nullable: false)
   final Map<Object, BigInt> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToBigInt(
     this.value,
@@ -143,6 +161,9 @@ class SimpleClassStringToBigInt {
   @JsonKey(nullable: false)
   final Map<String, BigInt> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToBigInt(
     this.value,
     this.nullable,
@@ -160,6 +181,9 @@ class SimpleClassUriToBigInt {
 
   @JsonKey(nullable: false)
   final Map<Uri, BigInt> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToBigInt(
     this.value,
@@ -179,6 +203,9 @@ class SimpleClassBigIntToBool {
   @JsonKey(nullable: false)
   final Map<BigInt, bool> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToBool(
     this.value,
     this.nullable,
@@ -196,6 +223,9 @@ class SimpleClassDateTimeToBool {
 
   @JsonKey(nullable: false)
   final Map<DateTime, bool> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToBool(
     this.value,
@@ -215,6 +245,9 @@ class SimpleClassDynamicToBool {
   @JsonKey(nullable: false)
   final Map<dynamic, bool> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToBool(
     this.value,
     this.nullable,
@@ -232,6 +265,9 @@ class SimpleClassEnumTypeToBool {
 
   @JsonKey(nullable: false)
   final Map<EnumType, bool> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToBool(
     this.value,
@@ -251,6 +287,9 @@ class SimpleClassIntToBool {
   @JsonKey(nullable: false)
   final Map<int, bool> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToBool(
     this.value,
     this.nullable,
@@ -268,6 +307,9 @@ class SimpleClassObjectToBool {
 
   @JsonKey(nullable: false)
   final Map<Object, bool> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToBool(
     this.value,
@@ -287,6 +329,9 @@ class SimpleClassStringToBool {
   @JsonKey(nullable: false)
   final Map<String, bool> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToBool(
     this.value,
     this.nullable,
@@ -304,6 +349,9 @@ class SimpleClassUriToBool {
 
   @JsonKey(nullable: false)
   final Map<Uri, bool> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToBool(
     this.value,
@@ -323,6 +371,9 @@ class SimpleClassBigIntToDateTime {
   @JsonKey(nullable: false)
   final Map<BigInt, DateTime> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToDateTime(
     this.value,
     this.nullable,
@@ -340,6 +391,9 @@ class SimpleClassDateTimeToDateTime {
 
   @JsonKey(nullable: false)
   final Map<DateTime, DateTime> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToDateTime(
     this.value,
@@ -359,6 +413,9 @@ class SimpleClassDynamicToDateTime {
   @JsonKey(nullable: false)
   final Map<dynamic, DateTime> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToDateTime(
     this.value,
     this.nullable,
@@ -376,6 +433,9 @@ class SimpleClassEnumTypeToDateTime {
 
   @JsonKey(nullable: false)
   final Map<EnumType, DateTime> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToDateTime(
     this.value,
@@ -395,6 +455,9 @@ class SimpleClassIntToDateTime {
   @JsonKey(nullable: false)
   final Map<int, DateTime> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToDateTime(
     this.value,
     this.nullable,
@@ -412,6 +475,9 @@ class SimpleClassObjectToDateTime {
 
   @JsonKey(nullable: false)
   final Map<Object, DateTime> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToDateTime(
     this.value,
@@ -431,6 +497,9 @@ class SimpleClassStringToDateTime {
   @JsonKey(nullable: false)
   final Map<String, DateTime> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToDateTime(
     this.value,
     this.nullable,
@@ -448,6 +517,9 @@ class SimpleClassUriToDateTime {
 
   @JsonKey(nullable: false)
   final Map<Uri, DateTime> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToDateTime(
     this.value,
@@ -467,6 +539,9 @@ class SimpleClassBigIntToDouble {
   @JsonKey(nullable: false)
   final Map<BigInt, double> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToDouble(
     this.value,
     this.nullable,
@@ -484,6 +559,9 @@ class SimpleClassDateTimeToDouble {
 
   @JsonKey(nullable: false)
   final Map<DateTime, double> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToDouble(
     this.value,
@@ -503,6 +581,9 @@ class SimpleClassDynamicToDouble {
   @JsonKey(nullable: false)
   final Map<dynamic, double> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToDouble(
     this.value,
     this.nullable,
@@ -520,6 +601,9 @@ class SimpleClassEnumTypeToDouble {
 
   @JsonKey(nullable: false)
   final Map<EnumType, double> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToDouble(
     this.value,
@@ -539,6 +623,9 @@ class SimpleClassIntToDouble {
   @JsonKey(nullable: false)
   final Map<int, double> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToDouble(
     this.value,
     this.nullable,
@@ -556,6 +643,9 @@ class SimpleClassObjectToDouble {
 
   @JsonKey(nullable: false)
   final Map<Object, double> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToDouble(
     this.value,
@@ -575,6 +665,9 @@ class SimpleClassStringToDouble {
   @JsonKey(nullable: false)
   final Map<String, double> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToDouble(
     this.value,
     this.nullable,
@@ -592,6 +685,9 @@ class SimpleClassUriToDouble {
 
   @JsonKey(nullable: false)
   final Map<Uri, double> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToDouble(
     this.value,
@@ -611,6 +707,9 @@ class SimpleClassBigIntToDuration {
   @JsonKey(nullable: false)
   final Map<BigInt, Duration> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToDuration(
     this.value,
     this.nullable,
@@ -628,6 +727,9 @@ class SimpleClassDateTimeToDuration {
 
   @JsonKey(nullable: false)
   final Map<DateTime, Duration> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToDuration(
     this.value,
@@ -647,6 +749,9 @@ class SimpleClassDynamicToDuration {
   @JsonKey(nullable: false)
   final Map<dynamic, Duration> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToDuration(
     this.value,
     this.nullable,
@@ -664,6 +769,9 @@ class SimpleClassEnumTypeToDuration {
 
   @JsonKey(nullable: false)
   final Map<EnumType, Duration> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToDuration(
     this.value,
@@ -683,6 +791,9 @@ class SimpleClassIntToDuration {
   @JsonKey(nullable: false)
   final Map<int, Duration> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToDuration(
     this.value,
     this.nullable,
@@ -700,6 +811,9 @@ class SimpleClassObjectToDuration {
 
   @JsonKey(nullable: false)
   final Map<Object, Duration> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToDuration(
     this.value,
@@ -719,6 +833,9 @@ class SimpleClassStringToDuration {
   @JsonKey(nullable: false)
   final Map<String, Duration> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToDuration(
     this.value,
     this.nullable,
@@ -736,6 +853,9 @@ class SimpleClassUriToDuration {
 
   @JsonKey(nullable: false)
   final Map<Uri, Duration> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToDuration(
     this.value,
@@ -755,6 +875,9 @@ class SimpleClassBigIntToDynamic {
   @JsonKey(nullable: false)
   final Map<BigInt, dynamic> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToDynamic(
     this.value,
     this.nullable,
@@ -772,6 +895,9 @@ class SimpleClassDateTimeToDynamic {
 
   @JsonKey(nullable: false)
   final Map<DateTime, dynamic> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToDynamic(
     this.value,
@@ -791,6 +917,9 @@ class SimpleClassDynamicToDynamic {
   @JsonKey(nullable: false)
   final Map<dynamic, dynamic> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToDynamic(
     this.value,
     this.nullable,
@@ -808,6 +937,9 @@ class SimpleClassEnumTypeToDynamic {
 
   @JsonKey(nullable: false)
   final Map<EnumType, dynamic> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToDynamic(
     this.value,
@@ -827,6 +959,9 @@ class SimpleClassIntToDynamic {
   @JsonKey(nullable: false)
   final Map<int, dynamic> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToDynamic(
     this.value,
     this.nullable,
@@ -844,6 +979,9 @@ class SimpleClassObjectToDynamic {
 
   @JsonKey(nullable: false)
   final Map<Object, dynamic> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToDynamic(
     this.value,
@@ -863,6 +1001,9 @@ class SimpleClassStringToDynamic {
   @JsonKey(nullable: false)
   final Map<String, dynamic> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToDynamic(
     this.value,
     this.nullable,
@@ -880,6 +1021,9 @@ class SimpleClassUriToDynamic {
 
   @JsonKey(nullable: false)
   final Map<Uri, dynamic> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToDynamic(
     this.value,
@@ -899,6 +1043,9 @@ class SimpleClassBigIntToEnumType {
   @JsonKey(nullable: false)
   final Map<BigInt, EnumType> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToEnumType(
     this.value,
     this.nullable,
@@ -916,6 +1063,9 @@ class SimpleClassDateTimeToEnumType {
 
   @JsonKey(nullable: false)
   final Map<DateTime, EnumType> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToEnumType(
     this.value,
@@ -935,6 +1085,9 @@ class SimpleClassDynamicToEnumType {
   @JsonKey(nullable: false)
   final Map<dynamic, EnumType> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToEnumType(
     this.value,
     this.nullable,
@@ -952,6 +1105,9 @@ class SimpleClassEnumTypeToEnumType {
 
   @JsonKey(nullable: false)
   final Map<EnumType, EnumType> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToEnumType(
     this.value,
@@ -971,6 +1127,9 @@ class SimpleClassIntToEnumType {
   @JsonKey(nullable: false)
   final Map<int, EnumType> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToEnumType(
     this.value,
     this.nullable,
@@ -988,6 +1147,9 @@ class SimpleClassObjectToEnumType {
 
   @JsonKey(nullable: false)
   final Map<Object, EnumType> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToEnumType(
     this.value,
@@ -1007,6 +1169,9 @@ class SimpleClassStringToEnumType {
   @JsonKey(nullable: false)
   final Map<String, EnumType> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToEnumType(
     this.value,
     this.nullable,
@@ -1024,6 +1189,9 @@ class SimpleClassUriToEnumType {
 
   @JsonKey(nullable: false)
   final Map<Uri, EnumType> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToEnumType(
     this.value,
@@ -1043,6 +1211,9 @@ class SimpleClassBigIntToInt {
   @JsonKey(nullable: false)
   final Map<BigInt, int> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToInt(
     this.value,
     this.nullable,
@@ -1060,6 +1231,9 @@ class SimpleClassDateTimeToInt {
 
   @JsonKey(nullable: false)
   final Map<DateTime, int> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToInt(
     this.value,
@@ -1079,6 +1253,9 @@ class SimpleClassDynamicToInt {
   @JsonKey(nullable: false)
   final Map<dynamic, int> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToInt(
     this.value,
     this.nullable,
@@ -1096,6 +1273,9 @@ class SimpleClassEnumTypeToInt {
 
   @JsonKey(nullable: false)
   final Map<EnumType, int> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToInt(
     this.value,
@@ -1115,6 +1295,9 @@ class SimpleClassIntToInt {
   @JsonKey(nullable: false)
   final Map<int, int> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToInt(
     this.value,
     this.nullable,
@@ -1132,6 +1315,9 @@ class SimpleClassObjectToInt {
 
   @JsonKey(nullable: false)
   final Map<Object, int> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToInt(
     this.value,
@@ -1151,6 +1337,9 @@ class SimpleClassStringToInt {
   @JsonKey(nullable: false)
   final Map<String, int> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToInt(
     this.value,
     this.nullable,
@@ -1168,6 +1357,9 @@ class SimpleClassUriToInt {
 
   @JsonKey(nullable: false)
   final Map<Uri, int> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToInt(
     this.value,
@@ -1187,6 +1379,9 @@ class SimpleClassBigIntToNum {
   @JsonKey(nullable: false)
   final Map<BigInt, num> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToNum(
     this.value,
     this.nullable,
@@ -1204,6 +1399,9 @@ class SimpleClassDateTimeToNum {
 
   @JsonKey(nullable: false)
   final Map<DateTime, num> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToNum(
     this.value,
@@ -1223,6 +1421,9 @@ class SimpleClassDynamicToNum {
   @JsonKey(nullable: false)
   final Map<dynamic, num> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToNum(
     this.value,
     this.nullable,
@@ -1240,6 +1441,9 @@ class SimpleClassEnumTypeToNum {
 
   @JsonKey(nullable: false)
   final Map<EnumType, num> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToNum(
     this.value,
@@ -1259,6 +1463,9 @@ class SimpleClassIntToNum {
   @JsonKey(nullable: false)
   final Map<int, num> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToNum(
     this.value,
     this.nullable,
@@ -1276,6 +1483,9 @@ class SimpleClassObjectToNum {
 
   @JsonKey(nullable: false)
   final Map<Object, num> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToNum(
     this.value,
@@ -1295,6 +1505,9 @@ class SimpleClassStringToNum {
   @JsonKey(nullable: false)
   final Map<String, num> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToNum(
     this.value,
     this.nullable,
@@ -1312,6 +1525,9 @@ class SimpleClassUriToNum {
 
   @JsonKey(nullable: false)
   final Map<Uri, num> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToNum(
     this.value,
@@ -1331,6 +1547,9 @@ class SimpleClassBigIntToObject {
   @JsonKey(nullable: false)
   final Map<BigInt, Object> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToObject(
     this.value,
     this.nullable,
@@ -1348,6 +1567,9 @@ class SimpleClassDateTimeToObject {
 
   @JsonKey(nullable: false)
   final Map<DateTime, Object> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToObject(
     this.value,
@@ -1367,6 +1589,9 @@ class SimpleClassDynamicToObject {
   @JsonKey(nullable: false)
   final Map<dynamic, Object> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToObject(
     this.value,
     this.nullable,
@@ -1384,6 +1609,9 @@ class SimpleClassEnumTypeToObject {
 
   @JsonKey(nullable: false)
   final Map<EnumType, Object> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToObject(
     this.value,
@@ -1403,6 +1631,9 @@ class SimpleClassIntToObject {
   @JsonKey(nullable: false)
   final Map<int, Object> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToObject(
     this.value,
     this.nullable,
@@ -1420,6 +1651,9 @@ class SimpleClassObjectToObject {
 
   @JsonKey(nullable: false)
   final Map<Object, Object> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToObject(
     this.value,
@@ -1439,6 +1673,9 @@ class SimpleClassStringToObject {
   @JsonKey(nullable: false)
   final Map<String, Object> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToObject(
     this.value,
     this.nullable,
@@ -1456,6 +1693,9 @@ class SimpleClassUriToObject {
 
   @JsonKey(nullable: false)
   final Map<Uri, Object> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToObject(
     this.value,
@@ -1475,6 +1715,9 @@ class SimpleClassBigIntToString {
   @JsonKey(nullable: false)
   final Map<BigInt, String> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToString(
     this.value,
     this.nullable,
@@ -1492,6 +1735,9 @@ class SimpleClassDateTimeToString {
 
   @JsonKey(nullable: false)
   final Map<DateTime, String> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToString(
     this.value,
@@ -1511,6 +1757,9 @@ class SimpleClassDynamicToString {
   @JsonKey(nullable: false)
   final Map<dynamic, String> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToString(
     this.value,
     this.nullable,
@@ -1528,6 +1777,9 @@ class SimpleClassEnumTypeToString {
 
   @JsonKey(nullable: false)
   final Map<EnumType, String> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToString(
     this.value,
@@ -1547,6 +1799,9 @@ class SimpleClassIntToString {
   @JsonKey(nullable: false)
   final Map<int, String> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToString(
     this.value,
     this.nullable,
@@ -1564,6 +1819,9 @@ class SimpleClassObjectToString {
 
   @JsonKey(nullable: false)
   final Map<Object, String> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToString(
     this.value,
@@ -1583,6 +1841,9 @@ class SimpleClassStringToString {
   @JsonKey(nullable: false)
   final Map<String, String> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToString(
     this.value,
     this.nullable,
@@ -1600,6 +1861,9 @@ class SimpleClassUriToString {
 
   @JsonKey(nullable: false)
   final Map<Uri, String> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToString(
     this.value,
@@ -1619,6 +1883,9 @@ class SimpleClassBigIntToUri {
   @JsonKey(nullable: false)
   final Map<BigInt, Uri> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassBigIntToUri(
     this.value,
     this.nullable,
@@ -1636,6 +1903,9 @@ class SimpleClassDateTimeToUri {
 
   @JsonKey(nullable: false)
   final Map<DateTime, Uri> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassDateTimeToUri(
     this.value,
@@ -1655,6 +1925,9 @@ class SimpleClassDynamicToUri {
   @JsonKey(nullable: false)
   final Map<dynamic, Uri> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassDynamicToUri(
     this.value,
     this.nullable,
@@ -1672,6 +1945,9 @@ class SimpleClassEnumTypeToUri {
 
   @JsonKey(nullable: false)
   final Map<EnumType, Uri> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassEnumTypeToUri(
     this.value,
@@ -1691,6 +1967,9 @@ class SimpleClassIntToUri {
   @JsonKey(nullable: false)
   final Map<int, Uri> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassIntToUri(
     this.value,
     this.nullable,
@@ -1708,6 +1987,9 @@ class SimpleClassObjectToUri {
 
   @JsonKey(nullable: false)
   final Map<Object, Uri> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassObjectToUri(
     this.value,
@@ -1727,6 +2009,9 @@ class SimpleClassStringToUri {
   @JsonKey(nullable: false)
   final Map<String, Uri> nullable;
 
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
+
   SimpleClassStringToUri(
     this.value,
     this.nullable,
@@ -1744,6 +2029,9 @@ class SimpleClassUriToUri {
 
   @JsonKey(nullable: false)
   final Map<Uri, Uri> nullable;
+
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClassUriToUri(
     this.value,

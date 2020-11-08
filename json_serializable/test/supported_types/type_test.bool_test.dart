@@ -23,8 +23,8 @@ void main() {
   });
 }
 
-final _defaultValue = true;
-final _altValue = false;
+final _defaultValue = 42;
+final _altValue = 43;
 
 final _emptyInput = <String, dynamic>{
   'nullable': _defaultValue,

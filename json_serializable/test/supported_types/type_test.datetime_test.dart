@@ -23,8 +23,8 @@ void main() {
   });
 }
 
-final _defaultValue = '2020-01-01T00:00:00.000';
-final _altValue = '2018-01-01T00:00:00.000';
+final _defaultValue = 42;
+final _altValue = 43;
 
 final _emptyInput = <String, dynamic>{
   'nullable': _defaultValue,
@@ -33,9 +33,11 @@ final _emptyInput = <String, dynamic>{
 final _defaultOutput = {
   'value': null,
   'nullable': _defaultValue,
+  'withDefault': _defaultValue,
 };
 
 final _nonDefaultJson = {
   'value': null,
   'nullable': _altValue,
+  'withDefault': _altValue,
 };

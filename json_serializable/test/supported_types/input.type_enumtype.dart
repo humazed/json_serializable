@@ -14,8 +14,8 @@ class SimpleClass {
   @JsonKey(nullable: false)
   final EnumType nullable;
 
-  @JsonKey(defaultValue: EnumType.alpha)
-  EnumType withDefault;
+  @JsonKey(defaultValue: 42)
+  dynamic withDefault;
 
   SimpleClass(
     this.value,
